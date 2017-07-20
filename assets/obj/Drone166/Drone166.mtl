@@ -1,0 +1,585 @@
+newmtl Aft_Vents
+Ka 0 0 0
+Kd 0.188235 0.188235 0.188235
+Ks 0.1 0.1 0.1
+Ni 1
+Ns 100
+Tf 1 1 1
+d 1
+
+newmtl Ant
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Body_Aft
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Body_Aft_Lower
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Body_Back
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Body_Back_Flat
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Body_Back_Sides
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Bolt_Hole
+Ka 0 0 0
+Kd 0.501961 0.501961 0.501961
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Cutout
+Ka 0 0 0
+Kd 0.247059 0.247059 0.247059
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Cylinder_Grill
+Ka 0 0 0
+Kd 0.372549 0.372549 0.372549
+Ks 0.05 0.05 0.05
+Ni 1
+Ns 50
+Tf 1 1 1
+d 1
+
+newmtl Cylinder_Ring
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Cylinder_Vent
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Default
+Ka 0 0 0
+Kd 0.784 0.784 0.784
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Disk2
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Disk2_Inner
+Ka 0 0 0
+Kd 0.247059 0.247059 0.247059
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Disk3
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Disk3_Inner
+Ka 0 0 0
+Kd 0.247059 0.247059 0.247059
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Engine
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Engine_Dark
+Ka 0 0 0
+Kd 0.501961 0.501961 0.501961
+Ks 0.2 0.2 0.2
+Ni 1
+Ns 200
+Tf 1 1 1
+d 1
+
+newmtl Engine_FireWall
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Engine_FireWall_Cutout
+Ka 0 0 0
+Kd 0.501961 0.501961 0.501961
+Ks 0.2 0.2 0.2
+Ni 1
+Ns 200
+Tf 1 1 1
+d 1
+
+newmtl Engine_Nozzle
+Ka 0 0 0
+Kd 0.27451 0.27451 0.27451
+Ks 0.2 0.2 0.2
+Ni 1
+Ns 200
+Tf 1 1 1
+d 1
+
+newmtl Engine_Nozzle_Ring
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Engine_Tubes
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Engine2_Sphere
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Eye
+Ka 0.2 0.2 0.2
+Kd 0.52549 0.0666667 0.0431373
+Ks 0.05 0.05 0.05
+Ni 1
+Ns 50
+Tf 1 1 1
+d 1
+
+newmtl Eye_Dome
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Eye_Metal
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Eye_Metal_Cuts
+Ka 0 0 0
+Kd 0.615686 0.615686 0.615686
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Eye_Mount
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Eye_Pivots
+Ka 0 0 0
+Kd 0.501961 0.501961 0.501961
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Face_Trim
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Front_Trim
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Gun_Armor
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Gun_Camera
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Gun_Camera_Glass
+Ka 0 0 0
+Kd 0.168627 0.215686 0.247059
+Ks 1 1 1
+Ni 1
+Ns 200
+Tf 1 1 1
+d 0.7
+
+newmtl Gun_Camera_Lens
+Ka 0 0 0
+Kd 0.247059 0.247059 0.247059
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Gun_Camera_Mounts
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Gun_Camera_Tubes
+Ka 0 0 0
+Kd 0.345098 0.345098 0.345098
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Gun_Covers
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Gun_Domes
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Gun_Domes_Dark
+Ka 0 0 0
+Kd 0.345098 0.345098 0.345098
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Gun_Lens
+Ka 0 0 0
+Kd 0.168627 0.215686 0.247059
+Ks 1 1 1
+Ni 1
+Ns 400
+Tf 1 1 1
+d 0.8
+
+newmtl Guns
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Hex_Plate
+Ka 0 0 0
+Kd 0.247059 0.247059 0.247059
+Ks 0.1 0.1 0.1
+Ni 1
+Ns 100
+Tf 1 1 1
+d 1
+
+newmtl Nozzle_Cap
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Nozzle_Fins
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Nozzle_Ring1
+Ka 0 0 0
+Kd 0.752941 0.752941 0.752941
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Nozzle_Ring2
+Ka 0 0 0
+Kd 0.752941 0.752941 0.752941
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Nozzles
+Ka 0 0 0
+Kd 0.635294 0.635294 0.635294
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Nozzles_Inner
+Ka 0 0 0
+Kd 0.501961 0.501961 0.501961
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Numbers
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Rings
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Rings_Center
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Rings_Inner
+Ka 0 0 0
+Kd 0.294118 0.294118 0.294118
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Rings_Mount
+Ka 0 0 0
+Kd 0.392157 0.392157 0.392157
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Round_Plate
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Sphere
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+Ni 1
+Ns 300
+Tf 1 1 1
+d 1
+
+newmtl Target_Laser
+Ka 0 0 0
+Kd 0.188235 0.188235 0.188235
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Target_Laser_Disk
+Ka 0 0 0
+Kd 0.737255 0.756863 0.827451
+Ks 0.89 0.89 0.89
+Ni 1
+Ns 649
+Tf 1 1 1
+d 1
+
+newmtl Target_Laser_Disk_Inner
+Ka 0 0 0
+Kd 0.247059 0.247059 0.247059
+Ks 0.5 0.5 0.5
+Ni 1
+Ns 500
+Tf 1 1 1
+d 1
+
+newmtl Target_Laser_Lens
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 1 1 1
+Ni 1
+Ns 500
+Tf 1 1 1
+d 0.3
+
+newmtl Target_Laser2
+Ka 0 0 0
+Kd 0.85098 0.517647 0.356863
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Target_Laser3
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl Thrusters
+Ka 0 0 0
+Kd 0.270588 0.270588 0.270588
+Ks 0.1 0.1 0.1
+Ni 1
+Ns 100
+Tf 1 1 1
+d 1
+
