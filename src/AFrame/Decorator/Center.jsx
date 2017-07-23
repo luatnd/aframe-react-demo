@@ -3,14 +3,9 @@ import 'babel-polyfill';
 import {Entity} from 'aframe-react';
 import React from 'react';
 
-import obj_Drone166_dae from "../../../assets/obj/Drone166/Drone166.dae";
+import obj_Drone166_dae from "../../../assets/obj/Drone166/Drone166x.dae";
 
 export class Center extends React.Component {
-  static renderAssets = () => (
-    <Entity key="Center">
-      <a-asset-item id="obj_Drone166_dae" src={obj_Drone166_dae}/>
-    </Entity>
-  )
 
   render() {
     return (
@@ -22,4 +17,11 @@ export class Center extends React.Component {
       </Entity>
     );
   }
+}
+
+
+export const renderAssets = () => {
+  return <Entity key="Center">
+    <a-asset-item id="obj_Drone166_dae" src={obj_Drone166_dae}/>
+  </Entity>
 }

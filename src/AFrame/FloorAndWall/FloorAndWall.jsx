@@ -6,12 +6,6 @@ import React from 'react';
 import imgFloorWooden from "../../../assets/img/wooden_panels-1280x720.jpg";
 
 export class FloorAndWall extends React.Component {
-  static renderAssets = () => (
-    <Entity key="FloorAndWall">
-      <img id="floorWooden" src={imgFloorWooden} alt="sky"/>
-    </Entity>
-  )
-  
   render() {
     return (
       <Entity {...this.props} className="FloorAndWall" style={{color:"red", background: "white", fontSize: "20em"}}>
@@ -39,4 +33,10 @@ export class FloorAndWall extends React.Component {
       </Entity>
     );
   }
+}
+
+export const renderAssets = () => {
+  return <Entity key="FloorAndWall">
+    <img id="floorWooden" src={imgFloorWooden} alt="sky"/>
+  </Entity>
 }

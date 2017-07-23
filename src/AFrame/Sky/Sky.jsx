@@ -6,12 +6,6 @@ import React from 'react';
 import imgSky from "../../../assets/img/sky.jpg";
 
 export class Sky extends React.Component {
-  static renderAssets = () => (
-    <Entity key="Sky">
-      <img id="sky" src={imgSky} alt="sky"/>
-      {/*<video id="videoMilkyWay" src={videoMilkyWay}/>*/}
-    </Entity>
-  )
 
   render() {
     return (
@@ -20,4 +14,11 @@ export class Sky extends React.Component {
       </Entity>
     );
   }
+}
+
+export const renderAssets = () => {
+  return <Entity key="Sky">
+    <img id="sky" src={imgSky} alt="sky"/>
+    {/*<video id="videoMilkyWay" src={videoMilkyWay}/>*/}
+  </Entity>
 }

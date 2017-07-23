@@ -12,7 +12,7 @@ import {assertRenders} from './AssetsRegister';
 export class Assets extends React.Component {
   render() {
     return (
-      <a-assets>
+      <a-assets ref={}>
         {Object.keys(assertRenders).map((key) => {
           const renderer = assertRenders[key];
           if (renderer === undefined) {

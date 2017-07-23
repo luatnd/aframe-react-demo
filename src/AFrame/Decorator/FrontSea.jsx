@@ -6,11 +6,6 @@ import React from 'react';
 import obj_E45_dae from '../../../assets/obj/E-45-Aircraft/E 45 Aircraft_Luat.dae';
 
 export class FrontSea extends React.Component {
-  static renderAssets = () => (
-    <Entity key="FrontSea">
-      <a-asset-item id="obj_E45_dae" src={obj_E45_dae}/>
-    </Entity>
-  )
 
   render() {
     return (
@@ -21,4 +16,10 @@ export class FrontSea extends React.Component {
       </Entity>
     );
   }
+}
+
+export const renderAssets = () => {
+  return <Entity key="FrontSea">
+    <a-asset-item id="obj_E45_dae" src={obj_E45_dae}/>
+  </Entity>
 }

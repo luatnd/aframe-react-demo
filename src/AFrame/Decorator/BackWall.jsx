@@ -6,11 +6,6 @@ import React from 'react';
 import obj_Drone166_img from '../../../assets/obj/Drone166/Drone1.png';
 
 export class BackWall extends React.Component {
-  static renderAssets = () => (
-    <Entity key="BackWall">
-      <img id="obj_Drone166_img" src={obj_Drone166_img} alt="obj_Drone166_img"/>
-    </Entity>
-  )
   
   render() {
     return (
@@ -25,4 +20,11 @@ export class BackWall extends React.Component {
       </Entity>
     );
   }
+}
+
+
+export const renderAssets = () => {
+  return <Entity key="BackWall">
+    <img id="obj_Drone166_img" src={obj_Drone166_img} alt="obj_Drone166_img"/>
+  </Entity>
 }
