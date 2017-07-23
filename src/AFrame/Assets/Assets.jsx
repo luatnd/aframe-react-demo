@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import {assertRenders} from './AssetsRegister';
 
@@ -10,9 +12,29 @@ import {assertRenders} from './AssetsRegister';
  * TODO: Build an NPM aframe asset management base on redux
  */
 export class Assets extends React.Component {
+  static propTypes = {
+    updateAssetsLoadingStatus: PropTypes.func,
+  };
+  
+  assetsInstance = null;
+  
+  componentDidMount = () => {
+    console.log('Assets component mounted at ', moment().format('HH[h]mm[m]ss_SSS'));
+
+    this.assetsInstance.addEventListener('loaded', () => {
+      this.props.updateAssetsLoadingStatus(false);
+      console.log('[Assets] All assets were loaded!', moment().format('HH[h]mm[m]ss_SSS'));
+    });
+
+  }
+  
+  /**
+   * TODO:
+   *    ADD indicator: https://github.com/aframevr/aframe/issues/423
+   */
   render() {
     return (
-      <a-assets ref={}>
+      <a-assets ref={ele => this.assetsInstance = ele}>
         {Object.keys(assertRenders).map((key) => {
           const renderer = assertRenders[key];
           if (renderer === undefined) {
