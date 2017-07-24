@@ -53,11 +53,11 @@ export class MyScene extends React.Component {
       
             <Workspace/>
       
-            {/*<Entity className="decorator">*/}
-              {/*<BackWall/>*/}
-              {/*<FrontSea/>*/}
-              {/*<Center/>*/}
-            {/*</Entity>*/}
+            <Entity className="decorator">
+              <BackWall/>
+              <FrontSea/>
+              <Center/>
+            </Entity>
           </Entity>
         }
       

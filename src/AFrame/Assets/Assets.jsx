@@ -19,7 +19,7 @@ export class Assets extends React.Component {
   assetsInstance = null;
   
   componentDidMount = () => {
-    console.log('Assets component mounted at ', moment().format('HH[h]mm[m]ss_SSS'));
+    console.log('[Assets] Assets Component mounted at ', moment().format('HH[h]mm[m]ss_SSS'));
 
     this.assetsInstance.addEventListener('loaded', () => {
       this.props.updateAssetsLoadingStatus(false);
