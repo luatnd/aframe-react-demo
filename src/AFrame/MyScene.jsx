@@ -38,7 +38,7 @@ export class MyScene extends React.Component {
         <Assets updateAssetsLoadingStatus={this.updateAssetsLoadingStatus}/>
 
         {assetsLoading
-          ? "Loading..."
+          ? "Loading assets..."
           : <Entity>
             <Entity className="camera"
                     camera="userHeight: 2; fov: 80;" // Assuming I'm 1.8m height, And the normal human fov is ~80
