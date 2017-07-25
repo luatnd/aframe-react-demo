@@ -8,29 +8,40 @@ import React from 'react';
 import obj_CircleTable_dae from "../../../assets/obj/CircleTable/CircleTable.dae";
 import obj_Monitor_obj from "../../../assets/obj/Monitor/my_moninitor.obj";
 import obj_Monitor_mtl from "../../../assets/obj/Monitor/my_moninitor.mtl";
+import obj_Keyboard_obj from "../../../assets/obj/Monitor/my_keyboard.obj";
+import obj_Keyboard_mtl from "../../../assets/obj/Monitor/my_keyboard.mtl";
+
+
 
 export class Workspace extends React.Component {
   
   workspace = {
     circleTable: {
-      height:        1.1,
+      height:        1.0,
       radiusOutSide: 4.5,
       radiusInSide:  3.0,
     },
     screen:      {
-      initialLength:       1.5, // Screen in 3d model is very large, it's 8 meters screen width, so we scale it down but need to calculate the screen width after scale
-      scaleFactor:         0.8, // Screen in 3d model is very large, need to scale it down
-      screensCircleRadius: 3.6, // From center of workspace to screen, O-x-y plane. Screens are on 1 circle on circle table, so that is on 1 circle, with radius is ...
+      initialWidth:        1.5, // Screen in 3d model is very large, it's 8 meters screen width, so we scale it down but need to calculate the screen width after scale
+      scaleFactor:         1, // Screen in 3d model is very large, need to scale it down
+      screensCircleRadius: 4, // From center of workspace to screen, O-x-y plane. Screens are on 1 circle on circle table, so that is on 1 circle, with radius is ...
     },
+    keyboard:    {
+      initialWidth:   0.46,
+      initialHeight:  0.15,
+      customY:  0.025,
+      screenDistance: 0.6, // Keyboard distance from the screen center to keyboard
+    }
   }
   
   /**
    * Auto Calculate position + rotation of screen from center of workspace: 0 0 0 cordinate
    * Then return Entity
    * @param screenPosition IS the relative position of the screen, 0 mean center screen, 1 mean the next screen clockwise, -1 mean the before.
+   * @param withKeyBoard If true then include a keyboard for this screen
    * @return React.Component
    */
-  getNthScreen = (screenPosition) => {
+  getNthScreen = (screenPosition, withKeyBoard = false) => {
     const screenMargin = 0.2;
     //const deg2rad = Math.PI/180;
     const rad2deg = 180/Math.PI;
@@ -38,7 +49,7 @@ export class Workspace extends React.Component {
     const screensCircleRadius = this.workspace.screen.screensCircleRadius;
     const tableHeight = this.workspace.circleTable.height;
     const ssf = this.workspace.screen.scaleFactor;
-    const screenRealWidth = this.workspace.screen.initialLength * this.workspace.screen.scaleFactor;
+    const screenRealWidth = this.workspace.screen.initialWidth * this.workspace.screen.scaleFactor;
     
     const screen_0th = {
       px: 0,
@@ -74,9 +85,13 @@ export class Workspace extends React.Component {
     const position = `${px} ${py} ${pz}`;
     const scale = ssf + ' ' + ssf + ' ' + ssf;
     const rotation = `${rx} ${ry} ${rz}`;
+
+    const keyboardDistance = this.workspace.keyboard.initialHeight + this.workspace.keyboard.screenDistance;
     
     return <Entity rotation={rotation}>
       <Entity obj-model="obj: #obj_Monitor_obj; mtl: #obj_Monitor_mtl" {...{position, scale}}/>
+      {withKeyBoard && <Entity obj-model="obj: #obj_Keyboard_obj; mtl: #obj_Keyboard_mtl"
+                               position={`${px} ${py+this.workspace.keyboard.customY} ${(pz + keyboardDistance)}`}/>}
     </Entity>
   }
 
@@ -98,6 +113,12 @@ export class Workspace extends React.Component {
         
         <Entity className="circleTable">
           <Entity collada-model="#obj_CircleTable_dae" position="0 0 0" rotation="0 0 0" scale="1 1 1"/>
+          
+          {/*
+            Show case: How to prevent move through a mesh:
+            We need to create some path instead of
+          
+           */}
         </Entity>
         
         <Entity
@@ -107,10 +128,10 @@ export class Workspace extends React.Component {
             className="CircleTableSurfaceOverwrite"/> {/* Is the visible circle table surface: If you wanna another table surface instead of currently BlackCarbon */}
           
           <Entity className="screensCircle">
-            {this.getNthScreen(0)}
+            {this.getNthScreen(0, true)}
             {this.getNthScreen(1)}
-            {this.getNthScreen(2)}
             {this.getNthScreen(-1)}
+            {this.getNthScreen(2)}
             {this.getNthScreen(-2)}
           </Entity>
         
@@ -126,5 +147,7 @@ export const renderAssets = () => {
     <a-asset-item id="obj_CircleTable_dae" src={obj_CircleTable_dae}/>
     <a-asset-item id="obj_Monitor_obj" src={obj_Monitor_obj}/>
     <a-asset-item id="obj_Monitor_mtl" src={obj_Monitor_mtl}/>
+    <a-asset-item id="obj_Keyboard_obj" src={obj_Keyboard_obj}/>
+    <a-asset-item id="obj_Keyboard_mtl" src={obj_Keyboard_mtl}/>
   </Entity>
 }
