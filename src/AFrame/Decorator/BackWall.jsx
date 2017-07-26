@@ -13,10 +13,10 @@ export class BackWall extends React.Component {
         {/*<a-image className="obj_Drone166_img" src="#obj_Drone166_img"*/}
                  {/*position="0 2.8 -2.5" rotation="0 -120 0" width="5" height="5"/>*/}
 
-        <Entity className="drone166_text" position="-1.5 4 -0.51" rotation="0 180 0">
-          <a-text value="Drone 166" width="15" color="#dedede"/>
-          <a-text value="[Oblivion]" width="15" color="#dedede" position="0 -1 0"/>
-        </Entity>
+        {/*<Entity className="drone166_text" position="-1.5 4 -0.51" rotation="0 180 0">*/}
+          {/*<a-text value="Drone 166" width="15" color="#dedede"/>*/}
+          {/*<a-text value="[Oblivion]" width="15" color="#dedede" position="0 -1 0"/>*/}
+        {/*</Entity>*/}
       </Entity>
     );
   }

@@ -63,3 +63,8 @@ So that when you do `nested` react Components, you need to find a way to put you
 ## The aframe-react-boilerplate
 This boilerplate was created from `aframe-react-boilerplate`
 It's a boilerplate for building virtual reality experiences with [A-Frame](https://aframe.io) and React with [aframe-react](https://github.com/ngokevin/aframe-react).
+
+
+# Other:
+Modified: node_modules/aframe-physics-system/src/system/physics.js:25
+ { default: false -> true },

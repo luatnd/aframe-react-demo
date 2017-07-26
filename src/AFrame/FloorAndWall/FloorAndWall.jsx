@@ -20,7 +20,7 @@ export class FloorAndWall extends React.Component {
                 material={`shader: flat; src: #imgCarbonYellow; repeat: 15 10`}/>
         <Entity className="backWall" static-body
                 geometry="primitive: box; width: 25; height: 10;"
-                position="0 -0 13"
+                position="0 -0 12.5"
                 rotation="180 180 0"
                 material={`shader: flat; src: #imgMetalSheetDecor; repeat: 5 2`}/>
         <Entity className="leftWall" static-body
