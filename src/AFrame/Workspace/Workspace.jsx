@@ -34,6 +34,10 @@ export class Workspace extends React.Component {
     }
   }
   
+  componentDidMount () {
+    this.registerCursorListenner();
+  }
+  
   /**
    * Auto Calculate position + rotation of screen from center of workspace: 0 0 0 cordinate
    * Then return Entity
@@ -77,7 +81,7 @@ export class Workspace extends React.Component {
     
     const alphaToRotateDeg = anglesDeg_of_COR * 2 * screenPosition;
     
-    console.log('alphaToRotateDeg: ', alphaToRotateDeg);
+    //console.log('alphaToRotateDeg: ', alphaToRotateDeg);
     
     ry = alphaToRotateDeg;
 
@@ -106,6 +110,36 @@ export class Workspace extends React.Component {
     return {newX, newY};
   }
   
+  makeStaticBodyLines = (shapePoints = [
+    [0, 0, 0],
+    [1, 1, 1]
+  ]) => {
+    {/*return <a-entity static-body*/}
+      {/*line__0="start: 0, 1, 0; end: 2 0 -5; color: red"*/}
+      {/*line__1="start: -2, 4, 5; end: 0 4 -3; color: yellow"*/}
+      {/*line__2="start: -12, 1, -2; end: 12, 1, -2; color: green"*/}
+    {/*/>;*/}
+    return <Entity>
+      <a-box static-body="shape: box;" color="tomato" depth="0.1" height="2" width="20" position="0 1.0 -4" material="transparent: true; opacity: 0.9"/>
+    </Entity>
+  }
+
+  registerCursorListenner () {
+    // Component to change to random color on click.
+    let AFRAME = AFRAME || window.AFRAME;
+  
+    AFRAME.registerComponent('cursor-listener', {
+      init: function () {
+        var COLORS = ['red', 'green', 'blue', 'yellow', 'pink', 'magenta'];
+        this.el.addEventListener('click', function (evt) {
+          var randomIndex = Math.floor(Math.random() * COLORS.length);
+          this.setAttribute('material', 'color', COLORS[randomIndex]);
+          console.log('I was clicked at: ', evt.detail.intersection.point);
+        });
+      }
+    });
+  }
+  
   render() {
     
     return (
@@ -116,16 +150,20 @@ export class Workspace extends React.Component {
           
           {/*
             Show case: How to prevent move through a mesh:
-            We need to create some path instead of
-          
+            Aframe-extra: static-body + dynamic-body will consider all geomeotry and 3d model as an box (it's bounding box)
+             So that for the circle / sphere, you need to create a static-body path to prevent user move through, instead of set circle is static body
            */}
+          {this.makeStaticBodyLines([
+            [0, 0, 0],
+            [1, 1, 1]
+          ])}
+           
         </Entity>
         
         <Entity
           className="baseCircle"> {/* Is the invisible circle that put screen and anything on, we will rotate this instead of rotate the table */}
           
-          <Entity
-            className="CircleTableSurfaceOverwrite"/> {/* Is the visible circle table surface: If you wanna another table surface instead of currently BlackCarbon */}
+          <Entity className="CircleTableSurfaceOverwrite"/> {/* Is the visible circle table surface: If you wanna another table surface instead of currently BlackCarbon */}
           
           <Entity className="screensCircle">
             {this.getNthScreen(0, true)}
@@ -133,6 +171,10 @@ export class Workspace extends React.Component {
             {this.getNthScreen(-1)}
             {this.getNthScreen(2)}
             {this.getNthScreen(-2)}
+          </Entity>
+          
+          <Entity className="decorator">
+            <a-entity id="box" cursor-listener geometry="primitive: box;width:0.5;height:0.5;depth:0.5;" material="color: blue" position="-2.046 1.2 3.121"></a-entity>
           </Entity>
         
         </Entity>

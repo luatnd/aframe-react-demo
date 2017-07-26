@@ -26,6 +26,30 @@ export class MyScene extends React.Component {
   state = {
     assetsLoading: true
   }
+  
+  cameraInstance = null; // NOTE: react ele and aframe ele is distinct, so plz carefully when get ele from react `ref`
+  
+  componentDidMount = () => {
+    this.trackCameraCollide();
+  }
+  
+  trackCameraCollide = () => {
+
+    // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
+    // Read more about this listener: https://github.com/donmccurdy/aframe-physics-system#collision-events
+    this.cameraInstance.el.addEventListener('collide', (e) => {
+      let detail = e.detail;
+
+      const touchedPos = detail.contact.ni;
+      //console.log('touchedPos: ', touchedPos);
+      
+      const targetEle = detail.body.el;
+      
+      console.log('\n[Camera] Player has collided with body #' + e.detail.body.id);
+      console.log('-------- Touched the: ', targetEle.className ? targetEle.localName + '.' + targetEle.className : targetEle);
+      console.log('-------- Touched position: ', `x: ${touchedPos.x.toFixed(4)}, y: ${touchedPos.y.toFixed(4)}, z: ${touchedPos.z.toFixed(4)}`);
+    });
+  }
 
   updateAssetsLoadingStatus = (status) => {
     this.setState({
@@ -47,21 +71,25 @@ export class MyScene extends React.Component {
       <Scene physics="debug: true" always-fullscreen platform="all" light="defaultLightsEnabled: false">
         <Assets updateAssetsLoadingStatus={this.updateAssetsLoadingStatus}/>
 
-        <Entity className="camera"
+        <Entity className="camera" ref={reactEle => this.cameraInstance = reactEle}
                 camera="userHeight: 2; fov: 80;" // Assuming I'm 1.8m height, And the normal human fov is ~80
                 //look-controls // Can look around by mouse / turn your head
                 //wasd-controls // Can use keyboard to move
                 position="0 0 0" // Initial standing position
                 velocity
 
-                kinematic-body
-                universal-controls // replace look-controls
+                kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
+                //kinematic-body
+                universal-controls // replace look-controls and wasd-controls
                 //gamepad-controls
-                keyboard-controls // replace wasd-controls ?
+                keyboard-controls
                 touch-controls
                 hmd-controls
                 mouse-controls
-        />
+        >
+          <a-cursor material="color: #ccc; shader: flat"/>
+          {/* TODO: Make near/far limit, current: Can not click the box if more than 5m far */}
+        </Entity>
         
         {assetsLoading
           ? "Loading assets..."
