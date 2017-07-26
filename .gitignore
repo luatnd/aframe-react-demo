@@ -4,3 +4,6 @@ npm-debug.log
 *.sw[ponm]
 gh-pages
 build
+yarn.lock
+config/
+scripts/
