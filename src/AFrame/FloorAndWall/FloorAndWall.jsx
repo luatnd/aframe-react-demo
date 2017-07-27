@@ -3,6 +3,8 @@ import 'babel-polyfill';
 import {Entity} from 'aframe-react';
 import React from 'react';
 
+import AFrameHelper from '../Helper/AFrameHelper';
+
 import imgFloorWooden from "../../../assets/img/wooden_panels-1280x720.jpg";
 import imgBronze from "../../../assets/img/bronze.jpg";
 import imgMetalSheetDecor from "../../../assets/img/metal-sheet-decor.jpg";
@@ -13,11 +15,11 @@ export class FloorAndWall extends React.Component {
     return (
       <Entity {...this.props} className="FloorAndWall" style={{color:"red", background: "white", fontSize: "20em"}}>
         
-        <Entity static-body className="floor"
-                geometry="primitive: plane; width: 25; height: 25;"
-                position="0 0 0"
+        <Entity className="floor" static-body
+                geometry="primitive: box; width: 25; height: 25; depth:0.5"
+                position="0 -0.25 0"
                 rotation="-90 0 0"
-                material={`shader: flat; src: #imgCarbonYellow; repeat: 15 10`}/>
+                material={`shader: flat; src: #floorWooden; repeat: 15 10`}/>
         <Entity className="backWall" static-body
                 geometry="primitive: box; width: 25; height: 10;"
                 position="0 -0 12.5"
@@ -33,6 +35,11 @@ export class FloorAndWall extends React.Component {
                 position="12.5 -2.2 0"
                 rotation="180 90 0"
                 material={`shader: flat; src: #imgMetalSheetDecor; repeat: 5 1`}/>
+  
+        {AFrameHelper.makeStaticBodyWall_for_XZplane('frontWall', [
+          {x: -12.5, y: 0, z: -12.5},
+          {x: +12.5, y: 0, z: -12.5}
+        ])}
       </Entity>
     );
   }

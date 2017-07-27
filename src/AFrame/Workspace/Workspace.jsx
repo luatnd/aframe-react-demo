@@ -2,8 +2,11 @@ import 'aframe';
 import 'babel-polyfill';
 //import 'aframe-layout-component';
 //import '../../AframeCustom/CircleLayout/CircleLayout';
-import {Entity} from 'aframe-react';
 import React from 'react';
+import {Entity} from 'aframe-react';
+
+import Helper3D from '../../Helper/Helper3D/Helper3D';
+import AFrameHelper from '../Helper/AFrameHelper';
 
 import obj_CircleTable_dae from "../../../assets/obj/CircleTable/CircleTable.dae";
 import obj_Monitor_obj from "../../../assets/obj/Monitor/my_moninitor.obj";
@@ -20,6 +23,7 @@ export class Workspace extends React.Component {
       height:        1.0,
       radiusOutSide: 4.5,
       radiusInSide:  3.0,
+      entranceWidth: 2,
     },
     screen:      {
       initialWidth:        1.5, // Screen in 3d model is very large, it's 8 meters screen width, so we scale it down but need to calculate the screen width after scale
@@ -98,30 +102,61 @@ export class Workspace extends React.Component {
                                position={`${px} ${py+this.workspace.keyboard.customY} ${(pz + keyboardDistance)}`}/>}
     </Entity>
   }
-
-  /**
-   * Rotate a point some radian angles around the center of coordinate (O point)
-   *
-   */
-  rotate2DByO = ({x, y}, a) => {
-    const newX = x * Math.cos(a) - y * Math.sin(a);
-    const newY = x * Math.sin(a) + y * Math.cos(a);
-    
-    return {newX, newY};
-  }
   
-  makeStaticBodyLines = (shapePoints = [
-    [0, 0, 0],
-    [1, 1, 1]
-  ]) => {
-    {/*return <a-entity static-body*/}
-      {/*line__0="start: 0, 1, 0; end: 2 0 -5; color: red"*/}
-      {/*line__1="start: -2, 4, 5; end: 0 4 -3; color: yellow"*/}
-      {/*line__2="start: -12, 1, -2; end: 12, 1, -2; color: green"*/}
-    {/*/>;*/}
-    return <Entity>
-      <a-box static-body="shape: box;" color="tomato" depth="0.1" height="2" width="20" position="0 1.0 -4" material="transparent: true; opacity: 0.9"/>
-    </Entity>
+  /**
+   * Make some continuously lines to define prohibit section that user can not go through
+   * @returns {Object[]}
+   */
+  makeCircularTableStaticBodyPoints = (inside = true) => {
+    let shapePoints = [];
+  
+    const axisOy = [0, 1, 0];
+    
+    /**
+     * I intent to make the lines on top of table, in the theory, you need to set it equal to table height right !
+     */
+    const topTableY = this.workspace.circleTable.height + 0.1;
+    
+    const radius = inside ? this.workspace.circleTable.radiusInSide : this.workspace.circleTable.radiusOutSide;
+    const entranceWidth = this.workspace.circleTable.entranceWidth;
+    
+    const userMinDistance  = inside ? 0.3 : 0.1; // User can not reach this distance
+    
+    const initialPos = [
+      entranceWidth / 2 - userMinDistance,
+      topTableY,
+      inside ? radius - userMinDistance : radius + userMinDistance
+    ];
+
+    /**
+     * Circular table have an entrain to go inside, this entrance width is 2m
+     * --> we do not prevent user go through this section, not all 360deg
+     * --> it's make a missingAngle
+     */
+    const step = 20;
+    const missingAngle = 2 * Helper3D.toDeg(Math.tanh(initialPos[0] / initialPos[2]));
+    const maxAngle = 360 - missingAngle; // Each point was rotate by center O some angle to make a new point
+    const rotateAngle = maxAngle/step; // the more smaller angle, the more shape was made, the more smooth circular, the more hardware resource need to take.
+    const radAngle = Helper3D.toRad(rotateAngle);
+
+    let prevPoint = {
+      x: initialPos[0],
+      y: initialPos[1],
+      z: initialPos[2]
+    };
+
+    shapePoints.push(prevPoint);
+
+    for (let i = 0, l = step; i < l; i++) {
+      // Rotate some angle around Oy
+      let {x, y, z} = Helper3D.rotate3D([prevPoint.x, prevPoint.y, prevPoint.z], axisOy, radAngle);
+      let point = {x, y, z};
+
+      shapePoints.push(point);
+      prevPoint = point;
+    }
+
+    return shapePoints;
   }
 
   registerCursorListenner () {
@@ -141,6 +176,12 @@ export class Workspace extends React.Component {
   }
   
   render() {
+    const shapePointsInside =  this.makeCircularTableStaticBodyPoints();
+    const shapePointsOutside =  this.makeCircularTableStaticBodyPoints(false);
+    /**
+     * The line order: Inside_start -> Inside_stop -> outside_stop -> outside_start -> Inside_start
+     */
+    const preventUserPoints = shapePointsInside.concat(shapePointsOutside.reverse(), [shapePointsInside[0]]);
     
     return (
       <Entity {...this.props} className="circleWorkspace">
@@ -153,11 +194,8 @@ export class Workspace extends React.Component {
             Aframe-extra: static-body + dynamic-body will consider all geomeotry and 3d model as an box (it's bounding box)
              So that for the circle / sphere, you need to create a static-body path to prevent user move through, instead of set circle is static body
            */}
-          {this.makeStaticBodyLines([
-            [0, 0, 0],
-            [1, 1, 1]
-          ])}
-           
+          {/*{AFrameHelper.previewShapePoints(preventUserPoints)}*/}
+          {AFrameHelper.makeStaticBodyWall_for_XZplane('circularTableWall', preventUserPoints)}
         </Entity>
         
         <Entity
