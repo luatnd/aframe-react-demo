@@ -197,7 +197,7 @@ export class Workspace extends React.Component {
        * NOTE: 0 mean turn on this this case
        * Because the UI toggle has a bug, so that initial value always be 0, can not change it now
        */
-      thisComponent.setState({projector3DTurnOn: value == 0});
+      thisComponent.setState({projector3DTurnOn: value === 0});
     });
   }
   
@@ -243,12 +243,14 @@ export class Workspace extends React.Component {
               {projector3DTurnOn
                 ? <Entity>
                     <Entity obj-model="obj: #obj_3DProjector_TurnOn_obj; mtl: #obj_3DProjector_TurnOn_mtl" scale="0.1 0.1 0.1"/>
-                    <Entity collada-model="#obj_Ironman_dae" scale="0.01 0.01 0.01"/>
+                    <Entity collada-model="#obj_Ironman_dae" scale="0.01 0.01 0.01">
+                      <a-animation delay="0" dur="4000"  attribute="rotation" to="0 360 0" repeat="indefinite"/>
+                    </Entity>
                   </Entity>
                 : <Entity collada-model="#obj_3DProjector_TurnOff_dae" scale="0.1 0.1 0.1"/>
               }
 
-              <Entity className="btnPower" ui-toggle value={0} ref={ele => this.btnPowerEle = ele} position="0.8 0 0.5" rotation="0 90 0"/>
+              <Entity className="btnPower" ui-toggle value={0} ref={ele => this.btnPowerEle = ele} position="0.65 0 0.5" rotation="0 75 0"/>
             </Entity>
           </Entity>
           
