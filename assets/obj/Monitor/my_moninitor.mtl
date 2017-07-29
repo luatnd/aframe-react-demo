@@ -1,5 +1,5 @@
 # Blender MTL File: 'my_moninitor.blend'
-# Material Count: 7
+# Material Count: 6
 
 newmtl BlackCarbon
 Ns 96.078431
@@ -19,16 +19,6 @@ Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
-illum 2
-
-newmtl ScreenBlue_Ambien_Darker
-Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.006629 0.203046 1.000000
-Ks 0.500000 0.438054 0.484065
-Ke 0.000663 0.020305 0.100000
-Ni 1.000000
-d 0.500000
 illum 2
 
 newmtl ScreenBlue_Ambien_Lighter
@@ -58,7 +48,7 @@ Kd 0.000000 0.000000 0.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
-d 0.800000
+d 0.700000
 illum 2
 
 newmtl WhiteInoxMarterial

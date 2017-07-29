@@ -1,5 +1,6 @@
 import 'aframe';
 import 'babel-polyfill';
+import 'aframe-ui-widgets';
 //import 'aframe-layout-component';
 //import '../../AframeCustom/CircleLayout/CircleLayout';
 import React from 'react';
@@ -11,13 +12,21 @@ import AFrameHelper from '../Helper/AFrameHelper';
 import obj_CircleTable_dae from "../../../assets/obj/CircleTable/CircleTable.dae";
 import obj_Monitor_obj from "../../../assets/obj/Monitor/my_moninitor.obj";
 import obj_Monitor_mtl from "../../../assets/obj/Monitor/my_moninitor.mtl";
+import obj_Monitor_dae from "../../../assets/obj/Monitor/my_moninitor.dae";
 import obj_Keyboard_obj from "../../../assets/obj/Monitor/my_keyboard.obj";
 import obj_Keyboard_mtl from "../../../assets/obj/Monitor/my_keyboard.mtl";
+import obj_3DProjector_TurnOn_obj from "../../../assets/obj/IronMan/3DProjector_turn_on.obj";
+import obj_3DProjector_TurnOn_mtl from "../../../assets/obj/IronMan/3DProjector_turn_on.mtl";
+import obj_3DProjector_TurnOff_dae from "../../../assets/obj/IronMan/3DProjector_turned_off.dae";
+import obj_Ironman_dae from "../../../assets/obj/IronMan/IronMan2.dae";
 
 
 
 export class Workspace extends React.Component {
-  
+  state = {
+    projector3DTurnOn: true,
+  }
+
   workspace = {
     circleTable: {
       height:        1.0,
@@ -38,8 +47,11 @@ export class Workspace extends React.Component {
     }
   }
   
+  btnPowerEle = null;
+  
   componentDidMount () {
     this.registerCursorListenner();
+    this.registerPowerBtnChange();
   }
   
   /**
@@ -98,6 +110,7 @@ export class Workspace extends React.Component {
     
     return <Entity rotation={rotation}>
       <Entity obj-model="obj: #obj_Monitor_obj; mtl: #obj_Monitor_mtl" {...{position, scale}}/>
+      {/*<Entity collada-model="#obj_Monitor_dae" {...{position, scale}}/>  //Do not use collada because collada do not support transparent  */}
       {withKeyBoard && <Entity obj-model="obj: #obj_Keyboard_obj; mtl: #obj_Keyboard_mtl"
                                position={`${px} ${py+this.workspace.keyboard.customY} ${(pz + keyboardDistance)}`}/>}
     </Entity>
@@ -123,7 +136,7 @@ export class Workspace extends React.Component {
     const userMinDistance  = inside ? 0.3 : 0.1; // User can not reach this distance
     
     const initialPos = [
-      entranceWidth / 2 - userMinDistance,
+      entranceWidth / 2,
       topTableY,
       inside ? radius - userMinDistance : radius + userMinDistance
     ];
@@ -175,6 +188,19 @@ export class Workspace extends React.Component {
     });
   }
   
+  registerPowerBtnChange = () => {
+    let thisComponent = this;
+    this.btnPowerEle.el.addEventListener('change', function (e) {
+      let value = e.detail.value; // 1 or 0
+      
+      /**
+       * NOTE: 0 mean turn on this this case
+       * Because the UI toggle has a bug, so that initial value always be 0, can not change it now
+       */
+      thisComponent.setState({projector3DTurnOn: value == 0});
+    });
+  }
+  
   render() {
     const shapePointsInside =  this.makeCircularTableStaticBodyPoints();
     const shapePointsOutside =  this.makeCircularTableStaticBodyPoints(false);
@@ -182,6 +208,8 @@ export class Workspace extends React.Component {
      * The line order: Inside_start -> Inside_stop -> outside_stop -> outside_start -> Inside_start
      */
     const preventUserPoints = shapePointsInside.concat(shapePointsOutside.reverse(), [shapePointsInside[0]]);
+    
+    const {projector3DTurnOn} = this.state;
     
     return (
       <Entity {...this.props} className="circleWorkspace">
@@ -192,6 +220,7 @@ export class Workspace extends React.Component {
           {/*
             Show case: How to prevent move through a mesh:
             Aframe-extra: static-body + dynamic-body will consider all geomeotry and 3d model as an box (it's bounding box)
+            If you set "shape:hull", it's will prevent the entrance to go inside the table :(
              So that for the circle / sphere, you need to create a static-body path to prevent user move through, instead of set circle is static body
            */}
           {/*{AFrameHelper.previewShapePoints(preventUserPoints)}*/}
@@ -209,6 +238,18 @@ export class Workspace extends React.Component {
             {this.getNthScreen(-1)}
             {this.getNthScreen(2)}
             {this.getNthScreen(-2)}
+  
+            <Entity className="ironMan_3DProjector" position="2.046 1.025 3.125" rotation="0 210 0">
+              {projector3DTurnOn
+                ? <Entity>
+                    <Entity obj-model="obj: #obj_3DProjector_TurnOn_obj; mtl: #obj_3DProjector_TurnOn_mtl" scale="0.1 0.1 0.1"/>
+                    <Entity collada-model="#obj_Ironman_dae" scale="0.01 0.01 0.01"/>
+                  </Entity>
+                : <Entity collada-model="#obj_3DProjector_TurnOff_dae" scale="0.1 0.1 0.1"/>
+              }
+
+              <Entity className="btnPower" ui-toggle value={0} ref={ele => this.btnPowerEle = ele} position="0.8 0 0.5" rotation="0 90 0"/>
+            </Entity>
           </Entity>
           
           <Entity className="decorator">
@@ -223,11 +264,20 @@ export class Workspace extends React.Component {
 
 export const renderAssets = () => {
   return <Entity key="Workspace">
-    <a-asset-item id="obj_ironman_dae" src="static/obj/IronMan/Ironman.dae"/>
+    {/*<a-asset-item id="obj_ironman_dae" src="static/obj/IronMan/Ironman.dae"/>*/}
+    <a-asset-item id="obj_3DProjector_TurnOn_obj" src={obj_3DProjector_TurnOn_obj}/>
+    <a-asset-item id="obj_3DProjector_TurnOn_mtl" src={obj_3DProjector_TurnOn_mtl}/>
+    <a-asset-item id="obj_3DProjector_TurnOff_dae" src={obj_3DProjector_TurnOff_dae}/>
+    <a-asset-item id="obj_Ironman_dae" src={obj_Ironman_dae}/>
     <a-asset-item id="obj_CircleTable_dae" src={obj_CircleTable_dae}/>
     <a-asset-item id="obj_Monitor_obj" src={obj_Monitor_obj}/>
     <a-asset-item id="obj_Monitor_mtl" src={obj_Monitor_mtl}/>
+    <a-asset-item id="obj_Monitor_dae" src={obj_Monitor_dae}/>
     <a-asset-item id="obj_Keyboard_obj" src={obj_Keyboard_obj}/>
     <a-asset-item id="obj_Keyboard_mtl" src={obj_Keyboard_mtl}/>
+    
+    <a-entity className="btnMixin">
+      <a-mixin id="yellow" material="color: #FFF88E;"></a-mixin>
+    </a-entity>
   </Entity>
 }
