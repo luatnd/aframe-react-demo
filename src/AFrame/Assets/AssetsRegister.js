@@ -11,4 +11,5 @@ export const assertRenders = {
   BackWall:     require('../Decorator/BackWall').renderAssets,
   FrontSea:     require('../Decorator/FrontSea').renderAssets,
   Center:       require('../Decorator/Center').renderAssets,
+  Light:        require('../Light/Light').renderAssets,
 };

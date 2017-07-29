@@ -14,6 +14,7 @@ import {BackWall} from './Decorator/BackWall';
 import {FrontSea} from './Decorator/FrontSea';
 import {Center} from './Decorator/Center';
 import {Sky} from './Sky/Sky';
+import {Light} from './Light/Light';
 
 import {Assets} from './Assets/Assets';
 
@@ -105,6 +106,8 @@ export class MyScene extends React.Component {
   
   
             <Sky/>
+          
+            <Light/>
       
             <FloorAndWall/>
       
