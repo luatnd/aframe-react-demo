@@ -5,5 +5,3 @@ npm-debug.log
 gh-pages
 build
 yarn.lock
-config/
-scripts/

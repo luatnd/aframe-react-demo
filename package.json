@@ -3,6 +3,8 @@
   "version": "3.0.1",
   "description": "Boilerplate for building virtual reality experiences with A-Frame and React.",
   "dependencies": {
+    "@types/react": "^15.6.0",
+    "@types/react-dom": "^15.5.1",
     "aframe": "^0.6.1",
     "aframe-always-fullscreen-component": "^1.0.0",
     "aframe-animation-component": "^3.2.5",
@@ -50,6 +52,7 @@
   "homepage": "https://github.com/ngokevin/aframe-react-boilerplate#readme",
   "devDependencies": {
     "autoprefixer": "6.7.2",
+    "awesome-typescript-loader": "^3.2.2",
     "babel-core": "6.22.1",
     "babel-eslint": "7.1.1",
     "babel-jest": "18.0.0",
@@ -83,7 +86,9 @@
     "postcss-loader": "1.2.2",
     "promise": "7.1.1",
     "react-dev-utils": "^0.5.2",
+    "source-map-loader": "^0.2.1",
     "style-loader": "0.13.1",
+    "typescript": "^2.4.2",
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
