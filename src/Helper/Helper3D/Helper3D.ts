@@ -7,7 +7,7 @@ import * as THREE from 'three';
  * https://msdn.microsoft.com/en-us/library/dn479430(v=vs.85).aspx
  */
 export default class Helper3D {
-  static deg2rad = Math.PI/180;
+  static deg2rad:number = Math.PI/180;
   static rad2deg = 180/Math.PI;
   
   static toDeg(rad) {

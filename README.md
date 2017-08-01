@@ -65,6 +65,19 @@ This boilerplate was created from `aframe-react-boilerplate`
 It's a boilerplate for building virtual reality experiences with [A-Frame](https://aframe.io) and React with [aframe-react](https://github.com/ngokevin/aframe-react).
 
 
+# TypeScript config:
+To working with Three.js, you need to add the lib:
+tsconfig.json
+```
+{
+  "compilerOptions": {
+    ...
+    "lib": [ "es2015", "dom" ]
+  },
+  ...
+}
+```
+
 # Other:
 Modified: node_modules/aframe-physics-system/src/system/physics.js:25
  { default: false -> true },
