@@ -9,8 +9,8 @@ export class Light extends React.Component {
   render() {
     return (
       <Entity {...this.props} className="lighting">
-        <Entity collada-model="#obj_StreetLamp_dae" position="12.5 0 -12.5"/>
-        <Entity collada-model="#obj_StreetLamp_dae" position="-12.5 0 -12.5"/>
+        <Entity collada-model="#obj_StreetLamp_dae" position="12.5 0 -12.3"/>
+        <Entity collada-model="#obj_StreetLamp_dae" position="-12.5 0 -12.3"/>
       </Entity>
     );
   }
