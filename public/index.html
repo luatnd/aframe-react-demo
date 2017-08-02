@@ -7,8 +7,126 @@
     <title>Mxn0 workspace - AFrame WebVR Demo</title>
   </head>
   <body>
-    <div id="sceneContainer" style="height: 100%; width: 100%">
-      Initialing React...
+    <div id="sceneContainer" style="height: 100%; width: 100%;">
+
+      <style>
+        body {
+          background: #703548;
+          height: 100%;
+        }
+        .loadingContainer{
+          width:160px;
+          height:50px;
+          margin:auto;
+          margin-top: 40%;
+          text-align: center;
+        }
+
+        #loadingText{color: #FFAA00}
+
+
+        /* Thanks to http://cssload.net/en/horizontal-bars */
+        #loadingProgressG{
+          width:160px;
+          height:12px;
+          overflow:hidden;
+          background-color:rgb(255,170,0);
+          margin:auto;
+          border-radius:6px;
+          -o-border-radius:6px;
+          -ms-border-radius:6px;
+          -webkit-border-radius:6px;
+          -moz-border-radius:6px;
+        }
+
+        .loadingProgressG{
+          background-color:rgba(82,160,255,0.98);
+          margin-top:0;
+          margin-left:-160px;
+          animation-name:bounce_loadingProgressG;
+          -o-animation-name:bounce_loadingProgressG;
+          -ms-animation-name:bounce_loadingProgressG;
+          -webkit-animation-name:bounce_loadingProgressG;
+          -moz-animation-name:bounce_loadingProgressG;
+          animation-duration:1.105s;
+          -o-animation-duration:1.105s;
+          -ms-animation-duration:1.105s;
+          -webkit-animation-duration:1.105s;
+          -moz-animation-duration:1.105s;
+          animation-iteration-count:infinite;
+          -o-animation-iteration-count:infinite;
+          -ms-animation-iteration-count:infinite;
+          -webkit-animation-iteration-count:infinite;
+          -moz-animation-iteration-count:infinite;
+          animation-timing-function:linear;
+          -o-animation-timing-function:linear;
+          -ms-animation-timing-function:linear;
+          -webkit-animation-timing-function:linear;
+          -moz-animation-timing-function:linear;
+          width:160px;
+          height:12px;
+        }
+
+
+
+        @keyframes bounce_loadingProgressG{
+          0%{
+            margin-left:-160px;
+          }
+
+          100%{
+            margin-left:160px;
+          }
+        }
+
+        @-o-keyframes bounce_loadingProgressG{
+          0%{
+            margin-left:-160px;
+          }
+
+          100%{
+            margin-left:160px;
+          }
+        }
+
+        @-ms-keyframes bounce_loadingProgressG{
+          0%{
+            margin-left:-160px;
+          }
+
+          100%{
+            margin-left:160px;
+          }
+        }
+
+        @-webkit-keyframes bounce_loadingProgressG{
+          0%{
+            margin-left:-160px;
+          }
+
+          100%{
+            margin-left:160px;
+          }
+        }
+
+        @-moz-keyframes bounce_loadingProgressG{
+          0%{
+            margin-left:-160px;
+          }
+
+          100%{
+            margin-left:160px;
+          }
+        }
+      </style>
+
+      <div class="loadingContainer">
+        <p id="loadingText">Oh, slow internet !!</p>
+        <div id="loadingProgressG">
+          <div id="loadingProgressG_1" class="loadingProgressG"></div>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>
