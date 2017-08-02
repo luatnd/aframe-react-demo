@@ -1,7 +1,13 @@
 .idea/
 node_modules/
-npm-debug.log
+
 *.sw[ponm]
 gh-pages
 build
+
 yarn.lock
+yarn-error.log
+npm-debug.log
+
+# Ignore some tmp resource
+*.blend1
