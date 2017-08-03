@@ -23,8 +23,6 @@ export class Center extends React.Component {
 }
 
 
-export const renderAssets = () => {
-  return <Entity key="Center">
-    <a-asset-item id="obj_Drone166_dae" src={obj_Drone166_dae}/>
-  </Entity>
-}
+export const Assets = [
+  <a-asset-item id="obj_Drone166_dae" src={obj_Drone166_dae}/>,
+]

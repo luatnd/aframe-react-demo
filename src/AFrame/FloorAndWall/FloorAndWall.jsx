@@ -45,11 +45,9 @@ export class FloorAndWall extends React.Component {
   }
 }
 
-export const renderAssets = () => {
-  return <Entity key="FloorAndWall">
-    <img id="floorWooden" src={imgFloorWooden} alt="floorWooden"/>
-    <img id="imgBronze" src={imgBronze} alt="imgBronze"/>
-    <img id="imgMetalSheetDecor" src={imgMetalSheetDecor} alt="imgMetalSheetDecor"/>
-    <img id="imgCarbonYellow" src={imgCarbonYellow} alt="imgCarbonYellow"/>
-  </Entity>
-}
+export const Assets = [
+  <img id="floorWooden" src={imgFloorWooden} alt="floorWooden"/>,
+  <img id="imgBronze" src={imgBronze} alt="imgBronze"/>,
+  <img id="imgMetalSheetDecor" src={imgMetalSheetDecor} alt="imgMetalSheetDecor"/>,
+  <img id="imgCarbonYellow" src={imgCarbonYellow} alt="imgCarbonYellow"/>,
+]

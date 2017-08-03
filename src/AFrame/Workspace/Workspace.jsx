@@ -264,22 +264,18 @@ export class Workspace extends React.Component {
   }
 }
 
-export const renderAssets = () => {
-  return <Entity key="Workspace">
-    {/*<a-asset-item id="obj_ironman_dae" src="static/obj/IronMan/Ironman.dae"/>*/}
-    <a-asset-item id="obj_3DProjector_TurnOn_obj" src={obj_3DProjector_TurnOn_obj}/>
-    <a-asset-item id="obj_3DProjector_TurnOn_mtl" src={obj_3DProjector_TurnOn_mtl}/>
-    <a-asset-item id="obj_3DProjector_TurnOff_dae" src={obj_3DProjector_TurnOff_dae}/>
-    <a-asset-item id="obj_Ironman_dae" src={obj_Ironman_dae}/>
-    <a-asset-item id="obj_CircleTable_dae" src={obj_CircleTable_dae}/>
-    <a-asset-item id="obj_Monitor_obj" src={obj_Monitor_obj}/>
-    <a-asset-item id="obj_Monitor_mtl" src={obj_Monitor_mtl}/>
-    <a-asset-item id="obj_Monitor_dae" src={obj_Monitor_dae}/>
-    <a-asset-item id="obj_Keyboard_obj" src={obj_Keyboard_obj}/>
-    <a-asset-item id="obj_Keyboard_mtl" src={obj_Keyboard_mtl}/>
-    
-    <a-entity className="btnMixin">
-      <a-mixin id="yellow" material="color: #FFF88E;"></a-mixin>
-    </a-entity>
-  </Entity>
-}
+export const Assets = [
+  //<a-asset-item id="obj_ironman_dae" src="static/obj/IronMan/Ironman.dae"/>,
+  <a-asset-item id="obj_3DProjector_TurnOn_obj" src={obj_3DProjector_TurnOn_obj}/>,
+  <a-asset-item id="obj_3DProjector_TurnOn_mtl" src={obj_3DProjector_TurnOn_mtl}/>,
+  <a-asset-item id="obj_3DProjector_TurnOff_dae" src={obj_3DProjector_TurnOff_dae}/>,
+  <a-asset-item id="obj_Ironman_dae" src={obj_Ironman_dae}/>,
+  <a-asset-item id="obj_CircleTable_dae" src={obj_CircleTable_dae}/>,
+  <a-asset-item id="obj_Monitor_obj" src={obj_Monitor_obj}/>,
+  <a-asset-item id="obj_Monitor_mtl" src={obj_Monitor_mtl}/>,
+  <a-asset-item id="obj_Monitor_dae" src={obj_Monitor_dae}/>,
+  <a-asset-item id="obj_Keyboard_obj" src={obj_Keyboard_obj}/>,
+  <a-asset-item id="obj_Keyboard_mtl" src={obj_Keyboard_mtl}/>,
+  
+  <a-mixin id="yellow" material="color: #FFF88E;"></a-mixin>,
+];

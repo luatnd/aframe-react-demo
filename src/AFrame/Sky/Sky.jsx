@@ -16,9 +16,7 @@ export class Sky extends React.Component {
   }
 }
 
-export const renderAssets = () => {
-  return <Entity key="Sky">
-    <img id="sky" src={imgSky} alt="sky"/>
-    {/*<video id="videoMilkyWay" src={videoMilkyWay}/>*/}
-  </Entity>
-}
+export const Assets = [
+    <img id="sky" src={imgSky} alt="sky"/>,
+    //<video id="videoMilkyWay" src={videoMilkyWay}/>
+];

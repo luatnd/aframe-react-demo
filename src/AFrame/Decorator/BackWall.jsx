@@ -23,8 +23,6 @@ export class BackWall extends React.Component {
 }
 
 
-export const renderAssets = () => {
-  return <Entity key="BackWall">
-    <img id="obj_Drone166_img" src={obj_Drone166_img} alt="obj_Drone166_img"/>
-  </Entity>
-}
+export const Assets = [
+  <img id="obj_Drone166_img" src={obj_Drone166_img} alt="obj_Drone166_img"/>
+]

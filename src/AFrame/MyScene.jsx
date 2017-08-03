@@ -2,12 +2,15 @@ import React from 'react';
 import 'aframe';
 import 'aframe-always-fullscreen-component';
 import 'platform';
+
+//import '@gladeye/aframe-preloader-component'; // TODO: Add new type=material-ui for this component
+//import './Components/AssetsLoading'; // TODO: make aframe-react compoent for tracking this info
 import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
 
-var extras = require('aframe-extras');
-extras.registerAll();
+import ConsoleLogger from '../Helper/ConsoleLogger';
 
+import {AssetsLoading} from './Assets/AssetsLoading';
 import {FloorAndWall} from './FloorAndWall/FloorAndWall';
 import {Workspace} from './Workspace/Workspace';
 import {BackWall} from './Decorator/BackWall';
@@ -25,11 +28,21 @@ import {Assets} from './Assets/Assets';
  */
 export class MyScene extends React.Component {
   state = {
-    assetsLoading: true
+    assetsLoading: true,
+    assetLoaded: 0,
+    assetTotal: 1,
+    assetCurrentItem: null,
+    assetCurrentLoadedBytes: 0,
+    assetCurrentTotalBytes: 1,
   }
   
   cameraInstance = null; // NOTE: react ele and aframe ele is distinct, so plz carefully when get ele from react `ref`
   
+  componentWillMount () {
+    var extras = require('aframe-extras');
+    extras.registerAll();
+  }
+
   componentDidMount = () => {
     this.trackCameraCollide();
   }
@@ -57,8 +70,19 @@ export class MyScene extends React.Component {
       assetsLoading: status
     });
   }
+
+  updateAssetsLoadingInfo = ({assetLoaded, assetTotal, assetCurrentItem}) => {
+    console.log('updateAssetsLoadingInfo: ', {assetLoaded, assetTotal, assetCurrentItem});
+    this.setState({assetLoaded, assetTotal, assetCurrentItem});
+  }
+  updateAssetsCurrentInfo = ({assetCurrentLoadedBytes, assetCurrentTotalBytes}) => {
+    console.log('{updateAssetsCurrentInfo}: ', {assetCurrentLoadedBytes, assetCurrentTotalBytes});
+    this.setState({assetCurrentLoadedBytes, assetCurrentTotalBytes});
+  }
   
   render() {
+    ConsoleLogger.log('render', 'MyScene');
+    
     const TEST = false;
   
     return TEST ? this.renderTest() : this.renderProduction();
@@ -66,11 +90,21 @@ export class MyScene extends React.Component {
   
 
   renderProduction() {
-    const {assetsLoading} = this.state;
+    const {assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes} = this.state;
 
     return (
-      <Scene physics="debug: true" always-fullscreen platform="all" light="defaultLightsEnabled: false">
-        <Assets updateAssetsLoadingStatus={this.updateAssetsLoadingStatus}/>
+      <Scene physics="debug: true"
+             always-fullscreen
+             //preloader="type:bootstrap"
+             //assets-progress="debug: true"
+             platform="all"
+             light="defaultLightsEnabled: false"
+      >
+        <Assets timeout="30000"
+                updateAssetsCurrentInfo={this.updateAssetsCurrentInfo}
+                updateAssetsLoadingInfo={this.updateAssetsLoadingInfo}
+                updateAssetsLoadingStatus={this.updateAssetsLoadingStatus}
+        />
 
         <Entity className="camera" ref={reactEle => this.cameraInstance = reactEle}
                 camera="userHeight: 2; fov: 80;" // Assuming I'm 1.8m height, And the normal human fov is ~80
@@ -93,7 +127,10 @@ export class MyScene extends React.Component {
         </Entity>
         
         {assetsLoading
-          ? "Loading assets..."
+          ? <AssetsLoading
+              classes={{root: "assert-loading"}}
+              {...{assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes}}
+            />
           : <Entity>
           
             {/*<!--

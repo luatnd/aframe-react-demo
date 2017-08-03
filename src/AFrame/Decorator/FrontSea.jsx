@@ -18,8 +18,6 @@ export class FrontSea extends React.Component {
   }
 }
 
-export const renderAssets = () => {
-  return <Entity key="FrontSea">
-    <a-asset-item id="obj_E45_dae" src={obj_E45_dae}/>
-  </Entity>
-}
+export const Assets = [
+  <a-asset-item id="obj_E45_dae" src={obj_E45_dae}/>
+]

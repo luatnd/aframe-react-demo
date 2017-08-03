@@ -16,8 +16,6 @@ export class Light extends React.Component {
   }
 }
 
-export const renderAssets = () => {
-  return <Entity key="Light">
-    <a-asset-item id="obj_StreetLamp_dae" src={obj_StreetLamp_dae}/>
-  </Entity>
-}
+export const Assets = [
+  <a-asset-item id="obj_StreetLamp_dae" src={obj_StreetLamp_dae}/>
+]
