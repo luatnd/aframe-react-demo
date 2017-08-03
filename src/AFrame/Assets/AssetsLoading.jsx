@@ -34,7 +34,7 @@ export class AssetsLoading extends Component {
     const totalPercent = Math.floor(assetLoaded / assetTotal * 100);
     
     return (
-      <div className={`${classes.root} testTest`} style={{width: "80%", maxWidth: "480px", margin: "0 auto", marginTop: "40%"}}>
+      <div className={`${classes.root} testTest`} style={{width: "80%", maxWidth: "480px", margin: "0 auto", marginTop: "35%"}}>
         <h3 style={{
           color: 'rgba(0, 0, 0, 0.54)',
           margin: '1em 0 0.7em',
@@ -42,7 +42,7 @@ export class AssetsLoading extends Component {
           fontWeight: '400',
           fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
           lineHeight: '32px',
-        }}>Loading assets... {assetCurrentItem? `(${assetCurrentItem.id})`: ''}</h3>
+        }}>Loading assets... {assetCurrentItem? <span style={{fontSize:"smaller"}}>{`(${assetCurrentItem.id})`}</span>: ''}</h3>
         {/*<LinearProgress className="currentProgress" mode="determinate" value={currentPercent} />*/}
         <LinearProgress className="totalProgress" mode="determinate" value={totalPercent} style={{marginTop: "30px"}}/>
       </div>

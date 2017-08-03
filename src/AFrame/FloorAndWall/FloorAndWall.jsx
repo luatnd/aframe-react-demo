@@ -37,8 +37,10 @@ export class FloorAndWall extends React.Component {
                 material={`shader: flat; src: #imgMetalSheetDecor; repeat: 5 1`}/>
   
         {AFrameHelper.makeStaticBodyWall_for_XZplane('frontWall', [
+          {x: -12.5, y: 0, z: +12.5},
           {x: -12.5, y: 0, z: -12.5},
-          {x: +12.5, y: 0, z: -12.5}
+          {x: +12.5, y: 0, z: -12.5},
+          {x: +12.5, y: 0, z: +12.5},
         ])}
       </Entity>
     );

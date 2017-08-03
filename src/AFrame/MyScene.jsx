@@ -12,6 +12,7 @@ import ConsoleLogger from '../Helper/ConsoleLogger';
 
 import {AssetsLoading} from './Assets/AssetsLoading';
 import {FloorAndWall} from './FloorAndWall/FloorAndWall';
+import {PlaceholderFloor} from './FloorAndWall/PlaceholderFloor';
 import {Workspace} from './Workspace/Workspace';
 import {BackWall} from './Decorator/BackWall';
 import {FrontSea} from './Decorator/FrontSea';
@@ -105,16 +106,18 @@ export class MyScene extends React.Component {
                 updateAssetsLoadingInfo={this.updateAssetsLoadingInfo}
                 updateAssetsLoadingStatus={this.updateAssetsLoadingStatus}
         />
-
+  
+        
         <Entity className="camera" ref={reactEle => this.cameraInstance = reactEle}
                 camera="userHeight: 2; fov: 80;" // Assuming I'm 1.8m height, And the normal human fov is ~80
                 //look-controls // Can look around by mouse / turn your head
                 //wasd-controls // Can use keyboard to move
-                position="0 0 0" // Initial standing position
+                position="0 2 0" // Initial standing position
                 velocity
 
-                kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
+                kinematic-body="shape:box; radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
                 //kinematic-body
+                jump-ability
                 universal-controls // replace look-controls and wasd-controls
                 //gamepad-controls
                 keyboard-controls
@@ -125,6 +128,9 @@ export class MyScene extends React.Component {
           <a-cursor material="color: #ccc; shader: flat"/>
           {/* TODO: Make near/far limit, current: Can not click the box if more than 5m far */}
         </Entity>
+  
+        <PlaceholderFloor visible={false}/>
+  
         
         {assetsLoading
           ? <AssetsLoading
