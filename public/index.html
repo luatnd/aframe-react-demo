@@ -11,7 +11,8 @@
     </style>
   </head>
   <body>
-    <div id="sceneContainer" style="height: 100%; width: 100%;">
+    <div id="appContainer" style="height: 100%; width: 100%;">
+
       <div id="tmpProgressBar">
         <style>
 
@@ -79,13 +80,18 @@
           }
         </style>
 
-        <h3>Oh! Slow internet.</h3>
+        <h3 id="msg">Initializing ...</h3>
         <div class="c509">
           <div class="c510 c514">
             <div class="c517 c515 c522"></div>
             <div class="c517 c515 c523"></div>
           </div>
         </div>
+        <script>
+          setTimeout(function () {
+            document.getElementById('msg').innerHTML = 'Oh! Slow internet.';
+          }, 500);
+        </script>
 
       </div>
 

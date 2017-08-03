@@ -78,6 +78,27 @@ tsconfig.json
 }
 ```
 
+# Webpack addition config:
+To support decorator, you need to:
+
+webpack.config.dev.js
+```
+  {
+    ...
+    loader: 'babel',
+    query: {
+      ...
+
+      "presets": [ "react" ],
+      "plugins": [
+        "transform-decorators-legacy"
+      ],
+
+      ...
+    }
+  },
+```
+
 # Other:
 Modified: node_modules/aframe-physics-system/src/system/physics.js:25
  { default: false -> true },
