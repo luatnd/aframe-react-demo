@@ -6,126 +6,87 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Mxn0 workspace - AFrame WebVR Demo</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <style>
+      body{background: #eee}
+    </style>
   </head>
   <body>
     <div id="sceneContainer" style="height: 100%; width: 100%;">
+      <div id="tmpProgressBar">
+        <style>
 
-      <style>
-        body {
-          background: #703548;
-          height: 100%;
-        }
-        .loadingContainer{
-          width:160px;
-          height:50px;
-          margin:auto;
-          margin-top: 40%;
-          text-align: center;
-        }
-
-        #loadingText{color: #FFAA00}
-
-
-        /* Thanks to http://cssload.net/en/horizontal-bars */
-        #loadingProgressG{
-          width:160px;
-          height:12px;
-          overflow:hidden;
-          background-color:rgb(255,170,0);
-          margin:auto;
-          border-radius:6px;
-          -o-border-radius:6px;
-          -ms-border-radius:6px;
-          -webkit-border-radius:6px;
-          -moz-border-radius:6px;
-        }
-
-        .loadingProgressG{
-          background-color:rgba(82,160,255,0.98);
-          margin-top:0;
-          margin-left:-160px;
-          animation-name:bounce_loadingProgressG;
-          -o-animation-name:bounce_loadingProgressG;
-          -ms-animation-name:bounce_loadingProgressG;
-          -webkit-animation-name:bounce_loadingProgressG;
-          -moz-animation-name:bounce_loadingProgressG;
-          animation-duration:1.105s;
-          -o-animation-duration:1.105s;
-          -ms-animation-duration:1.105s;
-          -webkit-animation-duration:1.105s;
-          -moz-animation-duration:1.105s;
-          animation-iteration-count:infinite;
-          -o-animation-iteration-count:infinite;
-          -ms-animation-iteration-count:infinite;
-          -webkit-animation-iteration-count:infinite;
-          -moz-animation-iteration-count:infinite;
-          animation-timing-function:linear;
-          -o-animation-timing-function:linear;
-          -ms-animation-timing-function:linear;
-          -webkit-animation-timing-function:linear;
-          -moz-animation-timing-function:linear;
-          width:160px;
-          height:12px;
-        }
-
-
-
-        @keyframes bounce_loadingProgressG{
-          0%{
-            margin-left:-160px;
+          #tmpProgressBar {
+            width: 80%; max-width: 480px; margin: 0 auto;margin-top: 40%;
+          }
+          #tmpProgressBar *{
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+          }
+          h3 {
+            color: rgba(0, 0, 0, 0.54);
+            margin: 1em 0 0.7em;
+            font-size: 24px;
+            font-weight: 400;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            line-height: 32px;
           }
 
-          100%{
-            margin-left:160px;
-          }
-        }
-
-        @-o-keyframes bounce_loadingProgressG{
-          0%{
-            margin-left:-160px;
+          .c509 {
+            width: 100%;
+            margin-top: 30px;
           }
 
-          100%{
-            margin-left:160px;
-          }
-        }
-
-        @-ms-keyframes bounce_loadingProgressG{
-          0%{
-            margin-left:-160px;
+          .c510 {
+            height: 5px;
+            position: relative;
+            overflow: hidden;
           }
 
-          100%{
-            margin-left:160px;
-          }
-        }
-
-        @-webkit-keyframes bounce_loadingProgressG{
-          0%{
-            margin-left:-160px;
+          .c514 {
+            background-color: #ff80ab;
           }
 
-          100%{
-            margin-left:160px;
-          }
-        }
+          .c515 { background-color: #f50057; }
 
-        @-moz-keyframes bounce_loadingProgressG{
-          0%{
-            margin-left:-160px;
+          .c517 {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            position: absolute;
+            transition: transform 0.2s linear;
           }
 
-          100%{
-            margin-left:160px;
+          .c522 {
+            animation: mui-indeterminate1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+            will-change: left, right;
           }
-        }
-      </style>
 
-      <div class="loadingContainer">
-        <p id="loadingText">Oh, slow internet !!</p>
-        <div id="loadingProgressG">
-          <div id="loadingProgressG_1" class="loadingProgressG"></div>
+          .c523 {
+            animation: mui-indeterminate2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+            will-change: left, right;
+            animation-delay: 1.15s;
+          }
+
+          @keyframes mui-indeterminate1 {
+            0% { left: -35%; right: 100% }
+            60% { left: 100%; right: -90% }
+            100% { left: 100%; right: -90% }
+          }
+
+          @keyframes mui-indeterminate2 {
+            0% { left: -200%; right: 100% }
+            60% { left: 107%; right: -8% }
+            100% { left: 107%; right: -8% }
+          }
+        </style>
+
+        <h3>Oh! Slow internet.</h3>
+        <div class="c509">
+          <div class="c510 c514">
+            <div class="c517 c515 c522"></div>
+            <div class="c517 c515 c523"></div>
+          </div>
         </div>
+
       </div>
 
     </div>
