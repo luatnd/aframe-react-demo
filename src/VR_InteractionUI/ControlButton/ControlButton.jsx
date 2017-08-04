@@ -1,16 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from 'material-ui/Button';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import SettingsApplicationsIcon from 'material-ui-icons/SettingsApplications';
 import CloseIcon from 'material-ui-icons/Close';
+import NetworkWifiIcon from 'material-ui-icons/NetworkWifi';
+import {withStyles, createStyleSheet} from 'material-ui/styles';
+
+import styleSheet from './styleSheet';
 
 /**
  * A set of addition button on device screen,
  * Buttons stay beside Enter VR button
  */
+@withStyles(styleSheet)
 export default class ControlButton extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+  }
+
   state = {
     open:    false,
     message: null,
@@ -29,18 +39,21 @@ export default class ControlButton extends React.Component {
   };
   
   render() {
-    
+    const {classes} = this.props;
     const msg = <span id="message-id">Note archived</span>;
     
     return (
-      <div className="AdditionControlButton" style={{position: 'absolute', bottom: "21px", right: "100px", height: "52px", background: "rgba(0,0,0,.35)"}}>
-        
-        <Button id="btnAppSetting" onClick={this.handleClick} className="">
-          <SettingsApplicationsIcon />
-          <br/>
-          <span>Setting</span>
+      <div className={classes.controlBtnContainer}>
+        <Button id="btnFooSetting" onClick={this.handleClick} className={classes.controlBtn}>
+          <NetworkWifiIcon className={classes.controlIcon}/>
         </Button>
         
+        <Button id="btnAppSetting" onClick={this.handleClick} className={classes.controlBtn}>
+          <SettingsApplicationsIcon className={classes.controlIcon}/>
+        </Button>
+        
+        
+        {/* TODO: Move this Snack to another Component */}
         <Snackbar
           anchorOrigin={{vertical: 'top', horizontal: 'left'}}
           open={this.state.open}
