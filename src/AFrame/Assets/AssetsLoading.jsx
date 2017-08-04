@@ -5,16 +5,8 @@ import PropTypes from 'prop-types';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
-import Typography from 'material-ui/Typography';
 
 import ConsoleLogger from '../../Helper/ConsoleLogger';
-
-//const styleSheet = createStyleSheet({
-//  root: {
-//    width: '100%',
-//    marginTop: 30,
-//  },
-//});
 
 export class AssetsLoading extends Component {
   static propTypes = {
@@ -27,8 +19,6 @@ export class AssetsLoading extends Component {
   };
   
   render() {
-    console.log('this.props: ', this.props);
-    
     const {classes, assetLoaded, assetTotal, assetCurrentItem} = this.props;
     //const currentPercent = assetCurrentLoadedBytes / assetCurrentTotalBytes * 100;
     const totalPercent = Math.floor(assetLoaded / assetTotal * 100);

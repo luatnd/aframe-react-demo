@@ -18,6 +18,8 @@ export class Assets extends React.Component {
     updateAssetsLoadingInfo: PropTypes.func,
   };
   
+  debug = false;
+  
   assetsInstance = null;
   //assetItemInstances = {}; // ref to all asset items
   assetItemComponents;
@@ -26,7 +28,7 @@ export class Assets extends React.Component {
   current = 0;
   assetCurrentItem;
   
-  tmpInterval;
+  timeoutInstance;
   
   componentWillMount() {
     this.assetItemComponents = Object.keys(registeredAssets).map((key) => {
@@ -44,8 +46,10 @@ export class Assets extends React.Component {
         ))}
       </a-entity>
     });
-    
-    console.log('this.assetItemComponents: ', this.assetItemComponents);
+
+    if (this.debug) {
+      console.log('this.assetItemComponents: ', this.assetItemComponents);
+    }
   }
   
   componentDidMount() {
@@ -80,22 +84,30 @@ export class Assets extends React.Component {
     this.current++;
     this.assetCurrentItem = e.target;
     
-    if (e.target) {
+    if (this.debug && e.target) {
         console.info('[Assets] loaded: ', e.target);
     }
   
-    this.tmpInterval = setTimeout(this.props.updateAssetsLoadingInfo({
-      assetLoaded: this.current,
-      assetTotal: this.total,
-      assetCurrentItem: this.assetCurrentItem,
-    }), 200);
+    // updateAssetsLoadingInfo interval = 200ms
+    clearTimeout(this.timeoutInstance);
+    this.timeoutInstance = setTimeout(() => {
+      if (this.debug) {
+        ConsoleLogger.log('Attempt to updateAssetsLoadingInfo', 'Assets');
+      }
+      
+      this.props.updateAssetsLoadingInfo({
+        assetLoaded: this.current,
+        assetTotal: this.total,
+        assetCurrentItem: this.assetCurrentItem,
+      })
+    }, 200);
     
   }
   
   updateProgress = (e) => {
     //console.log('xhr: ', e);
     
-    this.tmpInterval = setTimeout(this.props.updateAssetsCurrentInfo({
+    this.timeoutInstance = setTimeout(this.props.updateAssetsCurrentInfo({
       assetCurrentLoadedBytes: e.detail.loadedBytes,
       assetCurrentTotalBytes:  e.detail.totalBytes ? e.detail.totalBytes : e.detail.loadedBytes
     }), 200);

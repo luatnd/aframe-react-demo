@@ -73,11 +73,9 @@ export class MyScene extends React.Component {
   }
 
   updateAssetsLoadingInfo = ({assetLoaded, assetTotal, assetCurrentItem}) => {
-    console.log('updateAssetsLoadingInfo: ', {assetLoaded, assetTotal, assetCurrentItem});
     this.setState({assetLoaded, assetTotal, assetCurrentItem});
   }
   updateAssetsCurrentInfo = ({assetCurrentLoadedBytes, assetCurrentTotalBytes}) => {
-    console.log('{updateAssetsCurrentInfo}: ', {assetCurrentLoadedBytes, assetCurrentTotalBytes});
     this.setState({assetCurrentLoadedBytes, assetCurrentTotalBytes});
   }
   
@@ -115,7 +113,7 @@ export class MyScene extends React.Component {
                 position="0 2 0" // Initial standing position
                 velocity
 
-                kinematic-body="shape:box; radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
+                kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
                 //kinematic-body
                 jump-ability
                 universal-controls // replace look-controls and wasd-controls
