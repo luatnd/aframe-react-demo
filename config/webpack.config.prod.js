@@ -188,6 +188,7 @@ module.exports = {
     new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
+      hash: true, // Luatnd: Enable hashed file name
       inject: true,
       template: paths.appHtml,
       minify: {

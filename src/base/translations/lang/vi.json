@@ -1,0 +1,26 @@
+{
+  "common": {
+    "ok": "Ok",
+    "cancel": "Hủy",
+    "tryAgain": "Thử lại",
+    "send": "Gửi",
+    "backButtonText": "Quay lại",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "authenticating": "Đang xác thực"
+  },
+
+  "date": {
+    "dmy": "dddd, DD MMMM Y",
+    "dateHour": "HH[h]mm ngày D MMMM",
+    "hour": "HH[h]mm",
+    "hour2": "HH:mm"
+  },
+
+  "languages": {
+    "select": "Chọn ngôn ngữ hiển thị",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh"
+  }
+}

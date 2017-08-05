@@ -1,0 +1,43 @@
+{
+  "common": {
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "tryAgain": "Try Again",
+    "send": "Send",
+    "backButtonText": "Back",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "authenticating": "Authenticating"
+  },
+
+  "date": {
+    "dmy": "ddd, MMM DD Y",
+    "dateHour": "MMM D, HH[h]mm",
+    "hour": "HH[h]mm",
+    "hour2": "HH:mm"
+  },
+
+  "errors": {
+    "login":{
+      "400": "Wrong username or password",
+      "EMAIL_UN_ACTIVE": "Email is not validated"
+    }
+  },
+
+  "languages": {
+    "select": "Select language",
+    "vi": "Vietnamese",
+    "en": "English"
+  },
+
+  "pageFoo": {
+    "title": "Page 1",
+    "foo": "bar"
+  },
+
+  "pageBar": {
+    "title": "Another Page",
+    "foo": "bar bar"
+  }
+}

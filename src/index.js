@@ -1,18 +1,21 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {MyScene} from './AFrame/MyScene'
-import {InteractionUI} from './VR_InteractionUI/InteractionUI'
+//import 'react-hot-loader/patch';
+//import { AppContainer } from 'react-hot-loader';
+import { Provider } from 'react-redux';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div style={{width:"100%", height: "100%"}}>
-        <MyScene/>
-        <InteractionUI/>
-      </div>
-    );
-  }
-}
+import App from './App';
+import { store, rehydrationPromise } from './base/redux/configureStore';
 
-ReactDOM.render(<App/>, document.querySelector('#appContainer'));
+
+rehydrationPromise.then(() => {
+  ReactDOM.render(
+    <Provider store={store}>
+      {/*<SocketWrapper>*/}
+      <App/>
+      {/*</SocketWrapper>*/}
+    </Provider>
+    , document.querySelector('#appContainer')
+  )
+});
