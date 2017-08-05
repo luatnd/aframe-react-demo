@@ -40,22 +40,6 @@ export default class Notification extends React.Component {
     return (
       <div className="notificationContainer" style={{overflow: "visible", position: "absolute"}}>
         
-        <Button onClick={this.handleClick}>Open simple snackbar</Button>
-        
-        <Snackbar
-          anchorOrigin={{vertical: 'top', horizontal: 'left'}}
-          open={this.state.open}
-          autoHideDuration={6e3}
-          onRequestClose={this.handleRequestClose}
-          SnackbarContentProps={{'aria-describedby': 'message-id',}}
-          message={msg}
-          action={[
-            <IconButton key="close" aria-label="Close" color="inherit" className={classes.close} onClick={this.handleRequestClose}>
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
-  
       </div>
     );
   }

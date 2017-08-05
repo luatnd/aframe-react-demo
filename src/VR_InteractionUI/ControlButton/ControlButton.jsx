@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Translate, Localize, I18n } from 'react-redux-i18n';
 
 import Button from 'material-ui/Button';
 import Snackbar from 'material-ui/Snackbar';
@@ -27,7 +28,11 @@ export default class ControlButton extends React.Component {
   };
   
   handleClick = () => {
-    this.setState({open: true});
+    this.setState({open: true, message: <Translate value="controlButton.appSettingMsg"/>});
+  };
+
+  handleClick2 = () => {
+    this.setState({open: true, message: <Translate value="controlButton.fooSettingMsg"/>});
   };
   
   handleRequestClose = (event, reason) => {
@@ -40,7 +45,6 @@ export default class ControlButton extends React.Component {
   
   render() {
     const {classes} = this.props;
-    const msg = <span id="message-id">Note archived</span>;
     
     return (
       <div className={classes.controlBtnContainer}>
@@ -48,7 +52,7 @@ export default class ControlButton extends React.Component {
           <NetworkWifiIcon className={classes.controlIcon}/>
         </Button>
         
-        <Button id="btnAppSetting" onClick={this.handleClick} className={classes.controlBtn}>
+        <Button id="btnAppSetting" onClick={this.handleClick2} className={classes.controlBtn}>
           <SettingsApplicationsIcon className={classes.controlIcon}/>
         </Button>
         
@@ -60,7 +64,7 @@ export default class ControlButton extends React.Component {
           autoHideDuration={6e3}
           onRequestClose={this.handleRequestClose}
           SnackbarContentProps={{'aria-describedby': 'message-id',}}
-          message={msg}
+          message={<span id="message-id">{this.state.message}</span>}
           action={[
             <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleRequestClose}>
               <CloseIcon />

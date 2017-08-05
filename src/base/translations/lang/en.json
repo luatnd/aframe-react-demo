@@ -31,9 +31,9 @@
     "en": "English"
   },
 
-  "pageFoo": {
-    "title": "Page 1",
-    "foo": "bar"
+  "controlButton": {
+    "appSettingMsg": "TODO: Show app setting screen here",
+    "fooSettingMsg": "Notification: Foo bar setting was disable"
   },
 
   "pageBar": {
