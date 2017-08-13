@@ -16,12 +16,20 @@
       <div id="tmpProgressBar">
         <style>
 
+          body{ height: 100vh;}
+
           #tmpProgressBar {
-            width: 80%; max-width: 480px; margin: 0 auto;margin-top: 35%;
+            display: flex;
+            align-items: center;
+            width: 80%; max-width: 480px;
+            margin: 0 auto;
+            height: 100%;
+            /*margin-top: 45%;*/
           }
           #tmpProgressBar *{
             font-family: "Roboto", "Helvetica", "Arial", sans-serif;
           }
+          #tmpProgressBar > div { width: 100%;}
           h3 {
             color: rgba(0, 0, 0, 0.54);
             margin: 1em 0 0.7em;
@@ -80,13 +88,16 @@
           }
         </style>
 
-        <h3 id="msg">Initializing ...</h3>
-        <div class="c509">
-          <div class="c510 c514">
-            <div class="c517 c515 c522"></div>
-            <div class="c517 c515 c523"></div>
+        <div>
+          <h3 id="msg">Initializing ...</h3>
+          <div class="c509">
+            <div class="c510 c514">
+              <div class="c517 c515 c522"></div>
+              <div class="c517 c515 c523"></div>
+            </div>
           </div>
         </div>
+
         <script>
           setTimeout(function () {
             document.getElementById('msg').innerHTML = 'Oh! Slow internet.';
