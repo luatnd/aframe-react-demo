@@ -5,40 +5,47 @@ import { combineReducers } from 'redux';
 interface NotificationType {
   open:boolean,
   type:'text' | 'avatar',
-  message:string,
+  message:any, // String or React Component
   duration:number,
 }
 
 
 const initialState:NotificationType = {
-  open: true,
+  open: false,
   type: 'text',
   message: '',
   duration: 6000,
 }
 
-
+/**
+ * Naming rule (<mean required> [mean optional]):
+ * Format:      <Action> [Addition]  <ReducerName>   [Addition of Reducer]
+ * Example:     HIDE                  NOTIFICATION
+ * Example:     SET                   NOTIFICATION    ATTRS
+ * Example:     SHOW      TEXT        NOTIFICATION
+ */
 export const setAttr:any = createAction('SET NOTIFICATION ATTRS', (option:NotificationType) => option);
 export const updateAttr:any = createAction('UPDATE NOTIFICATION ATTR', (option:NotificationType) => option);
-export const showTextNotification:any = createAction('SHOW TEXT NOTIFICATION', (message:string) => message);
-export const showAvatarNotification:any = createAction('SHOW AVATAR NOTIFICATION', (message:string) => message);
+export const hideNotification:any = createAction('HIDE NOTIFICATION');
+export const showTextNotification:any = createAction('SHOW TEXT NOTIFICATION', (message:string) => ({message, type: 'text'}));
+export const showAvatarNotification:any = createAction('SHOW AVATAR NOTIFICATION', (message:any) => ({message, type: 'avatar'}));
 
 export const notificationReducer = combineReducers({
   options: handleActions({
 
     [setAttr]: (state, action) => ({...initialState, ...action.payload}),
     [updateAttr]: (state, action) => ({...state, ...action.payload}),
+    [hideNotification]: (state, action) => ({...state, open: false}),
 
     [combineActions(
       showTextNotification,
       showAvatarNotification
-    )]: (state, action) => {
-      console.log('state, action: ', state, action);
-
-      const message = action.payload;
-
-      return {...state, message}
-    },
+    )]: (state, action) => ({
+      ...state,
+      open: true,
+      type: action.payload.type,
+      message: action.payload.message
+    }),
 
   }, {...initialState}),
 });
