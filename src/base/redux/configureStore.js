@@ -6,7 +6,7 @@ import promiseMiddleware from 'redux-promise';
 import localForage from "localforage";
 //import logger from 'redux-logger'
 import { clearThunk } from './createActionThunk';
-import { rootReducer } from './rootReducer';
+import { rootReducer, ignorePersistReducers } from './rootReducer';
 
 
 /** Devtools */
@@ -53,8 +53,9 @@ store.dispatch(setLocale(DEFAULT_LOCALE));
  * Load and save only some key was defined, [] mean no keys was save
  * Because blacklist and white list have some bug so that we use this filer to make blacklist
  */
-const toastWhitelistFilter = createFilter('toast', []);
-const tradeShowWhitelistFilter = createFilter('tradeshow', []);
+const getEmptyTransformFilters = (ignoredReducerNames) => {
+  return ignoredReducerNames.map(name => createFilter(name, []));
+}
 
 export const rehydrationPromise = new Promise(resolve => {
   
@@ -64,10 +65,7 @@ export const rehydrationPromise = new Promise(resolve => {
     {
       // blacklist: ['toast'],
       // whitelist: ['someTransientReducer'],
-      transforms: [
-        toastWhitelistFilter,
-        tradeShowWhitelistFilter,
-      ],
+      transforms: getEmptyTransformFilters(ignorePersistReducers),
       storage: localForage
     },
     () => {
