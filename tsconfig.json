@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "experimentalDecorators": true,
     "outDir": "./dist/",
-    "sourceMap": true,
+    "sourceMap": false, // false to improve build performance
     "noImplicitAny": true,
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
+    "lib": [ "es2015", "dom" ],
+    "types" : [
 
-    "lib": [ "es2015", "dom" ]
-
+    ]
   },
   "include": [
     "./src/**/*"
