@@ -11,7 +11,7 @@ export class FrontSea extends React.Component {
     return (
       <Entity {...this.props} className="decoratorLocation frontSea" position="0 0 -15">
         
-        <Entity collada-model="#obj_E45_dae" position="-10 0.5 -5" rotation="0 0 0"/>
+        {/*<Entity collada-model="#obj_E45_dae" position="-10 0.5 -5" rotation="0 0 0"/>*/}
         
       </Entity>
     );
