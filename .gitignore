@@ -5,7 +5,6 @@ node_modules/
 gh-pages
 build
 
-yarn.lock
 yarn-error.log
 npm-debug.log
 
