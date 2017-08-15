@@ -2,6 +2,9 @@ import React from 'react';
 import 'aframe';
 import 'aframe-always-fullscreen-component';
 import 'platform';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 //import '@gladeye/aframe-preloader-component'; // TODO: Add new type=material-ui for this component
 //import './Components/AssetsLoading'; // TODO: make aframe-react compoent for tracking this info
@@ -9,6 +12,8 @@ import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
 
 import ConsoleLogger from '../Helper/ConsoleLogger';
+import {setSceneInstance} from './MySceneRedux';
+import getDispatchMapper from '../base/redux/dispatch';
 
 import {AssetsLoading} from './Assets/AssetsLoading';
 import {FloorAndWall} from './FloorAndWall/FloorAndWall';
@@ -27,7 +32,18 @@ import {Assets} from './Assets/Assets';
  *
  * TODO: Build another boiler plate base on webpack 2
  */
+
+@connect(
+  state => {},
+  getDispatchMapper({
+    setSceneInstance
+  })
+)
 export class MyScene extends React.Component {
+  static propTypes = {
+    setSceneInstance: PropTypes.func,
+  }
+
   state = {
     assetsLoading: true,
     assetLoaded: 0,
@@ -37,7 +53,11 @@ export class MyScene extends React.Component {
     assetCurrentTotalBytes: 1,
   }
   
-  cameraInstance = null; // NOTE: react ele and aframe ele is distinct, so plz carefully when get ele from react `ref`
+  /**
+   * NOTE: react ele and aframe ele is distinct, so plz carefully when get ele from react `ref`
+   */
+  cameraInstance = null;
+  sceneInstance = null;
   
   componentWillMount () {
     var extras = require('aframe-extras');
@@ -46,6 +66,8 @@ export class MyScene extends React.Component {
 
   componentDidMount = () => {
     this.trackCameraCollide();
+
+    this.props.setSceneInstance(this.sceneInstance);
   }
   
   trackCameraCollide = () => {
@@ -98,6 +120,8 @@ export class MyScene extends React.Component {
              //assets-progress="debug: true"
              platform="all"
              light="defaultLightsEnabled: false"
+             vr-mode-ui="enabled: false" // hide the default vr button
+             ref={reactEle => this.sceneInstance = reactEle}
       >
         <Assets timeout="30000"
                 updateAssetsCurrentInfo={this.updateAssetsCurrentInfo}

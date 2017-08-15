@@ -2,7 +2,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 export default createStyleSheet(theme => ({
   controlBtnContainer: {
-    position: 'absolute', right: '70px', bottom: '20px',
+    position: 'absolute', right: '25px', bottom: '20px',
     background: "transparent",
     zIndex: 9999,
   },
@@ -17,13 +17,19 @@ export default createStyleSheet(theme => ({
   },
   
   controlIcon: {}, // Defined here
+  controlIconVR: {
+    // 24px is the default size of controlIcon
+    opacity: 0, width: '24px', height: '24px', lineHeight: '24px'
+  },
   
   '@media (min-width: 1024px)': {
     controlIcon: {}, // NOTE: It's a bug that you must define it here to be included bellow
+    controlIconVR: {},
     controlBtn: {
-      '& svg$controlIcon': {
+      '& svg$controlIcon, & $controlIconVR': {
         width: '36px',
         height: '36px',
+        lineHeight: '36px',
       },
     }
   }
