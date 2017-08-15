@@ -2,7 +2,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 export default createStyleSheet(theme => ({
   controlBtnContainer: {
-    position: 'absolute', right: '20px', top: '20px',
+    position: 'absolute', right: '70px', bottom: '20px',
     background: "transparent",
     zIndex: 9999,
   },

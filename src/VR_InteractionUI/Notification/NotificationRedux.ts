@@ -28,7 +28,7 @@ export const setAttr = createAction('SET NOTIFICATION ATTRS', (option:Notificati
 export const updateAttr:any = createAction('UPDATE NOTIFICATION ATTR', (option:NotificationType) => option);
 export const hideNotification:any = createAction('HIDE NOTIFICATION');
 export const showTextNotification:any = createAction('SHOW TEXT NOTIFICATION', (message:string) => ({message, type: 'text'}));
-export const showAvatarNotification:any = createAction('SHOW AVATAR NOTIFICATION', (message:any) => ({message, type: 'avatar'}));
+export const showAvatarNotification:any = createAction('SHOW AVATAR NOTIFICATION', (message:Element) => ({message, type: 'avatar'}));
 
 export const notificationReducer = combineReducers({
   options: handleActions({
