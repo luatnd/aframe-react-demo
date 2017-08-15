@@ -24,7 +24,7 @@ const initialState:NotificationType = {
  * Example:     SET                   NOTIFICATION    ATTRS
  * Example:     SHOW      TEXT        NOTIFICATION
  */
-export const setAttr:any = createAction('SET NOTIFICATION ATTRS', (option:NotificationType) => option);
+export const setAttr = createAction('SET NOTIFICATION ATTRS', (option:NotificationType) => option);
 export const updateAttr:any = createAction('UPDATE NOTIFICATION ATTR', (option:NotificationType) => option);
 export const hideNotification:any = createAction('HIDE NOTIFICATION');
 export const showTextNotification:any = createAction('SHOW TEXT NOTIFICATION', (message:string) => ({message, type: 'text'}));
@@ -33,7 +33,7 @@ export const showAvatarNotification:any = createAction('SHOW AVATAR NOTIFICATION
 export const notificationReducer = combineReducers({
   options: handleActions({
 
-    [setAttr]: (state, action) => ({...initialState, ...action.payload}),
+    [setAttr as any]: (state, action) => ({...initialState, ...action.payload}),
     [updateAttr]: (state, action) => ({...state, ...action.payload}),
     [hideNotification]: (state, action) => ({...state, open: false}),
 
