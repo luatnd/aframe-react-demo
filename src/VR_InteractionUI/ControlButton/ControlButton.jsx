@@ -44,11 +44,11 @@ export default class ControlButton extends React.Component {
     
     return (
       <div className={classes.controlBtnContainer}>
-        <Button id="btnFooSetting" onClick={this.handleClick} className={classes.controlBtn}>
+        <Button id="btnFooSetting" onClick={this.handleClick2} className={classes.controlBtn}>
           <NetworkWifiIcon className={classes.controlIcon}/>
         </Button>
         
-        <Button id="btnAppSetting" onClick={this.handleClick2} className={classes.controlBtn}>
+        <Button id="btnAppSetting" onClick={this.handleClick} className={classes.controlBtn}>
           <SettingsApplicationsIcon className={classes.controlIcon}/>
         </Button>
 
