@@ -23,11 +23,15 @@ const cameraInitialState:any = {
 /**
  * NOTE: Do not use setSceneInstance because it very heavily to redux, extremely bad effect to performance and buggy
  */
-//export const setSceneInstance = createAction('SET SCENE INSTANCE', (instance:Element) => instance);
+export const setSceneInstance = createAction('SET SCENE INSTANCE', (instance:Element) => instance);
 export const setSceneEnterVRCallBack = createAction('SET ENTER_VR CALLBACK', (callback:() => void) => callback);
 export const updateCameraStatus:any = createAction('UPDATE CAMERA STATUS', (status:string) => status);
 
 export const sceneReducer = combineReducers({
+  instance: handleActions({
+    [setSceneInstance as any]: (state, {payload}) => (payload),
+  }, null),
+
   enterVR: handleActions({
     [setSceneEnterVRCallBack as any]: (state, {payload}) => (payload),
   }, null),

@@ -12,7 +12,7 @@ import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
 
 import ConsoleLogger from '../Helper/ConsoleLogger';
-import {updateCameraStatus, CameraStatus, setSceneEnterVRCallBack} from './MySceneRedux';
+import {setSceneInstance, updateCameraStatus, CameraStatus, setSceneEnterVRCallBack} from './MySceneRedux';
 import {showDialog} from '../VR_InteractionUI/Dialog/DialogRedux';
 
 import {AssetsLoading} from './Assets/AssetsLoading';
@@ -39,6 +39,7 @@ import {Assets} from './Assets/Assets';
 @connect(
   state => ({}),
   getDispatchMapper({
+    setSceneInstance,
     setSceneEnterVRCallBack,
     updateCameraStatus,
     showDialog,
@@ -75,8 +76,8 @@ export class MyScene extends React.Component {
     this.trackCameraCollide();
     this.trackCameraPosition();
 
-    console.log('this.sceneInstance.el: ', this.sceneInstance.el);
-    this.props.setSceneEnterVRCallBack(this.sceneInstance.el.enterVR);
+    //this.props.setSceneInstance(this.sceneInstance);
+    //this.props.setSceneEnterVRCallBack(this.sceneInstance.el.enterVR);
   }
   
   trackCameraCollide = () => {
@@ -176,7 +177,7 @@ export class MyScene extends React.Component {
              //assets-progress="debug: true"
              platform="all"
              light="defaultLightsEnabled: false"
-             vr-mode-ui="enabled: false" // hide the default vr button
+             vr-mode-ui="enabled: true" // show the default vr button --> We'll hide it later
              ref={reactEle => this.sceneInstance = reactEle}
       >
         <Assets timeout="30000"

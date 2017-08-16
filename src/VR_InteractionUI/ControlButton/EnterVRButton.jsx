@@ -5,6 +5,7 @@
 
 import 'babel-polyfill';
 import React from 'react';
+import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -21,8 +22,30 @@ import styleSheet from './styleSheet';
   }
 )
 export default class EnterVRButton extends React.Component {
+  aframeEnterVrBtn = null;
+  
+  componentDidMount = () => {
+    var myInterval = setInterval(() => {
+      this.aframeEnterVrBtn = document.querySelector('.a-enter-vr .a-enter-vr-button');
+      
+      if (this.aframeEnterVrBtn.localName) {
+        clearInterval(myInterval);
+  
+        this.aframeEnterVrBtn.style.opacity = 0;
+        this.aframeEnterVrBtn.style.position = 'absolute';
+        this.aframeEnterVrBtn.style.bottom = '-100px';
+      }
+    }, 500);
+  }
 
   enterVR = (e) => {
+    if (this.aframeEnterVrBtn) {
+      this.aframeEnterVrBtn.click();
+    } else {
+      console.warn("Aframe is not ready for VR mode");
+    }
+    return;
+    
     if (this.props.enterVR) {
       this.props.enterVR();
     } else {
