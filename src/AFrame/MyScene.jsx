@@ -34,6 +34,7 @@ import {Assets} from './Assets/Assets';
  *    * Build another boiler plate base on webpack 2
  *    * Migrate camera to a new component
  *    * Asset status to Redux
+ *    * Show screen content on ready
  */
 
 @connect(
@@ -66,6 +67,7 @@ export class MyScene extends React.Component {
    */
   cameraInstance = null;
   sceneInstance = null;
+  cameraFallenNotice = false;
   
   componentWillMount () {
     var extras = require('aframe-extras');
@@ -110,6 +112,7 @@ export class MyScene extends React.Component {
     
     setTimeout(()=> {
       this.setState({cameraPhysically: true});
+      this.cameraFallenNotice = false;
       this.props.updateCameraStatus(CameraStatus.onFloor);
     }, 1000);
   }
@@ -119,24 +122,23 @@ export class MyScene extends React.Component {
       return;
     }
     
-    const CONSIDER_FALlING_YPOS = -10;
-    let noticed = false;
+    const CONSIDER_FALlING_YPOS = -100;
     
     // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
     this.cameraInstance.el.addEventListener('componentchanged', (e) => {
-      if (e.detail.name === 'position' && !noticed) {
-        //console.log('Camera position went from', e.detail.oldData, 'to', e.detail.newData);
+      if (e.detail.name === 'position' && !this.cameraFallenNotice) {
         if (e.detail.newData.y < CONSIDER_FALlING_YPOS) {
-          noticed = true;
-
+          
+          this.cameraFallenNotice = true;
           this.props.updateCameraStatus(CameraStatus.fallen); // Why error ???
+          this.props.updateCameraStatus(CameraStatus.fallen); // Why error ???
+
+          // TODO: Ask before reset --> Need confirm before reset
+          this.props.showDialog({
+            message: <span>But you've just done a teleport to initial position</span>
+          });
+          
           this.resetCamera();
-          
-          
-          // TODO: Ask before reset
-          //this.props.showDialog({
-          //  message: <span>You\'re falling down to fast, do you wanna do a teleport back</span>
-          //});
         }
       }
     });
