@@ -120,7 +120,8 @@ export class Workspace extends React.Component {
           position={`0 ${this.workspace.keyboard.customY} ${keyboardDistance}`}/>}
           
         {screenContent &&
-        <Entity position="0 0 0">
+        <Entity position="0 1.115 -0.049"
+                rotation="-4.267 0 0"> {/*4.467*/}
           {screenContent}
         </Entity>}
         
@@ -213,10 +214,24 @@ export class Workspace extends React.Component {
     });
   }
   
+  /**
+   * Make screen content
+   * How to calculate screen content size:
+   * 1. set geometry="primitive: plane; width:XXXX", the geometry_height will be auto calculated by Html shader
+   * 2. Set #screenContent_x 's width = XX px
+   * 3. Set #screenContent_x 's height = geometry_width / expected_geometry_height / screenContent_width
+   *  NOTE:
+   *      screen ratio = 1.499 width / 0.656 height
+   *      geometry_width = 3meters (but using 2.9 is enough)(known) --> geometry_height = 2.9/1.499*0.656 = 1.269
+   *      htmlContentW = 1000px; htmlContentH = 1000 px / 2.9 * 1.269 = 436 px
+   *
+   * @param transparentBg
+   * @returns {XML}
+   */
   getScreenContent0 = (transparentBg = true) => {
+    // NOTE: position rotation already setup at screen generation
     return <a-entity
-      geometry="primitive: plane; width:1; height:0.5;"
-      position="0 1 0"
+      geometry="primitive: plane; width:2.96; height:0;" // meterial="ratio:width" will base on geometry width and set the geometry height to auto :(
       material={`transparent:${transparentBg}; side: double; shader: html; target: #screenContent_0; fps:1; ratio:width; debug:1;`}/>
   }
   
@@ -255,7 +270,7 @@ export class Workspace extends React.Component {
           <Entity className="CircleTableSurfaceOverwrite"/>
           
           <Entity className="screensCircle">
-            {this.getNthScreen(0, true, this.getScreenContent0(true))}
+            {this.getNthScreen(0, true, this.getScreenContent0(false))}
             {this.getNthScreen(1)}
             {this.getNthScreen(-1)}
             {/*{this.getNthScreen(2)}*/}
