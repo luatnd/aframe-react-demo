@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
-//import BookShelfScreen from './ScreenContent/Bookshelf';
+import BookShelfScreen from './ScreenContent/Bookshelf';
 //import MaterialUIShaderTest from './ScreenContent/MaterialUIShaderTest';
 
 const styleSheet = {
@@ -51,11 +51,11 @@ export class HtmlShader extends React.Component {
           </p>
         </div>
   
-        <div id="screenContent_m2" className={`${classes.screenContent_x}`}>
-          {/*<BookShelfScreen/>*/}
+        <div id="screenContent_2" className={`${classes.screenContent_x}`}>
+          <BookShelfScreen/>
         </div>
 
-        <div id="screenContent_2" className={`${classes.screenContent_x}`}>
+        <div id="screenContent_m2" className={`${classes.screenContent_x}`}>
           {/*<MaterialUIShaderTest/>*/}
         </div>
 

@@ -226,14 +226,27 @@ export class Workspace extends React.Component {
    *      geometry_width = 3meters (but using 2.9 is enough)(known) --> geometry_height = 2.9/1.499*0.656 = 1.269
    *      htmlContentW = 1000px; htmlContentH = 1000 px / 2.9 * 1.269 = 436 px
    *
-   * @param transparentBg
+   * @param {int|null} index screen position; 0 is center, negative is right, positive is left
+   * @param {boolean} transparentBg Allow transparent texture
+   * @param {number} fps 10 mean 10frame per second, 0.5 mean 1 frame per 2 second.
+   * @param {int} debug 10 mean 10frame per second, 0.5 mean 1 frame per 2 second.
    * @returns {XML}
    */
-  getScreenContent0 = (transparentBg = true) => {
+  getScreenContent = (index = null, transparentBg = true, fps = 0, debug = 0) => {
+    if (index === null) {
+        return null;
+    }
+
+    const iid = index < 0 ? 'm' + (-index) : index;
+
     // NOTE: position rotation already setup at screen generation
     return <a-entity
       geometry="primitive: plane; width:2.96; height:0;" // meterial="ratio:width" will base on geometry width and set the geometry height to auto :(
-      material={`transparent:${transparentBg}; side: double; shader: html; target: #screenContent_0; fps:1; ratio:width; debug:1;`}/>
+      material={`
+        transparent:${transparentBg};
+        side: double;
+        shader: html; target: #screenContent_${iid}; fps:${fps}; ratio:width; debug: ${debug};
+      `}/>
   }
   
   render() {
@@ -271,11 +284,11 @@ export class Workspace extends React.Component {
           <Entity className="CircleTableSurfaceOverwrite"/>
           
           <Entity className="screensCircle">
-            {this.getNthScreen(0, true, this.getScreenContent0(true))}
-            {this.getNthScreen(1)}
-            {this.getNthScreen(-1)}
-            {/*{this.getNthScreen(2)}*/}
-            {/*{this.getNthScreen(-2)}*/}
+            {this.getNthScreen(0, true, this.getScreenContent(0, true))}
+            {this.getNthScreen(1, false, this.getScreenContent(null, true))}
+            {this.getNthScreen(-1, false, this.getScreenContent(null, true))}
+            {this.getNthScreen(2, false, this.getScreenContent(2, true))}
+            {this.getNthScreen(-2, false, this.getScreenContent(-2, true))}
   
             <Entity className="ironMan_3DProjector" position="2.046 1.025 3.125" rotation="0 210 0">
               {projector3DTurnOn
