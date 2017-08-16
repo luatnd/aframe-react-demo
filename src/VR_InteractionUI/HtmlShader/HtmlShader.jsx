@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
 import BookShelfScreen from './ScreenContent/Bookshelf';
-//import MaterialUIShaderTest from './ScreenContent/MaterialUIShaderTest';
+import MaterialUIShaderTest from './ScreenContent/MaterialUIShaderTest';
 
 const styleSheet = {
   aHiddenContainer: {
@@ -56,7 +56,7 @@ export class HtmlShader extends React.Component {
         </div>
 
         <div id="screenContent_m2" className={`${classes.screenContent_x}`}>
-          {/*<MaterialUIShaderTest/>*/}
+          <MaterialUIShaderTest/>
         </div>
 
 

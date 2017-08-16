@@ -288,7 +288,7 @@ export class Workspace extends React.Component {
             {this.getNthScreen(1, false, this.getScreenContent(null, true))}
             {this.getNthScreen(-1, false, this.getScreenContent(null, true))}
             {this.getNthScreen(2, false, this.getScreenContent(2, true))}
-            {this.getNthScreen(-2, false, this.getScreenContent(-2, true))}
+            {this.getNthScreen(-2, false, this.getScreenContent(-2, true, 5))}
   
             <Entity className="ironMan_3DProjector" position="2.046 1.025 3.125" rotation="0 210 0">
               {projector3DTurnOn
