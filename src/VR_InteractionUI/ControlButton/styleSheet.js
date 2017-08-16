@@ -1,6 +1,4 @@
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-
-export default createStyleSheet(theme => ({
+export default {
   controlBtnContainer: {
     position: 'absolute', right: '25px', bottom: '20px',
     background: "transparent",
@@ -33,4 +31,4 @@ export default createStyleSheet(theme => ({
       },
     }
   }
-}));
+};

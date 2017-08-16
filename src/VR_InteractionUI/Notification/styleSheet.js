@@ -1,8 +1,6 @@
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-
-export default createStyleSheet(theme => ({
+export default {
   close: {
-    width: theme.spacing.unit * 4,
-    height: theme.spacing.unit * 4,
+    width: 24,
+    height: 24,
   },
-}));
+};
