@@ -35,27 +35,9 @@ function Chips(props) {
   const classes = props.classes;
   return (
     <div className={classes.row}>
-      <Chip label="Basic Chip" className={classes.chip} />
-      <Chip
-        avatar={<Avatar>MB</Avatar>}
-        label="Clickable Chip"
-        onClick={handleClick}
-        className={classes.chip}
-      />
       <Chip
         avatar={<Avatar src={uxecoImage} />}
         label="Deletable Chip"
-        onRequestDelete={handleRequestDelete}
-        className={classes.chip}
-      />
-      <Chip
-        avatar={
-          <Avatar>
-            <FaceIcon className={classes.svgIcon} />
-          </Avatar>
-        }
-        label="Clickable Deletable Chip"
-        onClick={handleClick}
         onRequestDelete={handleRequestDelete}
         className={classes.chip}
       />

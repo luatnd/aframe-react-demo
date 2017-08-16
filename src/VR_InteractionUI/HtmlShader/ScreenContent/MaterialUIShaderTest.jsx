@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
-
+import Typography from 'material-ui/Typography';
 
 import IconAvatars from './MuiComponentExamples/IconAvatars';
 import Badge from './MuiComponentExamples/Badge';
@@ -23,6 +23,7 @@ const styles = theme => ({
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    background: '#ddd',
   },
 });
 
@@ -32,25 +33,47 @@ function MaterialUIShaderTest(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={24}>
-        <Grid item xs>
+        
+        <Grid item xs={8}>
+          <Grid container spacing={24}>
+            
+            <Grid item xs>
   
-          <IconAvatars/>
-          <Badge/>
-          <Chips/>
-          
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>
+              <Typography type="display1" gutterBottom style={{marginTop: 0, color: 'rgb(65,177,177)'}}>Material UI Compatible</Typography>
+              
+              <IconAvatars/>
+              <Badge/>
+              <Chips/>
+    
+            </Grid>
+    
+            <Grid item xs>
+              <Paper className={classes.paper}>
+        
+                <MediaControlCard/>
+      
+              </Paper>
+            </Grid>
             
-            <MediaControlCard/>
+            <Grid item xs>
+              
+            </Grid>
             
-          </Paper>
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <p>Material UI SVG icon was broken ¯\_(ツ)_/¯ | TODO: Try the FontAwesome!</p>
+              </Paper>
+            </Grid>
+            
+          </Grid>
         </Grid>
-        <Grid item xs>
+        
+        <Grid item xs={4}>
           <RecipeReviewCard/>
           
         </Grid>
       </Grid>
+      
       <Grid container spacing={24}>
         <Grid item xs>
           <Paper className={classes.paper}>xs</Paper>
