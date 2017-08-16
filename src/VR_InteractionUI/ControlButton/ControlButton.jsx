@@ -20,7 +20,7 @@ import styleSheet from './styleSheet';
  */
 @withStyles(styleSheet)
 @connect(
-  state => {},
+  state => ({}),
   dispatch => bindActionCreators({
     showTextNotification,
     showAvatarNotification,

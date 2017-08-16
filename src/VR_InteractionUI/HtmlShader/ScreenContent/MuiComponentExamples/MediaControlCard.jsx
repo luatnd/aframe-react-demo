@@ -14,6 +14,7 @@ import albumCover from '../../../../../assets/img/livefromspace.jpg';
 const styles = {
   card: {
     display: 'flex',
+    height:215,
   },
   details: {
     display: 'flex',

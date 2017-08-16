@@ -12,6 +12,7 @@ import Badge from './MuiComponentExamples/Badge';
 import MediaControlCard from './MuiComponentExamples/MediaControlCard';
 import RecipeReviewCard from './MuiComponentExamples/RecipeReviewCard';
 import Chips from './MuiComponentExamples/Chips';
+import LinearDeterminate from './MuiComponentExamples/LinearDeterminate';
 
 
 const styles = theme => ({
@@ -20,7 +21,7 @@ const styles = theme => ({
     marginTop: 30,
   },
   paper: {
-    padding: 16,
+    padding: '8px 16px',
     textAlign: 'center',
     color: theme.palette.text.secondary,
     background: '#ddd',
@@ -39,7 +40,7 @@ function MaterialUIShaderTest(props) {
             
             <Grid item xs>
   
-              <Typography type="display1" gutterBottom style={{marginTop: 0, color: 'rgb(65,177,177)'}}>Material UI Compatible</Typography>
+              <Typography type="display1" gutterBottom style={{marginTop: 0, color: 'rgb(65,177,177)'}}>Material UI Compatible Test</Typography>
               
               <IconAvatars/>
               <Badge/>
@@ -55,12 +56,12 @@ function MaterialUIShaderTest(props) {
               </Paper>
             </Grid>
             
-            <Grid item xs>
-              
+            <Grid item xs={12}>
+              <LinearDeterminate/>
             </Grid>
             
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} style={{padding: '1px 16px'}}>
                 <p>Material UI SVG icon was broken ¯\_(ツ)_/¯ | TODO: Try the FontAwesome!</p>
               </Paper>
             </Grid>

@@ -34,7 +34,7 @@ import {Assets} from './Assets/Assets';
  */
 
 @connect(
-  state => {},
+  state => ({}),
   getDispatchMapper({
     setSceneInstance
   })
