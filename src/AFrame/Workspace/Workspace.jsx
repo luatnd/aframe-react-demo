@@ -1,10 +1,10 @@
+import React from 'react';
+import {Entity} from 'aframe-react';
 import 'aframe';
 import 'babel-polyfill';
 import 'aframe-ui-widgets';
 //import 'aframe-layout-component';
-//import '../../AframeCustom/CircleLayout/CircleLayout';
-import React from 'react';
-import {Entity} from 'aframe-react';
+import 'aframe-html-shader';
 
 import Helper3D from '../../Helper/Helper3D/Helper3D';
 import AFrameHelper from '../Helper/AFrameHelper';
@@ -61,7 +61,7 @@ export class Workspace extends React.Component {
    * @param withKeyBoard If true then include a keyboard for this screen
    * @return React.Component
    */
-  getNthScreen = (screenPosition, withKeyBoard = false) => {
+  getNthScreen = (screenPosition, withKeyBoard = false, screenContent = null) => {
     const screenMargin = 0.2;
     //const deg2rad = Math.PI/180;
     const rad2deg = 180/Math.PI;
@@ -109,10 +109,22 @@ export class Workspace extends React.Component {
     const keyboardDistance = this.workspace.keyboard.initialHeight + this.workspace.keyboard.screenDistance;
     
     return <Entity rotation={rotation}>
-      <Entity obj-model="obj: #obj_Monitor_obj; mtl: #obj_Monitor_mtl" {...{position, scale}}/>
-      {/*<Entity collada-model="#obj_Monitor_dae" {...{position, scale}}/>  //Do not use collada because collada do not support transparent  */}
-      {withKeyBoard && <Entity obj-model="obj: #obj_Keyboard_obj; mtl: #obj_Keyboard_mtl"
-                               position={`${px} ${py+this.workspace.keyboard.customY} ${(pz + keyboardDistance)}`}/>}
+      <Entity {...{position}}>
+        
+        <Entity obj-model="obj: #obj_Monitor_obj; mtl: #obj_Monitor_mtl" {...{scale}}/>
+        {/*<Entity collada-model="#obj_Monitor_dae" {...{position, scale}}/>  //Do not use collada because collada do not support transparent  */}
+        
+        {withKeyBoard &&
+        <Entity
+          obj-model="obj: #obj_Keyboard_obj; mtl: #obj_Keyboard_mtl"
+          position={`0 ${this.workspace.keyboard.customY} ${keyboardDistance}`}/>}
+          
+        {screenContent &&
+        <Entity position="0 0 0">
+          {screenContent}
+        </Entity>}
+        
+      </Entity>
     </Entity>
   }
   
@@ -201,7 +213,16 @@ export class Workspace extends React.Component {
     });
   }
   
+  getScreenContent0 = (transparentBg = true) => {
+    return <a-entity
+      geometry="primitive: plane; width:1; height:0.5;"
+      position="0 1 0"
+      material={`transparent:${transparentBg}; side: double; shader: html; target: #screenContent_0; fps:1; ratio:width; debug:1;`}/>
+  }
+  
   render() {
+    console.log('Workspace rendered');
+
     const shapePointsInside =  this.makeCircularTableStaticBodyPoints();
     const shapePointsOutside =  this.makeCircularTableStaticBodyPoints(false);
     /**
@@ -226,18 +247,19 @@ export class Workspace extends React.Component {
           {/*{AFrameHelper.previewShapePoints(preventUserPoints)}*/}
           {AFrameHelper.makeStaticBodyWall_for_XZplane('circularTableWall', preventUserPoints)}
         </Entity>
-        
-        <Entity
-          className="baseCircle"> {/* Is the invisible circle that put screen and anything on, we will rotate this instead of rotate the table */}
-          
-          <Entity className="CircleTableSurfaceOverwrite"/> {/* Is the visible circle table surface: If you wanna another table surface instead of currently BlackCarbon */}
+  
+        {/* Is the invisible circle that put screen and anything on, we will rotate this instead of rotate the table */}
+        <Entity className="baseCircle">
+  
+          {/* Is the visible circle table surface: If you wanna another table surface instead of currently BlackCarbon */}
+          <Entity className="CircleTableSurfaceOverwrite"/>
           
           <Entity className="screensCircle">
-            {this.getNthScreen(0, true)}
+            {this.getNthScreen(0, true, this.getScreenContent0(true))}
             {this.getNthScreen(1)}
             {this.getNthScreen(-1)}
-            {this.getNthScreen(2)}
-            {this.getNthScreen(-2)}
+            {/*{this.getNthScreen(2)}*/}
+            {/*{this.getNthScreen(-2)}*/}
   
             <Entity className="ironMan_3DProjector" position="2.046 1.025 3.125" rotation="0 210 0">
               {projector3DTurnOn

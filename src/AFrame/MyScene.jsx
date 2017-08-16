@@ -71,7 +71,10 @@ export class MyScene extends React.Component {
   }
   
   trackCameraCollide = () => {
-
+    if (!this.cameraInstance) {
+      return;
+    }
+    
     // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
     // Read more about this listener: https://github.com/donmccurdy/aframe-physics-system#collision-events
     this.cameraInstance.el.addEventListener('collide', (e) => {

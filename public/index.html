@@ -100,8 +100,11 @@
 
         <script>
           setTimeout(function () {
-            document.getElementById('msg').innerHTML = 'Oh! Slow internet.';
-          }, 500);
+            var theMsg = document.getElementById('msg');
+            if (theMsg) {
+              theMsg.innerHTML = 'Oh! Slow connection.';
+            }
+          }, 1500);
         </script>
 
       </div>

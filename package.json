@@ -35,6 +35,7 @@
     "aframe-animation-component": "^3.2.5",
     "aframe-extras": "^3.8.6",
     "aframe-href-component": "^0.5.1",
+    "aframe-html-shader": "^0.2.0",
     "aframe-layout-component": "^4.2.0",
     "aframe-obj-loader-component": "^0.2.0",
     "aframe-particle-system-component": "^1.0.8",
