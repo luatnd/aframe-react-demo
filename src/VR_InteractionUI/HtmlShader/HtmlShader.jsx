@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 
 import BookShelfScreen from './ScreenContent/Bookshelf';
 import MaterialUIShaderTest from './ScreenContent/MaterialUIShaderTest';
+import ControlPanel from './ScreenContent/ControlPanel';
 
 const styleSheet = {
   aHiddenContainer: {
@@ -44,11 +45,7 @@ export class HtmlShader extends React.Component {
       <div className={classes.aHiddenContainer}>
   
         <div id="screenContent_0" className={`${classes.screenContent_x}`}>
-          <h1 style={{margin: 0}}>Hello, HTML!</h1>
-          <p>This is a long text This is a long text This is a long text This is a long text This is a long
-            text This is a long text This is a long text This is a long text This is a long text
-            This is a long text This is a long text This is a long
-          </p>
+          <ControlPanel/>
         </div>
   
         <div id="screenContent_2" className={`${classes.screenContent_x}`}>
