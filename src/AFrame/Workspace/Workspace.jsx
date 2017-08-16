@@ -215,7 +215,8 @@ export class Workspace extends React.Component {
   }
   
   /**
-   * Make screen content
+   * Make screen content: htmlcontent width: '1000px', height: '430px' equiqvalent to screen size: 2.9m/1.269m
+   *
    * How to calculate screen content size:
    * 1. set geometry="primitive: plane; width:XXXX", the geometry_height will be auto calculated by Html shader
    * 2. Set #screenContent_x 's width = XX px
@@ -270,7 +271,7 @@ export class Workspace extends React.Component {
           <Entity className="CircleTableSurfaceOverwrite"/>
           
           <Entity className="screensCircle">
-            {this.getNthScreen(0, true, this.getScreenContent0(false))}
+            {this.getNthScreen(0, true, this.getScreenContent0(true))}
             {this.getNthScreen(1)}
             {this.getNthScreen(-1)}
             {/*{this.getNthScreen(2)}*/}

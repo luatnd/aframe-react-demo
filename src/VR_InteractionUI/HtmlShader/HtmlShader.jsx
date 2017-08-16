@@ -15,8 +15,9 @@ const styleSheet = createStyleSheet(theme => ({
   },
   screenContent_0: {
     margin:0,
-    width: '1000px', height: '430px',
-    "background": "orange",
+    padding: '30px',
+    width: '1000px', height: '430px', // This is fixed number for all my displays, htmlcontent width: '1000px', height: '430px' equiqvalent to screen size: 2.9m/1.269m
+    "background": "transparent",
     "color": "rgb(65,177,177)",
   },
 }));
@@ -37,7 +38,7 @@ export class HtmlShader extends React.Component {
     return (
       <div className={classes.aHiddenContainer}>
         <div id="screenContent_0" className={classes.screenContent_0}>
-          <h1>Hello, HTML!</h1>
+          <h1 style={{margin: 0}}>Hello, HTML!</h1>
           <p>This is a long text This is a long text This is a long text This is a long text This is a long
             text This is a long text This is a long text This is a long text This is a long text
             This is a long text This is a long text This is a long
