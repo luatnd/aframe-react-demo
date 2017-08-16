@@ -15,16 +15,16 @@ import styleSheet from './styleSheet';
 @withStyles(styleSheet)
 @connect(
   state => {
-    const {instance} = state.scene;
+    const {enterVR} = state.scene;
     
-    return {sceneInstance: instance};
+    return {enterVR};
   }
 )
 export default class EnterVRButton extends React.Component {
 
   enterVR = (e) => {
-    if (this.props.sceneInstance) {
-      this.props.sceneInstance.el.enterVR();
+    if (this.props.enterVR) {
+      this.props.enterVR();
     } else {
       console.warn("Scene element is not ready");
     }

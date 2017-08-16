@@ -2,12 +2,14 @@ import { createAction, handleActions, combineActions } from "redux-actions";
 import { combineReducers } from 'redux';
 
 
-interface NotificationType {
-  sceneInstance:Element,
-}
+export const CameraStatus = {
+  onFloor: 'onFloor',
+  fallen: 'fallen',
+};
 
-const initialState:NotificationType = {
-  sceneInstance: null,
+const cameraInitialState:any = {
+  //position: null,
+  status: CameraStatus.onFloor,
 }
 
 /**
@@ -17,10 +19,21 @@ const initialState:NotificationType = {
  * Example:     SET                   NOTIFICATION    ATTRS
  * Example:     SHOW      TEXT        NOTIFICATION
  */
-export const setSceneInstance = createAction('SET SCENE INSTANCE', (instance:Element) => instance);
+
+/**
+ * NOTE: Do not use setSceneInstance because it very heavily to redux, extremely bad effect to performance and buggy
+ */
+//export const setSceneInstance = createAction('SET SCENE INSTANCE', (instance:Element) => instance);
+export const setSceneEnterVRCallBack = createAction('SET ENTER_VR CALLBACK', (callback:() => void) => callback);
+export const updateCameraStatus:any = createAction('UPDATE CAMERA STATUS', (status:string) => status);
 
 export const sceneReducer = combineReducers({
-  instance: handleActions({
-    [setSceneInstance as any]: (state, {payload}) => {console.log("handle");return payload},
-  }, {...initialState}),
+  enterVR: handleActions({
+    [setSceneEnterVRCallBack as any]: (state, {payload}) => (payload),
+  }, null),
+
+  camera: handleActions({
+    [updateCameraStatus]: (state, {payload}) => ({status: payload}),
+  }, {...cameraInitialState}),
+
 });

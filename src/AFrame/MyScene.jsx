@@ -4,7 +4,7 @@ import 'aframe-always-fullscreen-component';
 import 'platform';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import getDispatchMapper from '../base/redux/dispatch';
 
 //import '@gladeye/aframe-preloader-component'; // TODO: Add new type=material-ui for this component
 //import './Components/AssetsLoading'; // TODO: make aframe-react compoent for tracking this info
@@ -12,8 +12,8 @@ import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
 
 import ConsoleLogger from '../Helper/ConsoleLogger';
-import {setSceneInstance} from './MySceneRedux';
-import getDispatchMapper from '../base/redux/dispatch';
+import {updateCameraStatus, CameraStatus, setSceneEnterVRCallBack} from './MySceneRedux';
+import {showDialog} from '../VR_InteractionUI/Dialog/DialogRedux';
 
 import {AssetsLoading} from './Assets/AssetsLoading';
 import {FloorAndWall} from './FloorAndWall/FloorAndWall';
@@ -30,18 +30,23 @@ import {Assets} from './Assets/Assets';
 /**
  * Aframe Scene
  *
- * TODO: Build another boiler plate base on webpack 2
+ * TODO:
+ *    * Build another boiler plate base on webpack 2
+ *    * Migrate camera to a new component
+ *    * Asset status to Redux
  */
 
 @connect(
   state => ({}),
   getDispatchMapper({
-    setSceneInstance
+    setSceneEnterVRCallBack,
+    updateCameraStatus,
+    showDialog,
   })
 )
 export class MyScene extends React.Component {
   static propTypes = {
-    setSceneInstance: PropTypes.func,
+    setSceneEnterVRCallBack: PropTypes.func,
   }
 
   state = {
@@ -51,6 +56,8 @@ export class MyScene extends React.Component {
     assetCurrentItem: null,
     assetCurrentLoadedBytes: 0,
     assetCurrentTotalBytes: 1,
+    
+    cameraPhysically: true,
   }
   
   /**
@@ -66,8 +73,10 @@ export class MyScene extends React.Component {
 
   componentDidMount = () => {
     this.trackCameraCollide();
+    this.trackCameraPosition();
 
-    this.props.setSceneInstance(this.sceneInstance);
+    console.log('this.sceneInstance.el: ', this.sceneInstance.el);
+    this.props.setSceneEnterVRCallBack(this.sceneInstance.el.enterVR);
   }
   
   trackCameraCollide = () => {
@@ -85,9 +94,50 @@ export class MyScene extends React.Component {
       
       const targetEle = detail.body.el;
       
-      console.log('\n[Camera] Player has collided with body #' + e.detail.body.id);
-      console.log('-------- Touched the: ', targetEle.className ? targetEle.localName + '.' + targetEle.className : targetEle);
-      console.log('-------- Touched position: ', `x: ${touchedPos.x.toFixed(4)}, y: ${touchedPos.y.toFixed(4)}, z: ${touchedPos.z.toFixed(4)}`);
+      const className = targetEle.className || targetEle.getAttribute('classname') || targetEle.getAttribute('id');
+
+      console.log(
+        '[Camera] Player has collided with: #' + e.detail.body.id,
+        className ? targetEle.localName + '.' + className : targetEle,
+        ` at x: ${touchedPos.x.toFixed(4)}, y: ${touchedPos.y.toFixed(4)}, z: ${touchedPos.z.toFixed(4)}`
+      );
+    });
+  }
+
+  resetCamera = () => {
+    this.setState({cameraPhysically: false});
+    
+    setTimeout(()=> {
+      this.setState({cameraPhysically: true});
+      this.props.updateCameraStatus(CameraStatus.onFloor);
+    }, 1000);
+  }
+
+  trackCameraPosition = () => {
+    if (!this.cameraInstance) {
+      return;
+    }
+    
+    const CONSIDER_FALlING_YPOS = -10;
+    let noticed = false;
+    
+    // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
+    this.cameraInstance.el.addEventListener('componentchanged', (e) => {
+      if (e.detail.name === 'position' && !noticed) {
+        //console.log('Camera position went from', e.detail.oldData, 'to', e.detail.newData);
+        if (e.detail.newData.y < CONSIDER_FALlING_YPOS) {
+          noticed = true;
+
+          this.props.updateCameraStatus(CameraStatus.fallen); // Why error ???
+          this.resetCamera();
+          
+          
+          // TODO: Ask before reset
+          //this.props.showDialog({
+          //  message: <span>You\'re falling down to fast, do you wanna do a teleport back</span>
+          //});
+        }
+      }
     });
   }
 
@@ -115,6 +165,9 @@ export class MyScene extends React.Component {
 
   renderProduction() {
     const {assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes} = this.state;
+    
+    const cp = this.state.cameraPhysically;
+    const ps = cp ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
 
     return (
       <Scene physics="debug: true"
@@ -140,9 +193,10 @@ export class MyScene extends React.Component {
                 position="0 2 0" // Initial standing position
                 velocity
 
-                kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
+                {...ps}
+
+                //kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
                 //kinematic-body
-                jump-ability
                 universal-controls // replace look-controls and wasd-controls
                 //gamepad-controls
                 keyboard-controls
