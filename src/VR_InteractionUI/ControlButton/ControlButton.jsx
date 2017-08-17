@@ -11,6 +11,7 @@ import SettingsApplicationsIcon from 'material-ui-icons/SettingsApplications';
 import NetworkWifiIcon from 'material-ui-icons/NetworkWifi';
 
 import { showTextNotification, showAvatarNotification } from "../Notification/NotificationRedux";
+import { showAppSetting } from "../AppSetting/AppSettingRedux";
 
 import styleSheet from './styleSheet';
 
@@ -24,6 +25,7 @@ import styleSheet from './styleSheet';
   dispatch => bindActionCreators({
     showTextNotification,
     showAvatarNotification,
+    showAppSetting,
   }, dispatch)
 )
 export default class ControlButton extends React.Component {
@@ -31,8 +33,9 @@ export default class ControlButton extends React.Component {
     classes: PropTypes.object.isRequired,
   }
   
-  handleClick = () => {
-    this.props.showTextNotification(I18n.t("controlButton.appSettingMsg"));
+  handleAppSettingClick = () => {
+    //this.props.showTextNotification(I18n.t("controlButton.appSettingMsg"));
+    this.props.showAppSetting();
   };
   
   handleClick2 = () => {
@@ -48,7 +51,7 @@ export default class ControlButton extends React.Component {
           <NetworkWifiIcon className={classes.controlIcon}/>
         </Button>
         
-        <Button id="btnAppSetting" onClick={this.handleClick} className={classes.controlBtn}>
+        <Button id="btnAppSetting" onClick={this.handleAppSettingClick} className={classes.controlBtn}>
           <SettingsApplicationsIcon className={classes.controlIcon}/>
         </Button>
 

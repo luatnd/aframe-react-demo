@@ -4,6 +4,7 @@ import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import ControlButton from './ControlButton/ControlButton';
 import Notification from './Notification/Notification';
 import AlertDialog from './Dialog/Dialog';
+import AppSetting from './AppSetting/AppSetting';
 
 import theme from './InteractionMUITheme';
 
@@ -23,6 +24,7 @@ export class InteractionUI extends React.Component {
           <ControlButton/>
           <Notification/>
           <AlertDialog/>
+          <AppSetting/>
         </div>
       </MuiThemeProvider>
     );

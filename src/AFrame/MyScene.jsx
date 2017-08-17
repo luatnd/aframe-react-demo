@@ -38,7 +38,11 @@ import {Assets} from './Assets/Assets';
  */
 
 @connect(
-  state => ({}),
+  state => {
+    const {stats} = state.appSetting.options;
+  
+    return {stats}
+  },
   getDispatchMapper({
     setSceneInstance,
     setSceneEnterVRCallBack,
@@ -171,9 +175,12 @@ export class MyScene extends React.Component {
     
     const cp = this.state.cameraPhysically;
     const ps = cp ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
+    
+    const {stats} = this.props;
 
     return (
       <Scene physics="debug: true"
+             stats={stats}
              always-fullscreen
              //preloader="type:bootstrap"
              //assets-progress="debug: true"

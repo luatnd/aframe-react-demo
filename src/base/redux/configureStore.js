@@ -57,6 +57,12 @@ const getEmptyTransformFilters = (ignoredReducerNames) => {
   return ignoredReducerNames.map(name => createFilter(name, []));
 }
 
+
+/**
+ * TODO: Enable deep merge strategy for some reducer --> is this true?
+ * When we upgrade a new release that has a new property, persist rehydration will do a shallow merge by default
+ * So that some props thats located deep inside an reducer was removed after persist
+ */
 export const rehydrationPromise = new Promise(resolve => {
   
   // persistStore<State>(store: Store<State>, persistorConfig?: PersistorConfig, onComplete?: OnComplete<any>): Persistor;
