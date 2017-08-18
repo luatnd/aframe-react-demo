@@ -41,6 +41,8 @@ class Bookshelf extends Component {
   };
   
   render() {
+    console.log("Bookshelf rendered");
+    
     const { classes } = this.props;
     const { value } = this.state;
     

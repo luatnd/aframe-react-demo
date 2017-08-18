@@ -21,36 +21,26 @@ const styles = theme => ({
 });
 
 @withStyles(styles)
-export default class ControlPanel extends React.Component {
+export default class ControlPanel2 extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
   }
   
   render() {
-    console.log('ControlPanel Screen rendered');
+    console.log('ControlPanel2 Screen rendered');
     
     const {classes} = this.props;
     
     return (
       <div className={classes.root}>
         <Typography type="title" gutterBottom className={classes.title}>
-          Hello, HTML! (Desktop user)
+          Hello mobile user,
         </Typography>
         <Typography gutterBottom noWrap className={classes.paragraph}>
-          • Use your keyboard ◀ ▶ ▲ ▼ and mouse to move<br/>
-          • You have an small circle cursor at the center of screen,<br/>
-            help you interact with objects with mouse click, try to find it<br/>
-          • Press ESC to show mouse cursor<br/>
-          • Press space to jump<br/>
-        </Typography>
-        
-        
-        
-        <Typography gutterBottom noWrap className={classes.paragraph}>
-          TODO: Improve React rendering performance via Pure Component
-        </Typography>
-        <Typography gutterBottom noWrap className={classes.paragraph}>
-          TODO: Improve animation performance: Do animation when needed only
+          Mobile UX is very bad, I'll put Mobile UX improvement it into TODO list<br/>
+          • Touch screen to go forward<br/>
+          • Some cursor interactions are not properly working because it's touch move<br/>
+          &nbsp;&nbsp;instead of touch to interact<br/>
         </Typography>
       </div>
     );

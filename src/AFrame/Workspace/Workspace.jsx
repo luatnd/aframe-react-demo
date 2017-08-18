@@ -286,7 +286,7 @@ export class Workspace extends React.Component {
           <Entity className="screensCircle">
             {this.getNthScreen(0, true, this.getScreenContent(0, true))}
             {this.getNthScreen(1, false, this.getScreenContent(null, true))}
-            {this.getNthScreen(-1, false, this.getScreenContent(null, true))}
+            {this.getNthScreen(-1, false, this.getScreenContent(-1, true))}
             {this.getNthScreen(2, false, this.getScreenContent(2, true))}
             {this.getNthScreen(-2, false, this.getScreenContent(-2, true, 0.5))}
   

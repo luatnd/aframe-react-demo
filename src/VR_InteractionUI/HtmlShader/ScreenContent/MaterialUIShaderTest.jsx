@@ -29,6 +29,8 @@ const styles = theme => ({
 });
 
 function MaterialUIShaderTest(props) {
+  console.log("MaterialUIShaderTest rendered");
+  
   const classes = props.classes;
   
   return (
