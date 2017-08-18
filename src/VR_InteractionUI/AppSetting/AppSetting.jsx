@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import getDispatchMapper from '../../base/redux/dispatch';
-import { hideAppSetting, setStatsValue } from './AppSettingRedux';
+import { withStyles } from 'material-ui/styles';
+import { hideAppSetting } from './AppSettingRedux';
+import SettingList from './SettingList/SettingList';
 
 import Button from 'material-ui/Button';
 import Dialog, {
@@ -15,15 +17,23 @@ import Dialog, {
 } from 'material-ui/Dialog';
 
 
+const styles = theme => ({
+  transBg: {
+    background: 'rgba(255,255,255,0.7)',
+  },
+});
+
+
+@withStyles(styles)
 @connect(
   state => ({options: state.appSetting.options}),
   getDispatchMapper({
     hideAppSetting,
-    setStatsValue,
   })
 )
 export default class AppSetting extends Component {
   static propTypes = {
+    classes: PropTypes.object,
     options: PropTypes.object,
     hideAppSetting: PropTypes.func,
   }
@@ -32,35 +42,17 @@ export default class AppSetting extends Component {
     this.props.hideAppSetting();
   };
   
-  handleStatsClick = () => {
-    this.props.setStatsValue(!this.props.options.stats);
-  };
-  
   render() {
-    const {options} = this.props;
+    const {options, classes} = this.props;
     
     return (
       <Dialog open={options.open} onRequestClose={this.handleRequestClose}>
-        
-        <DialogTitle>App Setting</DialogTitle>
-        
-        <DialogContent>
-          <h1>Copy the android setting UI</h1>
-          <h1 onClick={this.handleStatsClick}>Stats: {options.stats ? 'On' : 'Off'}</h1>
-          <h1>FPS: [number=24]</h1>
-          <h1>Droid166: On/Off</h1>
-          <h1>content</h1>
-          <h1>content</h1>
-          <h1>content</h1>
-          <h1>content</h1>
-          <h1>content</h1>
-          <h1>content</h1>
+        <DialogContent className={classes.transBg}>
+          <SettingList/>
         </DialogContent>
-        
-        <DialogActions>
+        <DialogActions className={classes.transBg}>
           <Button onClick={this.handleRequestClose}>Close</Button>
         </DialogActions>
-      
       </Dialog>
     );
   }

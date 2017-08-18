@@ -23,6 +23,12 @@ export default createMuiTheme({
     
     MuiSnackbarContent: {
       root: glassyDarkStyle,
+    },
+
+    MuiListItemSecondaryAction: {
+      root: {
+        top: '24px'
+      }
     }
   },
 });
