@@ -40,6 +40,8 @@ export default class ControlPanel extends React.Component {
           • Use your keyboard ◀ ▶ ▲ ▼ and mouse to move<br/>
           • You have an small circle cursor at the center of screen,<br/>
             help you interact with objects with mouse click, try to find it<br/>
+          • Press ESC to show mouse cursor<br/>
+          • Press space to jump<br/>
         </Typography>
         
         
