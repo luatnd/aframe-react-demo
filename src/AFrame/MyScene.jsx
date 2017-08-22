@@ -179,7 +179,7 @@ export class MyScene extends React.Component {
     const {stats} = this.props;
 
     return (
-      <Scene physics="debug: true"
+      <Scene physics="debug: false"
              stats={stats}
              always-fullscreen
              //preloader="type:bootstrap"
