@@ -166,20 +166,6 @@ webpack.config.dev.js
   },
 ```
 
-# Deployment
-
-~~Prerequisite:~~
-*~~nginx container is running~~
-* ~~aframe_react_web_source container is running~~
-* ~~you can see the `Makefile` is present: `ls -l Makefile`~~
-
-```
-make git_pull && make deploy
-```
-
-----
---> Moved to heroku
-
 # Credits
 Some of library and 3D models is from internet, thanks to awesome works of:
 
@@ -189,3 +175,45 @@ Some of library and 3D models is from internet, thanks to awesome works of:
 A sense physicall system debugging is turned on by default (On Firefox / Safari.)
 For Chrome, you need to temporary modify the: node_modules/aframe-physics-system/src/system/physics.js:25
  { default: false -> true },
+ 
+ 
+ 
+# My opinion about Aframe in Vietnamese (biết thế viết luôn bằng tiếng Anh đỡ phải dịch sau này):
+```
+P/s: Ý kiên chủ quan và có thể không đúng
+
+AFrame 0.6.1
+WebVR demo mặc dù chả có interaction nào đáng gọi là VR cả.
+
+**Pros:**
+
+Dễ, đối với ai từng làm web thì cú pháp chỉ nhìn là hiểu.
+Sử dụng tag có dạng html + JS để code nên có thể tích hợp code bằng React, Redux, Typescript hoặc stack nào đó tùy sở thích.
+Base trên Threejs nên nếu có kn về Three thì chuyển sang trong nửa nốt nhạc
+Hỗ trợ khá nhiều định dạng model 3D căn bản như obj, dae, gtlf, fbx, …
+Xử lý ánh sáng basic khá tốt, nhưng nên hạn chế nguồn sáng vì ảnh huởng tới performance khá nhiều.
+Dĩ nhiên là WebVR thì hiện tại chưa thể mong đầy đủ hiệu ứng vật lý như trên native được, nhận thấy ở mức chấp nhận được. mà càng đầy đủ hiệu ứng thì càng nặng.
+
+**Cons:**
+
+Cộng đồng khá thưa, nhưng nếu hỏi trên Stackoverflow là lại có mấy ông thuộc cả tên lên trả lời hầu như ngay lập tức. và một số ít ông có kinh nghiệm Threejs (107,046 downloads in the last month)
+Cảm giác cả repository to khụ trên github mà Mozilla để có vài ông contributor hoạt động active thôi.
+
+Các thư viện quanh hệ sinh thái VR cho AFrame gọi là cho có, và đều focus vào mục tiêu nhỏ lẻ. Sử dụng cũng được.
+
+Còn mới mẻ nên chưa hỗ trợ nhiều và đủ UX. 
+Ví dụ trên mobile: Chưa hỗ trợ đi lại khi view VR trên mobile device, hiện mới có touch để di chuyển. Hoặc đôi khi muốn tắt VR dùng 4 nút di chuyển mà chưa thấy có support.
+Xử lý physics chưa tốt: Ví dụ: Nếu “cố gắng” vẫn có thể đi xuyên qua tường được. Hoặc: Handle chống đi xuyên qua model có hình dạng phức tạp thì phải tự handle lấy
+
+Performance: 1 scene căn bản gồm tầm <100 object chạy trên Galaxy S7E không thấy nóng, không giật. Đối với model 12MB thì có hiện tượng đơ 1s khi nạp model.
+
+Animation very very basic và sử dụng tweenjs, support nghèo nàn và thiếu timeline, ai có kinh nghiệm thì port 1 thư viện animation khác sang để giải quyết, ví dụ anime.js
+
+Chưa hỗ trợ Shadeless material (constant material), có lẽ do Threejs chưa hỗ trợ
+Collada model vẫn chưa hỗ trợ transparent.
+
+Có một cảm giác thiếu thiếu về nhu cầu UX khó nói thành lời trên mobile
+
+**Chốt: **
+Không biết các engine crossplatform như Unity hỗ trợ tới mức nào rồi, chưa có dịp thử qua các thư viện WebVR khác nhưng lướt qua thì vẫn thấy AFrame là đáng lựa chọn nhất. (Quan điểm chủ quan của cá nhân.)
+```
