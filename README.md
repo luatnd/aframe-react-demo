@@ -9,6 +9,7 @@ I chose Aframe to make a VR workspace.
 
 Aframe has large amount of demos, its syntax is something look like html, jsx, very familiar.
 
+![Aframe React Redux WebVR demo](assets/img/aframe-react-demo.jpg)
 
 ### Which Aframe's features were demonstrate in this demo
 
