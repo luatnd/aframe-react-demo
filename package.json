@@ -25,7 +25,9 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "publish": "npm run build && gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "publish": "npm run predeploy && npm run deploy"
   },
   "dependencies": {
     "@gladeye/aframe-preloader-component": "^1.0.2",
