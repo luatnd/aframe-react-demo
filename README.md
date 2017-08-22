@@ -11,7 +11,14 @@ Aframe has large amount of demos, its syntax is something look like html, jsx, v
 
 ![Aframe React Redux WebVR demo](assets/img/aframe-react-demo.jpg)
 
-### Which Aframe's features were demonstrate in this demo
+### What were the differences between this demo and another one?
+Another demos was so great, each demo stand for 1 feature that was very easy to learn.
+
+My demo look like a final VR product (my VR workspace), introduce a React Aframe Assets Management System ([Why `RAAMS`?](https://github.com/luatnd/aframe-react-demo#assets-manager-for-react-with-aframe))
+
+So it might help you go straight into your work or it might be one of your reference resources.
+
+### Which Aframe's features were demonstrated in this demo
 
 * React Asset Management System (RAMS) —> Specify your asset at your component and then `RAMS` automatically collect this asset into single <a-assets/>
 * Lightning in AFrame
@@ -33,7 +40,7 @@ TODO:
 
 ### Libraries 
 * VR library by `AFrame`, base on `Threejs`
-* 3D model was created by `Blender`, and some free model on internet (see Credits section)
+* 3D model was created by `Blender`, and some free model on internet (see [Credits](https://github.com/luatnd/aframe-react-demo#credits) section)
 * `React`
 * State management with `Redux`
 * Typesafe coding with some `Typescript` language, and `ES6`
@@ -41,7 +48,7 @@ TODO:
 * ~~UnitTest by JEST~~
 * WebUI by `Material-UI` (customized to glassy feeling theme)
 * CSS in JS by `JSS`
-* Some of libraries for `Aframe` (see Credits section)
+* Some of libraries for `Aframe` (see [Credits](https://github.com/luatnd/aframe-react-demo#credits) section)
 
 ### Warning
 This is a quick demo, so the code somewhere are not refactored and optimized, be careful and read the Aframe's official documentation once again before you use it in your production 
