@@ -1,3 +1,50 @@
+### Introduction
+I took a look at Aframe and said wow about it features.
+
+But a question was raised in my mind: **"So what is VR can do right now? Is it suitable for widely production/commerce use?"**
+
+After took a quick research about: ReactVR, Aframe, Three.js, elevr ...
+
+I chose Aframe to make a VR workspace.
+
+Aframe has large amount of demos, its syntax is something look like html, jsx, very familiar.
+
+
+### Which Aframe's features were demonstrate in this demo
+
+* React Asset Management System (RAMS) —> Specify your asset at your component and then `RAMS` automatically collect this asset into single <a-assets/>
+* Lightning in AFrame
+* 360deg image sky
+* Basic physical handling: User can not go through the wall or any physical object, user can jump
+* Basic physical handling for: Floor and wall is box and plane with texture
+* Physical system handling with complex shape, like the center circular table in this case. 
+* Custom camera (player) distance to the static-body shape
+* Loading 3D model: gltf, Collada, obj, exported from Blender
+* Basic loop animation, no timeline.
+* Player cursor interact with some object
+* Dialog notification
+* Display HTML content (by Material UI) into VR scene
+
+TODO: 
+* Implement lazy-load for some heavily model --> Not sure about how Aframe handle the 12MB Drone166 3D models in my demo
+* Optimize UX on mobile device
+
+
+### Libraries 
+* VR library by `AFrame`, base on `Threejs`
+* 3D model was created by `Blender`, and some free model on internet (see Credits section)
+* `React`
+* State management with `Redux`
+* Typesafe coding with some `Typescript` language, and `ES6`
+* Code quality with `ESLint` ~~+ TSLint~~
+* ~~UnitTest by JEST~~
+* WebUI by `Material-UI` (customized to glassy feeling theme)
+* CSS in JS by `JSS`
+* Some of libraries for `Aframe` (see Credits section)
+
+### Warning
+This is a quick demo, so the code somewhere are not refactored and optimized, be careful and read the Aframe's official documentation once again before you use it in your production 
+
 
 ### Installation
 
@@ -112,16 +159,22 @@ webpack.config.dev.js
 ```
 
 # Deployment
-~~Prerequisite:
-• nginx container is running
-• aframe_react_web_source container is running
-• you can see the `Makefile` is present: `ls -l Makefile`
+
+~~Prerequisite:~~
+*~~nginx container is running~~
+* ~~aframe_react_web_source container is running~~
+* ~~you can see the `Makefile` is present: `ls -l Makefile`~~
+
 ```
 make git_pull && make deploy
-```~~
+```
+
+----
+--> Moved to heroku
 
 # Credits
 Some of library and 3D models is from internet, thanks to awesome works of:
+
 **// TODO: Update the credits list**
 
 # Other:
