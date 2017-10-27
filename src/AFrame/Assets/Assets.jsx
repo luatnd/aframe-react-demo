@@ -13,50 +13,48 @@ export default class Assets extends React.Component {
   static propTypes = {
     assets: PropTypes.object,
     timeout: PropTypes.number,
+    interval: PropTypes.number,
     loadingStatusHandle: PropTypes.func,
     currentInfoHandle: PropTypes.func,
     loadingInfoHandle: PropTypes.func,
+    debug: PropTypes.bool,
   };
-  
-  debug = false; // TODO: Migrate to props
   
   assetsInstance = null;
   //assetItemInstances = {}; // ref to all asset items
-  assetItemComponents;
   
   total = 0;
   current = 0;
   assetCurrentItem;
   
-  timeoutInstance;
+  //timeoutInstance;
+  idleMilisecs = 0;
+  defaultInterval = 200;
   
-  // Do not use var like that
-  // And do some code review
-  componentWillMount() {
-    this.assetItemComponents = Object.keys(this.props.assets).map((key) => {
-      const componentAssets = this.props.assets[key];
-      this.total += componentAssets.length;
-    
-      return <a-entity key={key}>
-        {componentAssets.map(component => React.cloneElement(
-          component,
-          {
-            key: component.props.id ? component.props.id : ConsoleLogger.getUnix(),
-            //ref: ele => this.assetItems.push(ele),
-            ...this.getBindingProps(component),
-          }
-        ))}
-      </a-entity>
-    });
-
-    if (this.debug) {
-      console.log('this.assetItemComponents: ', this.assetItemComponents);
-    }
+  shouldComponentUpdate() {
+    // Because we bind event to element so that do not re-render this component
+    return false;
   }
   
   componentDidMount() {
     ConsoleLogger.log('Assets Component mounted', 'Assets');
     //console.log('assetsInstance.fileLoader: ', this.assetsInstance.fileLoader);
+    //if (this.assetsInstance.fileLoader) {
+    //  const mng = this.assetsInstance.fileLoader.manager;
+    //
+    //  mng.onError = function (a, b) {
+    //    console.log("mng onError a, b: ", a, b);
+    //  }
+    //  mng.onLoad = function (a, b) {
+    //    console.log("mng onLoad a, b: ", a, b);
+    //  }
+    //  mng.onProgress = function (a, b) {
+    //    console.log("mng onProgress a, b: ", a, b);
+    //  }
+    //  mng.onStart = function (a, b) {
+    //    console.log("mng onStart a, b: ", a, b);
+    //  }
+    //}
     
     this.assetsInstance.addEventListener('loaded', () => {
       // Force too complete
@@ -65,7 +63,7 @@ export default class Assets extends React.Component {
         assetTotal: this.total,
         assetCurrentItem: this.assetCurrentItem,
       });
-      setTimeout(this.props.loadingStatusHandle(false), 200);
+      setTimeout(this.props.loadingStatusHandle(false), 1000);
       
       
       ConsoleLogger.log('All assets were loaded', 'Assets');
@@ -78,6 +76,10 @@ export default class Assets extends React.Component {
     //this.nv.removeEventListener("nv-enter", this.handleNvEnter);
   }
   
+  static getCurrUnixMili() {
+    return (new Date()).getTime();
+  }
+  
   countLoadedAssetItem = (e) => {
     //return;
     
@@ -86,14 +88,18 @@ export default class Assets extends React.Component {
     this.current++;
     this.assetCurrentItem = e.target;
     
-    if (this.debug && e.target) {
+    if (this.props.debug && e.target) {
         console.info('[Assets] loaded: ', e.target);
     }
   
-    // updateAssetsLoadingInfo interval = 200ms
-    clearTimeout(this.timeoutInstance);
-    this.timeoutInstance = setTimeout(() => {
-      if (this.debug) {
+    let currentUnix = Assets.getCurrUnixMili();
+    const {interval = this.defaultInterval} = this.props;
+    if (currentUnix - interval > this.idleMilisecs) {
+      this.idleMilisecs = currentUnix;
+      
+      //clearTimeout(this.timeoutInstance);
+      //this.timeoutInstance = setTimeout(() => {
+      if (this.props.debug) {
         ConsoleLogger.log('Attempt to updateAssetsLoadingInfo', 'Assets');
       }
       
@@ -102,34 +108,46 @@ export default class Assets extends React.Component {
         assetTotal: this.total,
         assetCurrentItem: this.assetCurrentItem,
       })
-    }, 200);
-    
+    //}, 200);
+    }
   }
   
   updateProgress = (e) => {
     //console.log('xhr: ', e);
     
-    this.timeoutInstance = setTimeout(this.props.currentInfoHandle({
-      assetCurrentLoadedBytes: e.detail.loadedBytes,
-      assetCurrentTotalBytes:  e.detail.totalBytes ? e.detail.totalBytes : e.detail.loadedBytes
-    }), 200);
+    //this.timeoutInstance = setTimeout(() => {
+    let currentUnix = Assets.getCurrUnixMili();
+    const {interval = this.defaultInterval} = this.props;
+    if (currentUnix - interval > this.idleMilisecs) {
+      this.idleMilisecs = currentUnix;
+      this.props.currentInfoHandle({
+        assetCurrentLoadedBytes: e.detail.loadedBytes,
+        assetCurrentTotalBytes:  e.detail.totalBytes ? e.detail.totalBytes : e.detail.loadedBytes
+      })
+    }
+    //}), 200);
   }
   
-  getBindingProps = (component) => {
-    function getId (component) {
-      return component.props.id ? component.props.id : ConsoleLogger.getUnix();
-    }
+  /**
+   * Try to Attach "loaded" event listener foreach asset items.
+   * Each item type has 1 method to attach
+   *
+   * @param item
+   * @returns {*}
+   */
+  getBindingProps = (item) => {
+    // console.log("item: ", item);
+    // obj_3DProjector_TurnOn_obj
     
     let eventName;
 
-    switch(component.type){
+    switch(item.type){
       case 'a-asset-item':
         eventName = 'loaded'; // aframe / threejs event
         return {
+          // NOTE: This case is an react component, not a pure HTML so that we need to pass eventListener to `ref`
           ref: ele => {
-            //this.assetItemInstances[getId(component)] = ele;
-            ele.addEventListener('loaded', this.countLoadedAssetItem);
-
+            ele.addEventListener(eventName, this.countLoadedAssetItem);
             //ele.addEventListener('progress', this.updateProgress);
           },
         };
@@ -138,7 +156,7 @@ export default class Assets extends React.Component {
         eventName = 'onLoad'; // js event
         return {
           [eventName]: this.countLoadedAssetItem,
-          //ref: ele => this.assetItemInstances[getId(component)] = ele,
+          //ref: ele => this.assetItemInstances[getId(item)] = ele,
         };
         
       case 'audio':
@@ -147,13 +165,38 @@ export default class Assets extends React.Component {
         //eventName = 'loadeddata'; // aframe event
         return {
           [eventName]: this.countLoadedAssetItem,
-          //ref: ele => this.assetItemInstances[getId(component)] = ele,
+          //ref: ele => this.assetItemInstances[getId(item)] = ele,
         };
       
       default:
-        console.warn('Un-recognize asset type: ', component.type);
+        console.warn('Un-recognize asset type: ', item.type);
         return {}
     }
+  }
+  
+  // TODO: Support asset management with lazy load
+  getAssetsList = () => {
+    const assetItemComponents = Object.keys(this.props.assets).map((key) => {
+      const componentAssets = this.props.assets[key];
+      this.total += componentAssets.length;
+    
+      return <a-entity key={key}>
+        {componentAssets.map(item => React.cloneElement(
+          item,
+          {
+            key: item.props.id ? item.props.id : ConsoleLogger.getUnix(),
+            //ref: ele => this.assetItems.push(ele),
+            ...this.getBindingProps(item), // Bind event listener for this elements
+          }
+        ))}
+      </a-entity>
+    });
+  
+    if (this.props.debug) {
+      console.log('Component list to add assets: ', assetItemComponents);
+    }
+    
+    return assetItemComponents;
   }
   
   render() {
@@ -161,7 +204,7 @@ export default class Assets extends React.Component {
     
     return (
       <a-assets {...{timeout}} ref={ele => this.assetsInstance = ele}>
-        {this.assetItemComponents}
+        {this.getAssetsList()}
       </a-assets>
     );
   }

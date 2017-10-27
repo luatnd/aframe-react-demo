@@ -38,7 +38,7 @@ export class AssetsLoading extends Component {
         <MuiThemeProvider theme={theme}>
           <div>
             {/*<LinearProgress className="currentProgress" mode="determinate" value={currentPercent} />*/}
-            {/*<LinearProgress className="totalProgress" mode="determinate" value={totalPercent} style={{marginTop: "30px"}}/>*/}
+            <LinearProgress className="totalProgress" mode="determinate" value={totalPercent} style={{marginTop: "30px"}}/>
           </div>
         </MuiThemeProvider>
       </div>

@@ -79,7 +79,7 @@ export class MyScene extends React.Component {
     extras.registerAll();
   }
 
-  componentDidMount = () => {
+  componentDidMount () {
     this.trackCameraCollide();
     this.trackCameraPosition();
 
@@ -191,7 +191,7 @@ export class MyScene extends React.Component {
              ref={reactEle => this.sceneInstance = reactEle}
       >
         <Assets assets={registeredAssets}
-                timeout={3e4}
+                timeout={4e4}
                 currentInfoHandle={this.updateAssetsCurrentInfo}
                 loadingInfoHandle={this.updateAssetsLoadingInfo}
                 loadingStatusHandle={this.updateAssetsLoadingStatus}
