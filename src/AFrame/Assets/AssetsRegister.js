@@ -6,6 +6,7 @@
 
 export const registeredAssets = {
   // New assets management method (recommended)
+  // [ComponentName:string]: AssetsArray (see Sky component as an example)
   Sky:          require('../Sky/Sky').default.Assets,
   FloorAndWall: require('../FloorAndWall/FloorAndWall').default.Assets,
   

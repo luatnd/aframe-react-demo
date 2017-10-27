@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import ConsoleLogger from '../../Helper/ConsoleLogger';
-import {registeredAssets} from './AssetsRegister';
 
 /**
  * NOTE: <a-assets> must be a child of a <a-scene>.
@@ -11,8 +9,10 @@ import {registeredAssets} from './AssetsRegister';
  * TODO: Change to redux, can bind asset into this asset component
  * TODO: Build an NPM aframe asset management base on redux
  */
-export class Assets extends React.Component {
+export default class Assets extends React.Component {
   static propTypes = {
+    assets: PropTypes.object,
+    timeout: PropTypes.number,
     loadingStatusHandle: PropTypes.func,
     currentInfoHandle: PropTypes.func,
     loadingInfoHandle: PropTypes.func,
@@ -31,8 +31,8 @@ export class Assets extends React.Component {
   timeoutInstance;
   
   componentWillMount() {
-    this.assetItemComponents = Object.keys(registeredAssets).map((key) => {
-      const componentAssets = registeredAssets[key];
+    this.assetItemComponents = Object.keys(this.props.assets).map((key) => {
+      const componentAssets = this.props.assets[key];
       this.total += componentAssets.length;
     
       return <a-entity key={key}>

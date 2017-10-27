@@ -25,7 +25,8 @@ import {Center} from './Decorator/Center';
 import Sky from './Sky/Sky';
 import {Light} from './Light/Light';
 
-import {Assets} from './Assets/Assets';
+import Assets from './Assets/Assets';
+import { registeredAssets } from './Assets/AssetsRegister';
 
 /**
  * Aframe Scene
@@ -189,7 +190,8 @@ export class MyScene extends React.Component {
              vr-mode-ui="enabled: true" // show the default vr button --> We'll hide it later
              ref={reactEle => this.sceneInstance = reactEle}
       >
-        <Assets timeout="30000"
+        <Assets assets={registeredAssets}
+                timeout={3e4}
                 currentInfoHandle={this.updateAssetsCurrentInfo}
                 loadingInfoHandle={this.updateAssetsLoadingInfo}
                 loadingStatusHandle={this.updateAssetsLoadingStatus}
