@@ -38,6 +38,9 @@ import { registeredAssets } from './Assets/AssetsRegister';
  *    * Show screen content on ready
  */
 
+let globalCamYPos = 100;
+let globalCamXRot = -90;
+
 @connect(
   state => {
     const {stats} = state.appSetting.options;
@@ -65,6 +68,8 @@ export class MyScene extends React.Component {
     assetCurrentTotalBytes: 1,
     
     cameraPhysically: true,
+    cameraPos: `0 ${globalCamYPos} 0`,
+    cameraRot: `${globalCamXRot} 0 0`,
   }
   
   /**
@@ -112,27 +117,41 @@ export class MyScene extends React.Component {
     });
   }
 
-  resetCamera = () => {
+  resetCamera = (wasFallen = true) => {
     this.setState({cameraPhysically: false});
     
     setTimeout(()=> {
       this.setState({cameraPhysically: true});
-      this.cameraFallenNotice = false;
+      
+      if (wasFallen) {
+        this.cameraFallenNotice = false;
+      }
+      
+      globalCamYPos = 2;
+      globalCamXRot = 0;
+      
+      this.setState({
+        cameraPos: `0 ${globalCamYPos} 0`,
+        cameraRot: `${globalCamXRot} 0 0`,
+      });
       this.props.updateCameraStatus(CameraStatus.onFloor);
-    }, 1000);
+    }, 42); // 1/24 frames
   }
 
   trackCameraPosition = () => {
     if (!this.cameraInstance) {
       return;
     }
-    
+    const DELTA = 8; // NOTE: User falling down very fast
+    const CONSIDER_FALlING_YPOS_TOP = 20; // User falling down to 4m then he stand on the floor
     const CONSIDER_FALlING_YPOS = -100;
     
     // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
     this.cameraInstance.el.addEventListener('componentchanged', (e) => {
       if (e.detail.name === 'position' && !this.cameraFallenNotice) {
-        if (e.detail.newData.y < CONSIDER_FALlING_YPOS) {
+        let y = e.detail.newData.y;
+
+        if (y < CONSIDER_FALlING_YPOS) {
           
           this.cameraFallenNotice = true;
           this.props.updateCameraStatus(CameraStatus.fallen); // Why error ???
@@ -143,6 +162,8 @@ export class MyScene extends React.Component {
             message: <span>But you've just done a teleport to initial position</span>
           });
           
+          this.resetCamera();
+        } else if (CONSIDER_FALlING_YPOS_TOP - DELTA < y && y < CONSIDER_FALlING_YPOS_TOP + DELTA) {
           this.resetCamera();
         }
       }
@@ -172,7 +193,10 @@ export class MyScene extends React.Component {
   
 
   renderProduction() {
-    const {assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes} = this.state;
+    const {
+      assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes,
+      cameraPos, cameraRot
+    } = this.state;
     
     const camPhysicalEnabled = this.state.cameraPhysically;
     const camPhysicalAttr = camPhysicalEnabled ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
@@ -192,6 +216,7 @@ export class MyScene extends React.Component {
       >
         <Assets assets={registeredAssets}
                 timeout={4e4}
+                interval={200}
                 currentInfoHandle={this.updateAssetsCurrentInfo}
                 loadingInfoHandle={this.updateAssetsLoadingInfo}
                 loadingStatusHandle={this.updateAssetsLoadingStatus}
@@ -202,7 +227,8 @@ export class MyScene extends React.Component {
                 camera="userHeight: 2; fov: 80;" // Assuming I'm 1.8m height, And the normal human fov is ~80
                 //look-controls // Can look around by mouse / turn your head
                 //wasd-controls // Can use keyboard to move
-                position="0 2 0" // Initial standing position
+                position={cameraPos} // Initial standing position
+                rotation={cameraRot}
                 velocity
 
                 {...camPhysicalAttr}
