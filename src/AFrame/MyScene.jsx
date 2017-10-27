@@ -173,8 +173,8 @@ export class MyScene extends React.Component {
   renderProduction() {
     const {assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes} = this.state;
     
-    const cp = this.state.cameraPhysically;
-    const ps = cp ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
+    const camPhysicalEnabled = this.state.cameraPhysically;
+    const camPhysicalAttr = camPhysicalEnabled ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
     
     const {stats} = this.props;
 
@@ -190,9 +190,9 @@ export class MyScene extends React.Component {
              ref={reactEle => this.sceneInstance = reactEle}
       >
         <Assets timeout="30000"
-                updateAssetsCurrentInfo={this.updateAssetsCurrentInfo}
-                updateAssetsLoadingInfo={this.updateAssetsLoadingInfo}
-                updateAssetsLoadingStatus={this.updateAssetsLoadingStatus}
+                currentInfoHandle={this.updateAssetsCurrentInfo}
+                loadingInfoHandle={this.updateAssetsLoadingInfo}
+                loadingStatusHandle={this.updateAssetsLoadingStatus}
         />
   
         
@@ -203,7 +203,7 @@ export class MyScene extends React.Component {
                 position="0 2 0" // Initial standing position
                 velocity
 
-                {...ps}
+                {...camPhysicalAttr}
 
                 //kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
                 //kinematic-body

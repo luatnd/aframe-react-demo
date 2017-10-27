@@ -13,9 +13,9 @@ import {registeredAssets} from './AssetsRegister';
  */
 export class Assets extends React.Component {
   static propTypes = {
-    updateAssetsLoadingStatus: PropTypes.func,
-    updateAssetsCurrentInfo: PropTypes.func,
-    updateAssetsLoadingInfo: PropTypes.func,
+    loadingStatusHandle: PropTypes.func,
+    currentInfoHandle: PropTypes.func,
+    loadingInfoHandle: PropTypes.func,
   };
   
   debug = false;
@@ -58,12 +58,12 @@ export class Assets extends React.Component {
     
     this.assetsInstance.addEventListener('loaded', () => {
       // Force too complete
-      this.props.updateAssetsLoadingInfo({
+      this.props.loadingInfoHandle({
         assetLoaded: this.total,
         assetTotal: this.total,
         assetCurrentItem: this.assetCurrentItem,
       });
-      setTimeout(this.props.updateAssetsLoadingStatus(false), 200);
+      setTimeout(this.props.loadingStatusHandle(false), 200);
       
       
       ConsoleLogger.log('All assets were loaded', 'Assets');
@@ -95,7 +95,7 @@ export class Assets extends React.Component {
         ConsoleLogger.log('Attempt to updateAssetsLoadingInfo', 'Assets');
       }
       
-      this.props.updateAssetsLoadingInfo({
+      this.props.loadingInfoHandle({
         assetLoaded: this.current,
         assetTotal: this.total,
         assetCurrentItem: this.assetCurrentItem,
@@ -107,7 +107,7 @@ export class Assets extends React.Component {
   updateProgress = (e) => {
     //console.log('xhr: ', e);
     
-    this.timeoutInstance = setTimeout(this.props.updateAssetsCurrentInfo({
+    this.timeoutInstance = setTimeout(this.props.currentInfoHandle({
       assetCurrentLoadedBytes: e.detail.loadedBytes,
       assetCurrentTotalBytes:  e.detail.totalBytes ? e.detail.totalBytes : e.detail.loadedBytes
     }), 200);
