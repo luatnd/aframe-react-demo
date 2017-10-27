@@ -10,9 +10,9 @@
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/@tweenjs/tween.js/-/tween.js-16.11.0.tgz#6e7a8a3d6c78a057ecd5605087930406d4e05800"
 
-"@types/redux-actions@^1.2.7":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-1.2.7.tgz#72c6fa373353058371eba363713d796e5b85b03e"
+"@types/redux-actions@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.2.2.tgz#e9d488c83ce1244178956cb0580a5aec3349eb4f"
 
 "@types/three@^0.84.19":
   version "0.84.19"

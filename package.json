@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@gladeye/aframe-preloader-component": "^1.0.2",
-    "@types/redux-actions": "^1.2.7",
+    "@types/redux-actions": "^2.2.2",
     "@types/three": "^0.84.19",
     "aframe": "^0.6.1",
     "aframe-always-fullscreen-component": "^1.0.0",
