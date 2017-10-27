@@ -28,7 +28,7 @@ export default class EnterVRButton extends React.Component {
     var myInterval = setInterval(() => {
       this.aframeEnterVrBtn = document.querySelector('.a-enter-vr .a-enter-vr-button');
       
-      if (this.aframeEnterVrBtn.localName) {
+      if (this.aframeEnterVrBtn && this.aframeEnterVrBtn.localName) {
         clearInterval(myInterval);
   
         this.aframeEnterVrBtn.style.opacity = 0;
