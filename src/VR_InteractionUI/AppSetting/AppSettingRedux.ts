@@ -27,8 +27,8 @@ export const setStatsValue:any = createAction('SET STAT VALUE', (val:boolean) =>
 
 export const appSettingReducer = combineReducers({
   options: handleActions({
-    [hideAppSetting]: (state, action) => ({...state, open: false}),
-    [showAppSetting]: (state, action) => ({...state, open: true}),
-    [setStatsValue]: (state, {payload}) => ({...state, stats: payload}),
+    [hideAppSetting]: (state:any, action:any) => ({...state, open: false}),
+    [showAppSetting]: (state:any, action:any) => ({...state, open: true}),
+    [setStatsValue]: (state:any, {payload}:any) => ({...state, stats: payload}),
   }, {...initialState}),
 });

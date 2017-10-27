@@ -18,7 +18,7 @@ export default class Assets extends React.Component {
     loadingInfoHandle: PropTypes.func,
   };
   
-  debug = false;
+  debug = false; // TODO: Migrate to props
   
   assetsInstance = null;
   //assetItemInstances = {}; // ref to all asset items
@@ -30,6 +30,8 @@ export default class Assets extends React.Component {
   
   timeoutInstance;
   
+  // Do not use var like that
+  // And do some code review
   componentWillMount() {
     this.assetItemComponents = Object.keys(this.props.assets).map((key) => {
       const componentAssets = this.props.assets[key];

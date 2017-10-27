@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
+import { MuiThemeProvider } from 'material-ui/styles';
+import theme from '../../VR_InteractionUI/InteractionMUITheme';
 
-import ConsoleLogger from '../../Helper/ConsoleLogger';
 
 export class AssetsLoading extends Component {
   static propTypes = {
@@ -34,8 +34,13 @@ export class AssetsLoading extends Component {
           fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
           lineHeight: '32px',
         }}>Loading assets... {assetCurrentItem? <span style={{fontSize:"smaller"}}>{`(${assetCurrentItem.id})`}</span>: ''}</h3>
-        {/*<LinearProgress className="currentProgress" mode="determinate" value={currentPercent} />*/}
-        <LinearProgress className="totalProgress" mode="determinate" value={totalPercent} style={{marginTop: "30px"}}/>
+  
+        <MuiThemeProvider theme={theme}>
+          <div>
+            {/*<LinearProgress className="currentProgress" mode="determinate" value={currentPercent} />*/}
+            {/*<LinearProgress className="totalProgress" mode="determinate" value={totalPercent} style={{marginTop: "30px"}}/>*/}
+          </div>
+        </MuiThemeProvider>
       </div>
       </div>
     );

@@ -6,7 +6,6 @@ import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import FaceIcon from 'material-ui-icons/Face';
-import grey from 'material-ui/colors/grey';
 import uxecoImage from '../../../../../assets/img/uxec.jpg';
 
 const styles = theme => ({
@@ -14,7 +13,7 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   svgIcon: {
-    color: grey[800],
+    color: "grey",
   },
   row: {
     display: 'flex',

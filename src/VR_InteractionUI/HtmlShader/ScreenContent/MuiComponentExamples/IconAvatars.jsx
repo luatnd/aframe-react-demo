@@ -3,8 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import pink from 'material-ui/colors/pink';
-import green from 'material-ui/colors/green';
 import Avatar from 'material-ui/Avatar';
 import FolderIcon from 'material-ui-icons/Folder';
 import PageviewIcon from 'material-ui-icons/Pageview';
@@ -17,12 +15,12 @@ const styles = {
   pinkAvatar: {
     margin: 10,
     color: '#fff',
-    backgroundColor: pink[500],
+    backgroundColor: "pink",
   },
   greenAvatar: {
     margin: 10,
     color: '#fff',
-    backgroundColor: green[500],
+    backgroundColor: "green",
   },
   row: {
     display: 'flex',
