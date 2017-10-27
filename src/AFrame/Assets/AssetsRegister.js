@@ -5,8 +5,11 @@
  */
 
 export const registeredAssets = {
-  Sky:          require('../Sky/Sky').Assets,
-  FloorAndWall: require('../FloorAndWall/FloorAndWall').Assets,
+  // New assets management method (recommended)
+  Sky:          require('../Sky/Sky').default.Assets,
+  FloorAndWall: require('../FloorAndWall/FloorAndWall').default.Assets,
+  
+  // Old assets management method
   Workspace:    require('../Workspace/Workspace').Assets,
   BackWall:     require('../Decorator/BackWall').Assets,
   FrontSea:     require('../Decorator/FrontSea').Assets,

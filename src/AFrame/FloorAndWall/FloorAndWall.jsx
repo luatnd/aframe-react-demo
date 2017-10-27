@@ -10,7 +10,14 @@ import imgBronze from "../../../assets/img/bronze.jpg";
 import imgMetalSheetDecor from "../../../assets/img/metal-sheet-decor.jpg";
 import imgCarbonYellow from "../../../assets/img/carbon-yellow.jpg";
 
-export class FloorAndWall extends React.Component {
+export default class FloorAndWall extends React.Component {
+  static Assets = [
+    <img id="floorWooden" src={imgFloorWooden} alt="floorWooden"/>,
+    <img id="imgBronze" src={imgBronze} alt="imgBronze"/>,
+    <img id="imgMetalSheetDecor" src={imgMetalSheetDecor} alt="imgMetalSheetDecor"/>,
+    <img id="imgCarbonYellow" src={imgCarbonYellow} alt="imgCarbonYellow"/>,
+  ];
+
   render() {
     return (
       <Entity {...this.props} className="FloorAndWall" style={{color:"red", background: "white", fontSize: "20em"}}>
@@ -46,10 +53,3 @@ export class FloorAndWall extends React.Component {
     );
   }
 }
-
-export const Assets = [
-  <img id="floorWooden" src={imgFloorWooden} alt="floorWooden"/>,
-  <img id="imgBronze" src={imgBronze} alt="imgBronze"/>,
-  <img id="imgMetalSheetDecor" src={imgMetalSheetDecor} alt="imgMetalSheetDecor"/>,
-  <img id="imgCarbonYellow" src={imgCarbonYellow} alt="imgCarbonYellow"/>,
-]

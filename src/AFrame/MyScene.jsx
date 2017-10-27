@@ -16,13 +16,13 @@ import {setSceneInstance, updateCameraStatus, CameraStatus, setSceneEnterVRCallB
 import {showDialog} from '../VR_InteractionUI/Dialog/DialogRedux';
 
 import {AssetsLoading} from './Assets/AssetsLoading';
-import {FloorAndWall} from './FloorAndWall/FloorAndWall';
+import FloorAndWall from './FloorAndWall/FloorAndWall';
 import {PlaceholderFloor} from './FloorAndWall/PlaceholderFloor';
 import {Workspace} from './Workspace/Workspace';
 import {BackWall} from './Decorator/BackWall';
 import {FrontSea} from './Decorator/FrontSea';
 import {Center} from './Decorator/Center';
-import {Sky} from './Sky/Sky';
+import Sky from './Sky/Sky';
 import {Light} from './Light/Light';
 
 import {Assets} from './Assets/Assets';
