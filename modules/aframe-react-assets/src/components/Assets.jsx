@@ -46,6 +46,8 @@ export default class Assets extends React.Component {
      * assetCurrentLoadedBytes
      * assetTotalBytes
      * You can calculate current progress by percent: const currentPercent = assetCurrentLoadedBytes / assetTotalBytes * 100;
+     *
+     * NOTE: TODO: This feature has not completed yet;
      */
     currentInfoHandle: PropTypes.func,
   
