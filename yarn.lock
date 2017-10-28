@@ -117,8 +117,12 @@ aframe-physics-system@^1.4.3:
     cannon "github:donmccurdy/cannon.js#v0.6.2-dev1"
     three-to-cannon "^1.1.1"
 
-"aframe-react-assets@file:modules/aframe-react-assets":
+aframe-react-assets@^1.0.0:
   version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aframe-react-assets/-/aframe-react-assets-1.0.0.tgz#52758040973884dbb09067340fbe1771765b2930"
+  dependencies:
+    prop-types "^15.6.0"
+    react "^15.4.1"
 
 aframe-react@^4.0.x:
   version "4.3.0"

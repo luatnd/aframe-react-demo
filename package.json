@@ -44,7 +44,7 @@
     "aframe-obj-loader-component": "^0.2.0",
     "aframe-particle-system-component": "^1.0.8",
     "aframe-react": "^4.0.x",
-    "aframe-react-assets": "file:modules/aframe-react-assets",
+    "aframe-react-assets": "^1.0.0",
     "aframe-ui-widgets": "^1.0.2",
     "autoprefixer": "6.7.2",
     "awesome-typescript-loader": "^3.2.2",
