@@ -25,7 +25,8 @@ import {Center} from './Decorator/Center';
 import Sky from './Sky/Sky';
 import {Light} from './Light/Light';
 
-import Assets from './Assets/Assets';
+//import Assets from './Assets/Assets';
+import Assets from 'aframe-react-assets';
 import { registeredAssets } from './Assets/AssetsRegister';
 
 /**
@@ -128,7 +129,7 @@ export class MyScene extends React.Component {
       }
       
       globalCamYPos = 2;
-      globalCamXRot = 0;
+      globalCamXRot = 45;
       
       this.setState({
         cameraPos: `0 ${globalCamYPos} 0`,
@@ -229,7 +230,7 @@ export class MyScene extends React.Component {
                 //wasd-controls // Can use keyboard to move
                 position={cameraPos} // Initial standing position
                 rotation={cameraRot}
-                velocity
+                //velocity
 
                 {...camPhysicalAttr}
 

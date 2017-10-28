@@ -10,9 +10,9 @@
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/@tweenjs/tween.js/-/tween.js-16.11.0.tgz#6e7a8a3d6c78a057ecd5605087930406d4e05800"
 
-"@types/react@15.4.1":
-  version "15.6.4"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.4.tgz#3bb57bd43183a05919ceb025a264287348f47e9d"
+"@types/react@^15.6.4":
+  version "15.6.5"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.6.5.tgz#fb23b8d8b7226313b645b6e84fb178976bbfe587"
 
 "@types/redux-actions@1.2.7":
   version "1.2.7"
@@ -116,6 +116,9 @@ aframe-physics-system@^1.4.3:
   dependencies:
     cannon "github:donmccurdy/cannon.js#v0.6.2-dev1"
     three-to-cannon "^1.1.1"
+
+"aframe-react-assets@file:modules/aframe-react-assets":
+  version "1.0.0"
 
 aframe-react@^4.0.x:
   version "4.3.0"
