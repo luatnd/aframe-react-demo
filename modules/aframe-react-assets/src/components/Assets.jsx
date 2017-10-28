@@ -7,9 +7,6 @@ const defaultInterval = 200;
 /**
  * NOTE: <a-assets> must be a child of a <a-scene>.
  * So that I create this component to manage all assets
- *
- * TODO: Change to redux, can bind asset into this asset component
- * TODO: Build an NPM aframe asset management base on redux
  */
 export default class Assets extends React.Component {
   static propTypes = {
@@ -38,10 +35,27 @@ export default class Assets extends React.Component {
     debug: PropTypes.bool,
     
     /**
-     * loadingStatusHandle():
+     * loadingStatusHandle(status:boolean): A event handle callback: Was called with
+     *    status=true when <assets/> was start loading,
+     *    status=false when all assets was loaded
      */
     loadingStatusHandle: PropTypes.func,
+  
+    /**
+     * currentInfoHandle({assetCurrentLoadedBytes, assetTotalBytes})
+     * assetCurrentLoadedBytes
+     * assetTotalBytes
+     * You can calculate current progress by percent: const currentPercent = assetCurrentLoadedBytes / assetTotalBytes * 100;
+     */
     currentInfoHandle: PropTypes.func,
+  
+    /**
+     * loadingInfoHandle({assetLoaded, assetTotal, assetCurrentItem})
+     * Update loading info every `interval` milliseconds
+     *  assetLoaded: Number of successfully loaded assets,
+     *  assetTotal: Total amount of all your assets,
+     *  assetCurrentItem: The current loaded assets, value is the html element
+     */
     loadingInfoHandle: PropTypes.func,
   };
   
@@ -50,7 +64,7 @@ export default class Assets extends React.Component {
   current = 0;
   assetCurrentItem;
   
-  idleMilisecs = 0;
+  idleTimestamp = 0;
   
   shouldComponentUpdate() {
     // Because we bind event to element so that do not re-render this component
@@ -113,8 +127,8 @@ export default class Assets extends React.Component {
     
     let currentUnix = Assets.getCurrUnixMili();
     const {interval = defaultInterval} = this.props;
-    if (currentUnix - interval > this.idleMilisecs) {
-      this.idleMilisecs = currentUnix;
+    if (currentUnix - interval > this.idleTimestamp) {
+      this.idleTimestamp = currentUnix;
       
       if (this.props.debug) {
         ConsoleLogger.log('Attempt to updateAssetsLoadingInfo', 'Assets');
@@ -133,8 +147,8 @@ export default class Assets extends React.Component {
     
     let currentUnix = Assets.getCurrUnixMili();
     const {interval = defaultInterval} = this.props;
-    if (currentUnix - interval > this.idleMilisecs) {
-      this.idleMilisecs = currentUnix;
+    if (currentUnix - interval > this.idleTimestamp) {
+      this.idleTimestamp = currentUnix;
       this.props.currentInfoHandle({
         assetCurrentLoadedBytes: e.detail.loadedBytes,
         assetCurrentTotalBytes: e.detail.totalBytes ? e.detail.totalBytes : e.detail.loadedBytes

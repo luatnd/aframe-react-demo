@@ -129,7 +129,7 @@ export class MyScene extends React.Component {
       }
       
       globalCamYPos = 2;
-      globalCamXRot = 45;
+      globalCamXRot = 0;
       
       this.setState({
         cameraPos: `0 ${globalCamYPos} 0`,
