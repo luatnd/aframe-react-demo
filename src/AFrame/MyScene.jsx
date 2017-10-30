@@ -27,7 +27,7 @@ import {Light} from './Light/Light';
 
 //import Assets from './Assets/Assets';
 import Assets from 'aframe-react-assets';
-import { registeredAssets } from './Assets/AssetsRegister';
+import registeredAssets from './Assets/AssetsRegister';
 
 /**
  * Aframe Scene

@@ -71,58 +71,8 @@ npm run publish
 
 ## Develop
 ### Assets manager for React with Aframe
+> NOTE: Use [aframe-react-assets](https://www.npmjs.com/package/aframe-react-assets) instead.
 
-1. Declare your assets at your Assets component like that:
-    Sky.jsx:
-
-    ```
-    import imgSky from "../../../assets/img/sky.jpg";
-    import videoMilkyWay from "../../../assets/video/videoMilkyWay360.mp4";
-    
-    export const Assets = [
-      <img id="sky" src={imgSky} alt="sky"/>,
-      <video id="videoMilkyWay" src={videoMilkyWay}/>,
-    ];
-        
-    export class Sky extends React.Component {    
-      render() {
-        return (
-
-          <Entity>
-            <a-sky className="sky" src="#sky" rotation="0 0 0"/>
-          </Entity>
-
-        );
-      }
-    }
-    ```
-
-2. Load your assets into <a-assets> by defining here: `src/Scene/Assets/AssetsRegister.js`, aframe asset manager will take care the rest
-AssetsRegister.js
-```
-export const registeredAssets = {
-  ...,
-  Sky: require('../Sky/Sky').Assets,
-  ...,
-};
-```
-
-3. Did you ever ask why we need to defined assets like that ?
-• Why I need to use <a-assets> instead of direcly include my asset url?
-For better performance, a-frame using assets manager (<a-assets>) to manage all your asset. 
-Your asset item is loaded 1 times only by an XHR request, and then you can use it everywhere, whatever times.
-If you do not do that, yoru assets will be load n-times. For example this will load Drone166.dae by 2 separate xhr request:
-```
-    <Entity collada-model="./assets/obj/Drone166.dae" position="5 1.5 -3" rotation="0 0 0"/>
-    <Entity collada-model="./assets/obj/Drone166.dae" position="5 1.5 2" rotation="0 180 0"/>
-```
-• Why I need to use AssetsRegister?
-Aframe specify that: **<a-assets> must be a direct child of a <a-scene>**
-So that when you do `nested` react Components, you need to find a way to put your component's asset as a child of <a-assets> in the root Scene. That's why! 
-
-```
-TODO: Migrate AframeReact Asset managements to npm package
-```
 
 ## The aframe-react-boilerplate
 This boilerplate was created from `aframe-react-boilerplate`
@@ -178,7 +128,7 @@ For Chrome, you need to temporary modify the: node_modules/aframe-physics-system
  
  
  
-# My opinion about Aframe in Vietnamese (biết thế viết luôn bằng tiếng Anh đỡ phải dịch sau này):
+# My opinion about Aframe in Vietnamese
 ```
 P/s: Ý kiên chủ quan và có thể không đúng
 

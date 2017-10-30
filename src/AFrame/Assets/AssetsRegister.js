@@ -4,7 +4,7 @@
  * Because aframe require all <a-assets> need to be wrap as an directly child of <a-scene>
  */
 
-export const registeredAssets = {
+export default {
   // New assets management method (recommended)
   // [ComponentName:string]: AssetsArray (see Sky component as an example)
   Sky:          require('../Sky/Sky').default.Assets,
