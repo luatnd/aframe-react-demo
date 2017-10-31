@@ -218,9 +218,9 @@ export class MyScene extends React.Component {
         <Assets assets={registeredAssets}
                 timeout={4e4}
                 interval={200}
-                currentInfoHandle={this.updateAssetsCurrentInfo}
-                loadingInfoHandle={this.updateAssetsLoadingInfo}
-                loadingStatusHandle={this.updateAssetsLoadingStatus}
+                onLoad={this.updateAssetsLoadingStatus}
+                onLoadingBySize={this.updateAssetsCurrentInfo}
+                onLoadingByAmount={this.updateAssetsLoadingInfo}
         />
   
         

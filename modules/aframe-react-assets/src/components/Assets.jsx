@@ -11,7 +11,7 @@ const defaultTimeout = 30000;
 const defaultInterval = 200;
 
 
-export default class Assets extends React.Component {
+export default class Assets extends React.PureComponent {
   static propTypes = {
     assets: PropTypes.object,
     timeout: PropTypes.number,
@@ -22,23 +22,21 @@ export default class Assets extends React.Component {
     onLoadingByAmount: PropTypes.func,
   };
   
-  assetsInstance = null;
-  total = 0;
-  current = 0;
-  assetCurrentItem;
   
-  idleTimestamp = 0;
-  
-  shouldComponentUpdate() {
-    // Because we bind event to element so that do not re-render this component
-    return false;
-  }
+  // Internal state that does not cause re-render.
+  iState = {
+    assetsInstance: null,
+    current: 0,
+    total: 0,
+    assetCurrentItem: null,
+    idleTimestamp: 0,
+  };
   
   componentDidMount() {
     ConsoleLogger.log('Assets Component mounted', 'Assets');
-    //console.log('assetsInstance.fileLoader: ', this.assetsInstance.fileLoader);
-    //if (this.assetsInstance.fileLoader) {
-    //  const mng = this.assetsInstance.fileLoader.manager;
+    //console.log('iState.assetsInstance.fileLoader: ', this.iState.assetsInstance.fileLoader);
+    //if (this.iState.assetsInstance.fileLoader) {
+    //  const mng = this.iState.assetsInstance.fileLoader.manager;
     //
     //  mng.onError = function (a, b) {
     //    console.log("mng onError a, b: ", a, b);
@@ -54,12 +52,12 @@ export default class Assets extends React.Component {
     //  }
     //}
     
-    this.assetsInstance.addEventListener('loaded', () => {
+    this.iState.assetsInstance.addEventListener('loaded', () => {
       // Force too complete
       this.props.onLoadingByAmount({
-        assetLoaded: this.total,
-        assetTotal: this.total,
-        assetCurrentItem: this.assetCurrentItem,
+        assetLoaded: this.iState.total,
+        assetTotal: this.iState.total,
+        assetCurrentItem: this.iState.assetCurrentItem,
       });
       setTimeout(this.props.onLoad(false), 1000);
       
@@ -71,7 +69,7 @@ export default class Assets extends React.Component {
   
   componentWillUnmount() {
     // Make sure to remove the DOM listener when the component is unmounted.
-    //this.nv.removeEventListener("nv-enter", this.handleNvEnter);
+    this.iState.assetsInstance.removeEventListener('loaded');
   }
   
   static getCurrUnixMili() {
@@ -79,10 +77,10 @@ export default class Assets extends React.Component {
   }
   
   countLoadedAssetItem = (e) => {
-    //console.log('countLoadedAssetItem this.current: ', this.current, e, e.target);
+    //console.log('countLoadedAssetItem this.iState.current: ', this.iState.current, e, e.target);
     
-    this.current++;
-    this.assetCurrentItem = e.target;
+    this.iState.current++;
+    this.iState.assetCurrentItem = e.target;
     
     if (this.props.debug && e.target) {
       console.info('[Assets] loaded: ', e.target);
@@ -90,17 +88,17 @@ export default class Assets extends React.Component {
     
     let currentUnix = Assets.getCurrUnixMili();
     const {interval = defaultInterval} = this.props;
-    if (currentUnix - interval > this.idleTimestamp) {
-      this.idleTimestamp = currentUnix;
+    if (currentUnix - interval > this.iState.idleTimestamp) {
+      this.iState.idleTimestamp = currentUnix;
       
       if (this.props.debug) {
         ConsoleLogger.log('Attempt to updateAssetsLoadingInfo', 'Assets');
       }
       
       this.props.onLoadingByAmount({
-        assetLoaded: this.current,
-        assetTotal: this.total,
-        assetCurrentItem: this.assetCurrentItem,
+        assetLoaded: this.iState.current,
+        assetTotal: this.iState.total,
+        assetCurrentItem: this.iState.assetCurrentItem,
       })
     }
   }
@@ -113,8 +111,8 @@ export default class Assets extends React.Component {
     
     let currentUnix = Assets.getCurrUnixMili();
     const {interval = defaultInterval} = this.props;
-    if (currentUnix - interval > this.idleTimestamp) {
-      this.idleTimestamp = currentUnix;
+    if (currentUnix - interval > this.iState.idleTimestamp) {
+      this.iState.idleTimestamp = currentUnix;
       this.props.onLoadingBySize({
         assetCurrentLoadedBytes: e.detail.loadedBytes,
         assetCurrentTotalBytes: e.detail.totalBytes ? e.detail.totalBytes : e.detail.loadedBytes
@@ -172,7 +170,7 @@ export default class Assets extends React.Component {
     
     const assetItemComponents = Object.keys(assets).map((key) => {
       const componentAssets = this.props.assets[key];
-      this.total += componentAssets.length;
+      this.iState.total += componentAssets.length;
       
       return <a-entity key={key}>
         {componentAssets.map(item => React.cloneElement(
@@ -197,7 +195,7 @@ export default class Assets extends React.Component {
     const {timeout = defaultTimeout} = this.props;
     
     return (
-      <a-assets {...{timeout}} ref={ele => this.assetsInstance = ele}>
+      <a-assets {...{timeout}} ref={ele => this.iState.assetsInstance = ele}>
         {this.getAssetsList()}
       </a-assets>
     );
