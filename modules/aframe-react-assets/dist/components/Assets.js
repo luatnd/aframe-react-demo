@@ -140,7 +140,7 @@ var Assets = (_temp2 = _class = function (_React$PureComponent) {
 
         return _react2.default.createElement(
           'a-entity',
-          { key: key, __source: {
+          { key: key, className: key, __source: {
               fileName: _jsxFileName,
               lineNumber: 175
             },
