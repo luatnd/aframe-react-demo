@@ -1,13 +1,13 @@
 {
   "name": "aframe-react-assets",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "A React component for smart managing your AFrame VR assets. You can declare your assets at your React component.",
   "author": "Luat Nguyen",
   "license": "MIT",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "http://TODO"
+    "url": "https://github.com/luatnd/aframe-react-assets.git"
   },
   "keywords": [
     "react",
@@ -27,6 +27,10 @@
     "react": "^15.4.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-react-app": "^3.0.3"
   }
 }
