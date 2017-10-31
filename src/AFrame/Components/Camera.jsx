@@ -31,6 +31,7 @@ export default class Camera extends React.PureComponent {
     cameraPos: `0 ${globalCamYPos} 0`,
     cameraRot: `${globalCamXRot} 0 0`,
     needInitialAnimate: true,
+    timestamp:0,
   }
   
   /**
@@ -39,9 +40,18 @@ export default class Camera extends React.PureComponent {
   cameraInstance = null;
   cameraCanReset = true; // Avoid calling multiple camera reset
   
+  setStateWithTimestamp = (state) => {
+    this.setState({...state, timestamp: new Date().getTime()})
+  }
+  
   componentDidMount() {
     this.trackCameraCollide();
     this.trackCameraPosition();
+  }
+
+  componentWillUnMount() {
+    this.cameraInstance.el.removeEventListener('collide');
+    this.cameraInstance.el.removeEventListener('componentchanged');
   }
   
   trackCameraCollide = () => {
@@ -55,10 +65,7 @@ export default class Camera extends React.PureComponent {
       let detail = e.detail;
       
       const touchedPos = detail.contact.ni;
-      //console.log('touchedPos: ', touchedPos);
-      
       const targetEle = detail.body.el;
-      
       const className = targetEle.className || targetEle.getAttribute('classname') || targetEle.getAttribute('id');
       
       console.log(
@@ -69,12 +76,39 @@ export default class Camera extends React.PureComponent {
     });
   }
   
+  setAframeElePhysic = (enable) => {
+    if (!this.cameraInstance) {
+      console.log("this.cameraInstance null");
+      return;
+    }
+    
+    if (enable) {
+      this.cameraInstance.el.setAttribute('kinematic-body', "radius:0.5");
+      this.cameraInstance.el.setAttribute('jump-ability', true);
+    } else {
+      this.cameraInstance.el.removeAttribute('kinematic-body');
+      this.cameraInstance.el.removeAttribute('jump-ability');
+    }
+  }
+  
+  setEleComponentAttr = (component, attribute, value) => {
+    const data = this.cameraInstance.el.components[component].data;
+    data[attribute] = value;
+  }
+  
+  /**
+   * TODO: Change to handle all by Aframe
+   */
   resetCamera = (wasFallen = true) => {
     if (this.cameraCanReset) {
       this.cameraCanReset = false; // Disallow another attempt
     } else {
       return;
     }
+  
+    this.setAframeElePhysic(false);
+    this.setEleComponentAttr('position', 'y', camNatureYPos);
+    this.setEleComponentAttr('rotation', 'x', camNatureXRot);
     
     if (wasFallen) {
       // TODO: Ask before reset --> Need confirm before reset
@@ -83,24 +117,29 @@ export default class Camera extends React.PureComponent {
       });
     }
     
-    this.setState({
-      cameraPhysically: false,
+    this.setStateWithTimestamp({
       needInitialAnimate: false,
+      cameraPhysically: false,
       cameraPos: `0 ${camNatureYPos} 0`,
       cameraRot: `${camNatureXRot} 0 0`,
     });
-    // this.props.updateCameraStatus(CameraStatus.onFloor);
     
     setTimeout(() => {
       ConsoleLogger.log('settimeout', 'resetCamera', 'color:red');
       
       this.cameraCanReset = true;  // Re-allow another attempt
+  
+      this.setEleComponentAttr('position', 'y', camNatureYPos);
+      this.setEleComponentAttr('rotation', 'x', camNatureXRot);
       
       // Camera fall to fast
+      this.setAframeElePhysic(true);
       this.setState({
         cameraPhysically: true,
       });
-    }, wasFallen ? 2000 : 300); // 1/24 frames
+      
+      
+    }, wasFallen ? 600 : 300); // 1/24 frames
   }
   
   trackCameraPosition = () => {
@@ -136,10 +175,14 @@ export default class Camera extends React.PureComponent {
   render() {
     ConsoleLogger.log('render', 'Camera', 'color:purple');
     
-    const {cameraPos, cameraRot, needInitialAnimate} = this.state;
+    const {cameraPos, cameraRot, needInitialAnimate, cameraPhysically} = this.state;
     
-    const camPhysicalEnabled = this.state.cameraPhysically;
-    const camPhysicalAttr = camPhysicalEnabled ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
+    console.log("cameraPhysically: ", cameraPhysically);
+    if (this.cameraInstance) {
+      console.log("this.cameraInstance.el.components.position.data: ", this.cameraInstance.el.components.position.data);
+    }
+    
+    const camPhysicalAttr = cameraPhysically ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
     
     return (
       <Entity
@@ -157,7 +200,7 @@ export default class Camera extends React.PureComponent {
         //kinematic-body
         universal-controls // replace look-controls and wasd-controls
         //gamepad-controls
-        keyboard-controls
+        //keyboard-controls
         touch-controls
         hmd-controls
         mouse-controls
