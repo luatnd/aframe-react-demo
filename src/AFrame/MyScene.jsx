@@ -39,8 +39,10 @@ import registeredAssets from './Assets/AssetsRegister';
  *    * Show screen content on ready
  */
 
-let globalCamYPos = 100;
-let globalCamXRot = -90;
+const globalCamYPos = 100;
+const globalCamXRot = -90;
+const camNatureYPos = 2;
+const camNatureXRot = 0;
 
 @connect(
   state => {
@@ -68,9 +70,10 @@ export class MyScene extends React.Component {
     assetCurrentLoadedBytes: 0,
     assetCurrentTotalBytes: 1,
     
-    cameraPhysically: true,
+    cameraPhysically: false,
     cameraPos: `0 ${globalCamYPos} 0`,
     cameraRot: `${globalCamXRot} 0 0`,
+    needInitialAnimate: true,
   }
   
   /**
@@ -78,10 +81,11 @@ export class MyScene extends React.Component {
    */
   cameraInstance = null;
   sceneInstance = null;
-  cameraFallenNotice = false;
+  cameraCanNoticeFallen = false;
+  cameraCanReset = true; // Avoid calling multiple camera reset
   
   componentWillMount () {
-    var extras = require('aframe-extras');
+    const extras = require('aframe-extras');
     extras.registerAll();
   }
 
@@ -119,55 +123,69 @@ export class MyScene extends React.Component {
   }
 
   resetCamera = (wasFallen = true) => {
-    this.setState({cameraPhysically: false});
+    if (this.cameraCanReset) {
+      this.cameraCanReset = false; // Disallow another attempt
+    } else {
+      return;
+    }
+    
+    if (wasFallen) {
+      this.cameraCanNoticeFallen = false;
+    }
+  
+    this.setState({
+      cameraPhysically: false,
+      cameraPos: `0 ${camNatureYPos} 0`,
+      cameraRot: `${camNatureXRot} 0 0`,
+    });
+    // this.props.updateCameraStatus(CameraStatus.onFloor);
     
     setTimeout(()=> {
-      this.setState({cameraPhysically: true});
-      
-      if (wasFallen) {
-        this.cameraFallenNotice = false;
-      }
-      
-      globalCamYPos = 2;
-      globalCamXRot = 0;
+      this.cameraCanReset = true;  // Re-allow another attempt
       
       this.setState({
-        cameraPos: `0 ${globalCamYPos} 0`,
-        cameraRot: `${globalCamXRot} 0 0`,
+        cameraPhysically: true,
+        needInitialAnimate: false,
       });
-      this.props.updateCameraStatus(CameraStatus.onFloor);
-    }, 42); // 1/24 frames
+    }, wasFallen ? 1000 : 300); // 1/24 frames
   }
 
   trackCameraPosition = () => {
     if (!this.cameraInstance) {
       return;
     }
-    const DELTA = 8; // NOTE: User falling down very fast
-    const CONSIDER_FALlING_YPOS_TOP = 20; // User falling down to 4m then he stand on the floor
+
+    const CONSIDER_FALLING_TOP_Y_TOP = 3; // User falling down to 4m-20m then he stand on the floor
     const CONSIDER_FALlING_YPOS = -100;
     
     // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
     this.cameraInstance.el.addEventListener('componentchanged', (e) => {
-      if (e.detail.name === 'position' && !this.cameraFallenNotice) {
+      
+      // Track position
+      if (e.detail.name === 'position') {
         let y = e.detail.newData.y;
-
-        if (y < CONSIDER_FALlING_YPOS) {
-          
-          this.cameraFallenNotice = true;
-          this.props.updateCameraStatus(CameraStatus.fallen); // Why error ???
-          this.props.updateCameraStatus(CameraStatus.fallen); // Why error ???
-
+        console.log("y: ", y);
+        
+        if (!this.cameraCanNoticeFallen && y < CONSIDER_FALlING_YPOS) {
+    
+          ConsoleLogger.log('Camera fallen, attempt to restore the initial position', 'MyScene: Camera', 'color:red');
+    
+          this.cameraCanNoticeFallen = true;
+    
           // TODO: Ask before reset --> Need confirm before reset
           this.props.showDialog({
             message: <span>But you've just done a teleport to initial position</span>
           });
-          
-          this.resetCamera();
-        } else if (CONSIDER_FALlING_YPOS_TOP - DELTA < y && y < CONSIDER_FALlING_YPOS_TOP + DELTA) {
-          this.resetCamera();
+    
+          this.resetCamera(true);
+        }
+        
+        if (this.state.needInitialAnimate && y < CONSIDER_FALLING_TOP_Y_TOP) {
+          ConsoleLogger.log('Camera reach the physical zone', 'MyScene: Camera');
+          this.resetCamera(false);
         }
       }
+      // End track position
     });
   }
 
@@ -196,7 +214,8 @@ export class MyScene extends React.Component {
   renderProduction() {
     const {
       assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes,
-      cameraPos, cameraRot
+      cameraPos, cameraRot,
+      needInitialAnimate
     } = this.state;
     
     const camPhysicalEnabled = this.state.cameraPhysically;
@@ -245,6 +264,17 @@ export class MyScene extends React.Component {
         >
           <a-cursor material="color: #ccc; shader: flat"/>
           {/* TODO: Make near/far limit, current: Can not click the box if more than 5m far */}
+  
+          {needInitialAnimate && [
+            <a-animation attribute="position" key="position"
+                         from={`0 ${globalCamYPos} 0`} to={`0 ${camNatureYPos} 0`}
+                         delay="0" dur="8000" repeat="0" direction="normal"
+            />,
+            <a-animation attribute="rotation" key="rotation"
+                         from={`${globalCamXRot} 0 0`} to={`${camNatureXRot} 0 0`}
+                         delay="4000" dur="4000" repeat="0" direction="normal"
+            />,
+          ]}
         </Entity>
   
         <PlaceholderFloor visible={false}/>
