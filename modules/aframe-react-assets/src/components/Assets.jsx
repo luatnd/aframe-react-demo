@@ -173,14 +173,15 @@ export default class Assets extends React.PureComponent {
       this.iState.total += componentAssets.length;
       
       return <a-entity key={key}>
-        {componentAssets.map(item => React.cloneElement(
-          item,
-          {
-            key: item.props.id ? item.props.id : ConsoleLogger.getUnix(),
-            //ref: ele => this.assetItems.push(ele),
-            ...this.getBindingProps(item), // Bind event listener for this elements
-          }
-        ))}
+        {componentAssets.map(item => item.hasOwnProperty('type')
+          ? React.cloneElement(item, {
+              key: item.props.id ? item.props.id : ConsoleLogger.getUnix(),
+              //ref: ele => this.assetItems.push(ele),
+              ...this.getBindingProps(item), // Bind event listener for this elements
+            }
+          )
+          : null // Some user mis-type comment: [ {/*Asset was commented*/} ] ==> [ {} ] , so this is not valid assets
+        )}
       </a-entity>
     });
     

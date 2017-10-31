@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import {Entity} from 'aframe-react';
 import React from 'react';
 
-import obj_E45_dae from '../../../assets/obj/E-45-Aircraft/E 45 Aircraft_Luat.dae';
+//import obj_E45_dae from '../../../assets/obj/E-45-Aircraft/E 45 Aircraft_Luat.dae';
 
 export class FrontSea extends React.Component {
 
@@ -19,5 +19,5 @@ export class FrontSea extends React.Component {
 }
 
 export const Assets = [
-  <a-asset-item id="obj_E45_dae" src={obj_E45_dae}/>
+  //<a-asset-item id="obj_E45_dae" src={obj_E45_dae}/>
 ]

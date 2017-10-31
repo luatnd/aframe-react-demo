@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import {Entity} from 'aframe-react';
 import React from 'react';
 
-import obj_Drone166_img from '../../../assets/obj/Drone166/Drone1.png';
+//import obj_Drone166_img from '../../../assets/obj/Drone166/Drone1.png';
 
 export class BackWall extends React.Component {
   
@@ -24,5 +24,5 @@ export class BackWall extends React.Component {
 
 
 export const Assets = [
-  <img id="obj_Drone166_img" src={obj_Drone166_img} alt="obj_Drone166_img"/>
+  //<img id="obj_Drone166_img" src={obj_Drone166_img} alt="obj_Drone166_img"/>
 ]

@@ -147,11 +147,12 @@ var Assets = (_temp2 = _class = function (_React$PureComponent) {
             __self: _this2
           },
           componentAssets.map(function (item) {
-            return _react2.default.cloneElement(item, _extends({
+            return item.hasOwnProperty('type') ? _react2.default.cloneElement(item, _extends({
               key: item.props.id ? item.props.id : ConsoleLogger.getUnix()
             }, _this.getBindingProps(item)) // Bind event listener for this elements
-            );
-          })
+            ) : null;
+          } // Some user mis-type comment: [ {/*Asset was commented*/} ] ==> [ {} ] , so this is not valid assets
+          )
         );
       });
 
@@ -224,7 +225,7 @@ var Assets = (_temp2 = _class = function (_React$PureComponent) {
             return _this4.iState.assetsInstance = ele;
           }, __source: {
             fileName: _jsxFileName,
-            lineNumber: 198
+            lineNumber: 199
           },
           __self: this
         }),

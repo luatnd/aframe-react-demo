@@ -12,7 +12,7 @@ import AFrameHelper from '../Helper/AFrameHelper';
 import obj_CircleTable_dae from "../../../assets/obj/CircleTable/CircleTable.dae";
 import obj_Monitor_obj from "../../../assets/obj/Monitor/my_moninitor.obj";
 import obj_Monitor_mtl from "../../../assets/obj/Monitor/my_moninitor.mtl";
-import obj_Monitor_dae from "../../../assets/obj/Monitor/my_moninitor.dae";
+//import obj_Monitor_dae from "../../../assets/obj/Monitor/my_moninitor.dae";
 import obj_Keyboard_obj from "../../../assets/obj/Monitor/my_keyboard.obj";
 import obj_Keyboard_mtl from "../../../assets/obj/Monitor/my_keyboard.mtl";
 import obj_3DProjector_TurnOn_obj from "../../../assets/obj/IronMan/3DProjector_turn_on.obj";
@@ -324,7 +324,7 @@ export const Assets = [
   <a-asset-item id="obj_CircleTable_dae" src={obj_CircleTable_dae}/>,
   <a-asset-item id="obj_Monitor_obj" src={obj_Monitor_obj}/>,
   <a-asset-item id="obj_Monitor_mtl" src={obj_Monitor_mtl}/>,
-  <a-asset-item id="obj_Monitor_dae" src={obj_Monitor_dae}/>,
+  //<a-asset-item id="obj_Monitor_dae" src={obj_Monitor_dae}/>,
   <a-asset-item id="obj_Keyboard_obj" src={obj_Keyboard_obj}/>,
   <a-asset-item id="obj_Keyboard_mtl" src={obj_Keyboard_mtl}/>,
   
