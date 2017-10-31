@@ -24,6 +24,7 @@ import {FrontSea} from './Decorator/FrontSea';
 import {Center} from './Decorator/Center';
 import Sky from './Sky/Sky';
 import {Light} from './Light/Light';
+import Camera from './Components/Camera';
 
 //import Assets from './Assets/Assets';
 import Assets from 'aframe-react-assets';
@@ -38,11 +39,6 @@ import registeredAssets from './Assets/AssetsRegister';
  *    * Asset status to Redux
  *    * Show screen content on ready
  */
-
-const globalCamYPos = 100;
-const globalCamXRot = -90;
-const camNatureYPos = 2;
-const camNatureXRot = 0;
 
 @connect(
   state => {
@@ -69,20 +65,12 @@ export class MyScene extends React.Component {
     assetCurrentItem: null,
     assetCurrentLoadedBytes: 0,
     assetCurrentTotalBytes: 1,
-    
-    cameraPhysically: false,
-    cameraPos: `0 ${globalCamYPos} 0`,
-    cameraRot: `${globalCamXRot} 0 0`,
-    needInitialAnimate: true,
   }
   
   /**
    * NOTE: react ele and aframe ele is distinct, so plz carefully when get ele from react `ref`
    */
-  cameraInstance = null;
   sceneInstance = null;
-  cameraCanNoticeFallen = false;
-  cameraCanReset = true; // Avoid calling multiple camera reset
   
   componentWillMount () {
     const extras = require('aframe-extras');
@@ -90,103 +78,8 @@ export class MyScene extends React.Component {
   }
 
   componentDidMount () {
-    this.trackCameraCollide();
-    this.trackCameraPosition();
-
     //this.props.setSceneInstance(this.sceneInstance);
     //this.props.setSceneEnterVRCallBack(this.sceneInstance.el.enterVR);
-  }
-  
-  trackCameraCollide = () => {
-    if (!this.cameraInstance) {
-      return;
-    }
-    
-    // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
-    // Read more about this listener: https://github.com/donmccurdy/aframe-physics-system#collision-events
-    this.cameraInstance.el.addEventListener('collide', (e) => {
-      let detail = e.detail;
-
-      const touchedPos = detail.contact.ni;
-      //console.log('touchedPos: ', touchedPos);
-      
-      const targetEle = detail.body.el;
-      
-      const className = targetEle.className || targetEle.getAttribute('classname') || targetEle.getAttribute('id');
-
-      console.log(
-        '[Camera] Player has collided with: #' + e.detail.body.id,
-        className ? targetEle.localName + '.' + className : targetEle,
-        ` at x: ${touchedPos.x.toFixed(4)}, y: ${touchedPos.y.toFixed(4)}, z: ${touchedPos.z.toFixed(4)}`
-      );
-    });
-  }
-
-  resetCamera = (wasFallen = true) => {
-    if (this.cameraCanReset) {
-      this.cameraCanReset = false; // Disallow another attempt
-    } else {
-      return;
-    }
-    
-    if (wasFallen) {
-      this.cameraCanNoticeFallen = false;
-    }
-  
-    this.setState({
-      cameraPhysically: false,
-      cameraPos: `0 ${camNatureYPos} 0`,
-      cameraRot: `${camNatureXRot} 0 0`,
-    });
-    // this.props.updateCameraStatus(CameraStatus.onFloor);
-    
-    setTimeout(()=> {
-      this.cameraCanReset = true;  // Re-allow another attempt
-      
-      this.setState({
-        cameraPhysically: true,
-        needInitialAnimate: false,
-      });
-    }, wasFallen ? 1000 : 300); // 1/24 frames
-  }
-
-  trackCameraPosition = () => {
-    if (!this.cameraInstance) {
-      return;
-    }
-
-    const CONSIDER_FALLING_TOP_Y_TOP = 3; // User falling down to 4m-20m then he stand on the floor
-    const CONSIDER_FALlING_YPOS = -100;
-    
-    // NOTE: addEventListener for aFrame element, not React element, so that do not forget `.el`
-    this.cameraInstance.el.addEventListener('componentchanged', (e) => {
-      
-      // Track position
-      if (e.detail.name === 'position') {
-        let y = e.detail.newData.y;
-        console.log("y: ", y);
-        
-        if (!this.cameraCanNoticeFallen && y < CONSIDER_FALlING_YPOS) {
-    
-          ConsoleLogger.log('Camera fallen, attempt to restore the initial position', 'MyScene: Camera', 'color:red');
-    
-          this.cameraCanNoticeFallen = true;
-    
-          // TODO: Ask before reset --> Need confirm before reset
-          this.props.showDialog({
-            message: <span>But you've just done a teleport to initial position</span>
-          });
-    
-          this.resetCamera(true);
-        }
-        
-        if (this.state.needInitialAnimate && y < CONSIDER_FALLING_TOP_Y_TOP) {
-          ConsoleLogger.log('Camera reach the physical zone', 'MyScene: Camera');
-          this.resetCamera(false);
-        }
-      }
-      // End track position
-    });
   }
 
   updateAssetsLoadingStatus = (status) => {
@@ -203,7 +96,7 @@ export class MyScene extends React.Component {
   }
   
   render() {
-    ConsoleLogger.log('render', 'MyScene');
+    ConsoleLogger.log('render', 'MyScene', 'color:orange');
     
     const TEST = false;
   
@@ -213,13 +106,8 @@ export class MyScene extends React.Component {
 
   renderProduction() {
     const {
-      assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes,
-      cameraPos, cameraRot,
-      needInitialAnimate
+      assetsLoading, assetLoaded, assetTotal, assetCurrentItem, assetCurrentLoadedBytes, assetCurrentTotalBytes
     } = this.state;
-    
-    const camPhysicalEnabled = this.state.cameraPhysically;
-    const camPhysicalAttr = camPhysicalEnabled ? {'kinematic-body': "radius:0.5", 'jump-ability': true} : {};
     
     const {stats} = this.props;
 
@@ -243,39 +131,7 @@ export class MyScene extends React.Component {
         />
   
         
-        <Entity className="camera" ref={reactEle => this.cameraInstance = reactEle}
-                camera="userHeight: 2; fov: 80;" // Assuming I'm 1.8m height, And the normal human fov is ~80
-                //look-controls // Can look around by mouse / turn your head
-                //wasd-controls // Can use keyboard to move
-                position={cameraPos} // Initial standing position
-                rotation={cameraRot}
-                //velocity
-
-                {...camPhysicalAttr}
-
-                //kinematic-body="radius:0.5" // The kinematic-body component isn't compatible with wasd-controls (from DonMcCurdy)
-                //kinematic-body
-                universal-controls // replace look-controls and wasd-controls
-                //gamepad-controls
-                keyboard-controls
-                touch-controls
-                hmd-controls
-                mouse-controls
-        >
-          <a-cursor material="color: #ccc; shader: flat"/>
-          {/* TODO: Make near/far limit, current: Can not click the box if more than 5m far */}
-  
-          {needInitialAnimate && [
-            <a-animation attribute="position" key="position"
-                         from={`0 ${globalCamYPos} 0`} to={`0 ${camNatureYPos} 0`}
-                         delay="0" dur="8000" repeat="0" direction="normal"
-            />,
-            <a-animation attribute="rotation" key="rotation"
-                         from={`${globalCamXRot} 0 0`} to={`${camNatureXRot} 0 0`}
-                         delay="4000" dur="4000" repeat="0" direction="normal"
-            />,
-          ]}
-        </Entity>
+        <Camera/>
   
         <PlaceholderFloor visible={false}/>
   

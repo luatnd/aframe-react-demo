@@ -22,7 +22,7 @@ import obj_Ironman_dae from "../../../assets/obj/IronMan/IronMan2.dae";
 
 
 
-export class Workspace extends React.Component {
+export class Workspace extends React.PureComponent {
   state = {
     projector3DTurnOn: true,
   }
